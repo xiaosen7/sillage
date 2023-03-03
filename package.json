@@ -1,0 +1,35 @@
+{
+  "name": "@sillage/monorepo",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "tsx scripts/vite/startViteServer",
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "simple-git-hooks",
+    "plop": "plop",
+    "typecheck": "tsx scripts/typecheck",
+    "test": "vitest -p scripts/vitest.config.ts"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": "pnpm typecheck",
+    "**/*.{js,jsx,ts,tsx}": "eslint --fix",
+    "**/*.{css,scss}": "stylelint --fix",
+    "**/*": "prettier --write"
+  },
+  "devDependencies": {
+    "@sillage/eslint-config": "workspace:^0.0.0",
+    "@sillage/scripts": "workspace:^0.0.0",
+    "@sillage/stylelint-config": "workspace:^0.0.0",
+    "eslint": "^8.34.0",
+    "lint-staged": "^13.1.2",
+    "plop": "^3.1.2",
+    "prettier": "^2.8.4",
+    "simple-git-hooks": "^2.8.1",
+    "stylelint": "^14.2.0",
+    "tsx": "^3.12.3",
+    "typescript": "^4.9.5",
+    "vitest": "^0.29.1"
+  }
+}

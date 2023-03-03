@@ -1,0 +1,10 @@
+{
+  "name": "@sillage/meta",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@sillage/utils": "workspace:^1.0.0",
+    "immutable": "^4.2.4",
+    "invariant": "^2.2.4"
+  }
+}

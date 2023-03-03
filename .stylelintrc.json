@@ -1,0 +1,3 @@
+{
+  "extends": ["@sillage/stylelint-config"]
+}

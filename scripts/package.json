@@ -1,0 +1,17 @@
+{
+  "name": "@sillage/scripts",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@sillage/meta": "workspace:^1.0.0",
+    "@sillage/type-utils": "workspace:^0.0.0",
+    "@types/react": "^18.0.27",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "execa": "^7.0.0",
+    "fast-glob": "^3.2.12",
+    "rollup-plugin-visualizer": "^5.9.0",
+    "sass": "^1.58.3",
+    "unocss": "^0.50.3",
+    "vite": "^4.1.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "react-jsx",
+    "types": ["./scripts/node_modules/vite/client"]
+  },
+  "include": [
+    "web/*/src",
+    "web/materials/*/*/src",
+    "scripts/vite/client.d.ts",
+    "web/materials/components/*/meta.config.ts"
+  ]
+}

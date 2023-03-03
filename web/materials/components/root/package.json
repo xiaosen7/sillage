@@ -1,0 +1,15 @@
+{
+  "name": "@sillage-material-components/root",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10"
+  },
+  "dependencies": {
+    "@sillage/define-component-meta": "workspace:^1.0.0",
+    "@sillage/props": "workspace:^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
