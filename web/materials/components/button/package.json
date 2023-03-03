@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@sillage-material-prop-editors/select": "workspace:^1.0.0",
-    "@sillage/define-component-meta": "workspace:^1.0.0",
+    "@sillage/meta": "workspace:^1.0.0",
     "@sillage/props": "workspace:^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

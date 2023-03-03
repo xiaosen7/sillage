@@ -1,4 +1,4 @@
-import defineConfig from "@sillage/define-component-meta";
+import { defineConfig } from "@sillage/meta";
 
 export default defineConfig({
   name: "button",
