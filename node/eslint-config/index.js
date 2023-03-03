@@ -1,10 +1,7 @@
+/* eslint-disable unicorn/prefer-module */
 const { defineConfig } = require("eslint-define-config");
+
 module.exports = defineConfig({
-  settings: {
-    react: {
-      version: "18.2.0",
-    },
-  },
   env: {
     browser: true,
     es2021: true,
@@ -15,6 +12,8 @@ module.exports = defineConfig({
     "standard-with-typescript",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
+    "plugin:jsonc/recommended-with-jsonc",
+    "plugin:unicorn/recommended",
     "prettier",
   ],
   overrides: [],
@@ -28,5 +27,116 @@ module.exports = defineConfig({
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-extraneous-class": "off",
+    "import/order": [
+      "error",
+      {
+        groups: [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type",
+        ],
+
+        pathGroups: [
+          {
+            pattern: "vue",
+            group: "external",
+            position: "before",
+          },
+          {
+            pattern: "@vue/**",
+            group: "external",
+            position: "before",
+          },
+          {
+            pattern: "@element-plus/**",
+            group: "internal",
+          },
+        ],
+        pathGroupsExcludedImportTypes: ["type"],
+      },
+    ],
+    "sort-imports": [
+      "warn",
+      {
+        ignoreCase: false,
+        ignoreDeclarationSort: true,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
+        allowSeparatedGroups: false,
+      },
+    ],
+    "jsonc/sort-keys": [
+      "error",
+      {
+        pathPattern: "^$",
+        order: [
+          "name",
+          "version",
+          "private",
+          "packageManager",
+          "description",
+          "type",
+          "keywords",
+          "homepage",
+          "bugs",
+          "license",
+          "author",
+          "contributors",
+          "funding",
+          "files",
+          "main",
+          "module",
+          "exports",
+          "unpkg",
+          "jsdelivr",
+          "browser",
+          "bin",
+          "man",
+          "directories",
+          "repository",
+          "publishConfig",
+          "scripts",
+          "peerDependencies",
+          "peerDependenciesMeta",
+          "optionalDependencies",
+          "dependencies",
+          "devDependencies",
+          "engines",
+          "config",
+          "overrides",
+          "pnpm",
+          "husky",
+          "lint-staged",
+          "eslintConfig",
+        ],
+      },
+      {
+        pathPattern: "^(?:dev|peer|optional|bundled)?[Dd]ependencies$",
+        order: { type: "asc" },
+      },
+    ],
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/filename-case": [
+      "error",
+      {
+        cases: {
+          camelCase: true,
+          pascalCase: true,
+        },
+      },
+    ],
+    "unicorn/no-null": "off",
+    "unicorn/prefer-module": "warn",
+    "unicorn/prefer-top-level-await": "off",
+  },
+  settings: {
+    react: {
+      version: "18.2.0",
+    },
   },
 });

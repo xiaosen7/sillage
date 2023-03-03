@@ -1,11 +1,16 @@
+import path from "node:path";
+import url from "node:url";
 import * as vt from "vitest";
 import { materialMetaConfigs } from "../materialMetaConfigs";
-import * as path from "path";
 import { loadMeta } from "../loadMeta";
 import { materialComponents } from "../materialComponents";
 import { materialProps } from "../materialProps";
 
-const componentsRoot = path.join(__dirname, "assets", "components");
+const componentsRoot = path.join(
+  path.dirname(url.fileURLToPath(import.meta.url)),
+  "assets",
+  "components"
+);
 vt.describe("material-visual-module", () => {
   vt.test("loadMeta", async () => {
     const loadedMap = await loadMeta(componentsRoot);

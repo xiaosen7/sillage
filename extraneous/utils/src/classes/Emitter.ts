@@ -7,11 +7,11 @@ export class Emitter<Topic extends keyof any> {
   public on(topic: Topic | Topic[]): any {
     return new Observable((subscriber) => {
       if (Array.isArray(topic)) {
-        topic.forEach((t) => {
+        for (const t of topic) {
           this.addObservableFunction(t, (data) => {
             subscriber.next(data);
           });
-        });
+        }
       } else {
         this.addObservableFunction(topic, (data) => {
           subscriber.next(data);
@@ -30,8 +30,13 @@ export class Emitter<Topic extends keyof any> {
   }
 
   public emit(topic: Topic, data?: any): void {
-    this.observers.get(topic)?.forEach((fn) => {
+    const listeners = this.observers.get(topic);
+    if (!listeners) {
+      return;
+    }
+
+    for (const fn of listeners) {
       fn(data);
-    });
+    }
   }
 }

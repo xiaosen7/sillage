@@ -1,5 +1,5 @@
-import { Loader } from "./Loader";
 import * as props from "virtual:material-props";
+import { Loader } from "./Loader";
 import type { Constructable } from "@sillage/type-utils";
 
 export class PropsLoader extends Loader<Constructable> {

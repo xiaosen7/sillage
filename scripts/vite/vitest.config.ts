@@ -6,5 +6,4 @@ export default defineConfig({
     globals: true,
   },
   plugins: [react({ tsDecorators: true })],
-  root: __dirname,
 });

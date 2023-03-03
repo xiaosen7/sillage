@@ -13,9 +13,9 @@ export class Loader<Value> {
     }
 
     const nameToValue = this.loadFiles();
-    Object.entries(nameToValue).forEach(([name, value]) => {
+    for (const [name, value] of Object.entries(nameToValue)) {
       this.data.set(name, value);
-    });
+    }
 
     this.loaded = true;
 

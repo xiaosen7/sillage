@@ -1,4 +1,4 @@
-import { Dropdown, Button, type MenuProps } from "antd";
+import { Button, Dropdown, type MenuProps } from "antd";
 
 export default function Size() {
   const items: MenuProps["items"] = [

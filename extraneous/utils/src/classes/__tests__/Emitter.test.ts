@@ -1,6 +1,6 @@
 // import {it} from "vitest"
-import { Emitter } from "../Emitter";
 import * as vt from "vitest";
+import { Emitter } from "../Emitter";
 
 vt.describe("Emitter", () => {
   vt.it("when subscribe single topics", () => {

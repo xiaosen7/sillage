@@ -7,7 +7,7 @@ import "uno.css";
 import "virtual:unocss-devtools";
 import "@unocss/reset/tailwind.css";
 
-const root = document.getElementById("root");
+const root = document.querySelector("#root");
 if (root) {
   ReactDOM.createRoot(root).render(
     <React.StrictMode>

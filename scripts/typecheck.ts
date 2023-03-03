@@ -1,8 +1,9 @@
+import os from "node:os";
 import { execaCommand } from "execa";
 import fg from "fast-glob";
-import os from "os";
+import { runAsyncFunction } from "./utils";
 
-async function main() {
+runAsyncFunction(async () => {
   const tsconfigFiles = await fg([
     "tsconfig.*.json",
     "!tsconfig.base.json",
@@ -20,9 +21,4 @@ async function main() {
       })
     )
   );
-}
-
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
 });

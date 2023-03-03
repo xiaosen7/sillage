@@ -1,16 +1,17 @@
 import { PropsLoader } from "@sillage/loader";
-import { ComponentProp } from "./ComponentProp";
 import { Map } from "immutable";
 import { type Constructable } from "@sillage/type-utils";
+import { ComponentProp } from "./ComponentProp";
 
 export class ComponentProps {
   private readonly data: Map<string, ComponentProp>;
 
   constructor(PropsConstructor: Constructable) {
     const data = Map<string, ComponentProp>();
-    Object.keys(new PropsConstructor()).forEach((propKey) => {
+    for (const propKey of Object.keys(new PropsConstructor())) {
       data.set(propKey, new ComponentProp(PropsConstructor, propKey));
-    });
+    }
+
     this.data = data;
   }
 
@@ -22,9 +23,9 @@ export class ComponentProps {
 
   public getValue() {
     const ret = {} as any;
-    this.data.forEach((prop, key) => {
+    for (const [key, prop] of this.data.entries()) {
       ret[key] = prop.getValue();
-    });
+    }
 
     return ret;
   }

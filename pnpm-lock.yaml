@@ -14,7 +14,6 @@ importers:
       stylelint: ^14.2.0
       tsx: ^3.12.3
       typescript: ^4.9.5
-      vite: ^4.1.0
       vitest: ^0.29.1
     devDependencies:
       "@sillage/eslint-config": link:node/eslint-config
@@ -28,14 +27,7 @@ importers:
       stylelint: 14.16.1
       tsx: 3.12.3
       typescript: 4.9.5
-      vite: 4.1.4
       vitest: 0.29.1
-
-  extraneous/define-component-meta:
-    specifiers:
-      "@sillage/meta": workspace:^1.0.0
-    devDependencies:
-      "@sillage/meta": link:../meta
 
   extraneous/meta:
     specifiers:
@@ -64,11 +56,13 @@ importers:
       eslint-config-standard-with-typescript: ^34.0.0
       eslint-define-config: ^1.15.0
       eslint-plugin-import: ^2.27.5
+      eslint-plugin-jsonc: ^2.6.0
       eslint-plugin-jsx-a11y: ^6.7.1
       eslint-plugin-n: ^15.6.1
       eslint-plugin-promise: ^6.1.1
       eslint-plugin-react: ^7.32.2
       eslint-plugin-react-hooks: ^4.6.0
+      eslint-plugin-unicorn: ^45.0.2
     dependencies:
       "@typescript-eslint/eslint-plugin": 5.53.0_eslint@8.34.0
       eslint: 8.34.0
@@ -76,11 +70,13 @@ importers:
       eslint-config-standard-with-typescript: 34.0.0_dvxpprtrsoy37sc2qvylv3kpoy
       eslint-define-config: 1.15.0
       eslint-plugin-import: 2.27.5_eslint@8.34.0
+      eslint-plugin-jsonc: 2.6.0_eslint@8.34.0
       eslint-plugin-jsx-a11y: 6.7.1_eslint@8.34.0
       eslint-plugin-n: 15.6.1_eslint@8.34.0
       eslint-plugin-promise: 6.1.1_eslint@8.34.0
       eslint-plugin-react: 7.32.2_eslint@8.34.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.34.0
+      eslint-plugin-unicorn: 45.0.2_eslint@8.34.0
 
   node/stylelint-config:
     specifiers:
@@ -146,7 +142,7 @@ importers:
   web/materials/components/button:
     specifiers:
       "@sillage-material-prop-editors/select": workspace:^1.0.0
-      "@sillage/define-component-meta": workspace:^1.0.0
+      "@sillage/meta": workspace:^1.0.0
       "@sillage/props": workspace:^1.0.0
       "@types/react": ^18.0.27
       "@types/react-dom": ^18.0.10
@@ -155,7 +151,7 @@ importers:
       react-dom: ^18.2.0
     dependencies:
       "@sillage-material-prop-editors/select": link:../../prop-editors/select
-      "@sillage/define-component-meta": link:../../../../extraneous/define-component-meta
+      "@sillage/meta": link:../../../../extraneous/meta
       "@sillage/props": link:../../../props
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -166,18 +162,18 @@ importers:
 
   web/materials/components/root:
     specifiers:
-      "@sillage/define-component-meta": workspace:^1.0.0
+      "@sillage/meta": workspace:^1.0.0
       "@sillage/props": workspace:^1.0.0
       "@types/react": ^18.0.27
       "@types/react-dom": ^18.0.10
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
-      "@sillage/define-component-meta": link:../../../../extraneous/define-component-meta
       "@sillage/props": link:../../../props
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
+      "@sillage/meta": link:../../../../extraneous/meta
       "@types/react": 18.0.28
       "@types/react-dom": 18.0.11
 
@@ -258,7 +254,6 @@ importers:
       react-dom: ^18.2.0
       rxjs: ^7.8.0
       unocss: ^0.50.3
-      vite: ^4.1.0
     dependencies:
       "@sillage/core": link:../core
       "@sillage/loader": link:../loader
@@ -270,11 +265,10 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       rxjs: 7.8.0
-      unocss: 0.50.3_vite@4.1.4
+      unocss: 0.50.3
     devDependencies:
       "@types/react": 18.0.28
       "@types/react-dom": 18.0.11
-      vite: 4.1.4
 
 packages:
   /@ampproject/remapping/2.2.0:
@@ -1143,6 +1137,19 @@ packages:
     dev: true
     optional: true
 
+  /@eslint-community/eslint-utils/4.2.0_eslint@8.34.0:
+    resolution:
+      {
+        integrity: sha512-gB8T4H4DEfX2IV9zGDJPOBgP1e/DbfCPDTtEqUMckpvzS1OYtva8JdFYBqMwYk7xAQ429WGF/UPqn8uQ//h2vQ==,
+      }
+    engines: { node: ^12.22.0 || ^14.17.0 || >=16.0.0 }
+    peerDependencies:
+      eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
+    dependencies:
+      eslint: 8.34.0
+      eslint-visitor-keys: 3.3.0
+    dev: false
+
   /@eslint/eslintrc/1.4.1:
     resolution:
       {
@@ -1898,6 +1905,20 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: false
 
+  /@unocss/astro/0.50.3:
+    resolution:
+      {
+        integrity: sha512-XVYkTusLUplgzWW5KMk3UGASQH39SMTU8yH8pszyCzR75zTPNlbMzkk1dI8epqikx839mOBPL6nLL9kWwlIfcg==,
+      }
+    dependencies:
+      "@unocss/core": 0.50.3
+      "@unocss/reset": 0.50.3
+      "@unocss/vite": 0.50.3
+    transitivePeerDependencies:
+      - rollup
+      - vite
+    dev: false
+
   /@unocss/astro/0.50.3_vite@4.1.4:
     resolution:
       {
@@ -2112,6 +2133,28 @@ packages:
       "@unocss/core": 0.50.3
     dev: false
 
+  /@unocss/vite/0.50.3:
+    resolution:
+      {
+        integrity: sha512-phahYMPWSXIc2ArxD8qpeu2ctgjHyOViaIld4t6exTUPlgJzgHn2Ru+FNwCVBXm2Gc9ZvslGx7mVh5IzD9kafQ==,
+      }
+    peerDependencies:
+      vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0
+    dependencies:
+      "@ampproject/remapping": 2.2.0
+      "@rollup/pluginutils": 5.0.2
+      "@unocss/config": 0.50.3
+      "@unocss/core": 0.50.3
+      "@unocss/inspector": 0.50.3
+      "@unocss/scope": 0.50.3
+      "@unocss/transformer-directives": 0.50.3
+      chokidar: 3.5.3
+      fast-glob: 3.2.12
+      magic-string: 0.30.0
+    transitivePeerDependencies:
+      - rollup
+    dev: false
+
   /@unocss/vite/0.50.3_vite@4.1.4:
     resolution:
       {
@@ -2130,7 +2173,7 @@ packages:
       chokidar: 3.5.3
       fast-glob: 3.2.12
       magic-string: 0.30.0
-      vite: 4.1.4
+      vite: 4.1.4_sass@1.58.3
     transitivePeerDependencies:
       - rollup
     dev: false
@@ -2647,6 +2690,14 @@ packages:
       ieee754: 1.2.1
     dev: true
 
+  /builtin-modules/3.3.0:
+    resolution:
+      {
+        integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==,
+      }
+    engines: { node: ">=6" }
+    dev: false
+
   /builtins/5.0.1:
     resolution:
       {
@@ -2816,11 +2867,29 @@ packages:
       fsevents: 2.3.2
     dev: false
 
+  /ci-info/3.8.0:
+    resolution:
+      {
+        integrity: sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==,
+      }
+    engines: { node: ">=8" }
+    dev: false
+
   /classnames/2.3.2:
     resolution:
       {
         integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==,
       }
+    dev: false
+
+  /clean-regexp/1.0.0:
+    resolution:
+      {
+        integrity: sha512-GfisEZEJvzKrmGWkvfhgzcz/BllN1USeqD2V6tg14OAOgaCD2Z/PUEuxnAZ/nPvmaHRG7a8y77p1T/IRQ4D1Hw==,
+      }
+    engines: { node: ">=4" }
+    dependencies:
+      escape-string-regexp: 1.0.5
     dev: false
 
   /clean-stack/2.2.0:
@@ -3663,6 +3732,21 @@ packages:
       - supports-color
     dev: false
 
+  /eslint-plugin-jsonc/2.6.0_eslint@8.34.0:
+    resolution:
+      {
+        integrity: sha512-4bA9YTx58QaWalua1Q1b82zt7eZMB7i+ed8q8cKkbKP75ofOA2SXbtFyCSok7RY6jIXeCqQnKjN9If8zCgv6PA==,
+      }
+    engines: { node: ^12.22.0 || ^14.17.0 || >=16.0.0 }
+    peerDependencies:
+      eslint: ">=6.0.0"
+    dependencies:
+      eslint: 8.34.0
+      eslint-utils: 3.0.0_eslint@8.34.0
+      jsonc-eslint-parser: 2.1.0
+      natural-compare: 1.4.0
+    dev: false
+
   /eslint-plugin-jsx-a11y/6.7.1_eslint@8.34.0:
     resolution:
       {
@@ -3760,6 +3844,34 @@ packages:
       resolve: 2.0.0-next.4
       semver: 6.3.0
       string.prototype.matchall: 4.0.8
+    dev: false
+
+  /eslint-plugin-unicorn/45.0.2_eslint@8.34.0:
+    resolution:
+      {
+        integrity: sha512-Y0WUDXRyGDMcKLiwgL3zSMpHrXI00xmdyixEGIg90gHnj0PcHY4moNv3Ppje/kDivdAy5vUeUr7z211ImPv2gw==,
+      }
+    engines: { node: ">=14.18" }
+    peerDependencies:
+      eslint: ">=8.28.0"
+    dependencies:
+      "@babel/helper-validator-identifier": 7.19.1
+      "@eslint-community/eslint-utils": 4.2.0_eslint@8.34.0
+      ci-info: 3.8.0
+      clean-regexp: 1.0.0
+      eslint: 8.34.0
+      esquery: 1.4.2
+      indent-string: 4.0.0
+      is-builtin-module: 3.2.1
+      jsesc: 3.0.2
+      lodash: 4.17.21
+      pluralize: 8.0.0
+      read-pkg-up: 7.0.1
+      regexp-tree: 0.1.24
+      regjsparser: 0.9.1
+      safe-regex: 2.1.1
+      semver: 7.3.8
+      strip-indent: 3.0.0
     dev: false
 
   /eslint-scope/5.1.1:
@@ -4820,6 +4932,16 @@ packages:
       has-tostringtag: 1.0.0
     dev: false
 
+  /is-builtin-module/3.2.1:
+    resolution:
+      {
+        integrity: sha512-BSLE3HnV2syZ0FK0iMA/yUGplUeMmNz4AW5fnTunbCIqZi4vG3WjJT9FHMy5D69xmAYBHXQhJdALdpwVxV501A==,
+      }
+    engines: { node: ">=6" }
+    dependencies:
+      builtin-modules: 3.3.0
+    dev: false
+
   /is-callable/1.2.7:
     resolution:
       {
@@ -5177,6 +5299,23 @@ packages:
     dependencies:
       argparse: 2.0.1
 
+  /jsesc/0.5.0:
+    resolution:
+      {
+        integrity: sha512-uZz5UnB7u4T9LvwmFqXii7pZSouaRPorGs5who1Ip7VO0wxanFvBL7GkM6dTHlgX+jhBApRetaWpnDabOeTcnA==,
+      }
+    hasBin: true
+    dev: false
+
+  /jsesc/3.0.2:
+    resolution:
+      {
+        integrity: sha512-xKqzzWXDttJuOcawBt4KnKHHIf5oQ/Cxax+0PWFG+DFDgHNAdi+TXECADI+RYiFUMmx8792xsMbbgXj4CwnP4g==,
+      }
+    engines: { node: ">=6" }
+    hasBin: true
+    dev: false
+
   /json-parse-even-better-errors/2.3.1:
     resolution:
       {
@@ -5218,6 +5357,19 @@ packages:
     hasBin: true
     dependencies:
       minimist: 1.2.8
+    dev: false
+
+  /jsonc-eslint-parser/2.1.0:
+    resolution:
+      {
+        integrity: sha512-qCRJWlbP2v6HbmKW7R3lFbeiVWHo+oMJ0j+MizwvauqnCV/EvtAeEeuCgoc/ErtsuoKgYB8U4Ih8AxJbXoE6/g==,
+      }
+    engines: { node: ^12.22.0 || ^14.17.0 || >=16.0.0 }
+    dependencies:
+      acorn: 8.8.2
+      eslint-visitor-keys: 3.3.0
+      espree: 9.4.1
+      semver: 7.3.8
     dev: false
 
   /jsonc-parser/3.2.0:
@@ -6290,6 +6442,14 @@ packages:
       v8flags: 4.0.0
     dev: true
 
+  /pluralize/8.0.0:
+    resolution:
+      {
+        integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==,
+      }
+    engines: { node: ">=4" }
+    dev: false
+
   /postcss-media-query-parser/0.2.3:
     resolution:
       {
@@ -7228,6 +7388,14 @@ packages:
       }
     dev: false
 
+  /regexp-tree/0.1.24:
+    resolution:
+      {
+        integrity: sha512-s2aEVuLhvnVJW6s/iPgEGK6R+/xngd2jNQ+xy4bXNDKxZKJH6jpPHY6kVeVv1IeLCHgswRj+Kl3ELaDjG6V1iw==,
+      }
+    hasBin: true
+    dev: false
+
   /regexp.prototype.flags/1.4.3:
     resolution:
       {
@@ -7246,6 +7414,16 @@ packages:
         integrity: sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==,
       }
     engines: { node: ">=8" }
+
+  /regjsparser/0.9.1:
+    resolution:
+      {
+        integrity: sha512-dQUtn90WanSNl+7mQKcXAgZxvUe7Z0SqXlgzv0za4LwiUhyzBC58yQO3liFoUgu8GiJVInAhJjkj1N0EtQ5nkQ==,
+      }
+    hasBin: true
+    dependencies:
+      jsesc: 0.5.0
+    dev: false
 
   /require-directory/2.1.1:
     resolution:
@@ -7431,6 +7609,15 @@ packages:
       call-bind: 1.0.2
       get-intrinsic: 1.2.0
       is-regex: 1.1.4
+    dev: false
+
+  /safe-regex/2.1.1:
+    resolution:
+      {
+        integrity: sha512-rx+x8AMzKb5Q5lQ95Zoi6ZbJqwCLkqi3XuJXp5P3rT8OEc6sZCJG5AE5dU3lsgRr/F4Bs31jSlVN+j5KrsGu9A==,
+      }
+    dependencies:
+      regexp-tree: 0.1.24
     dev: false
 
   /safer-buffer/2.1.2:
@@ -8306,6 +8493,42 @@ packages:
       jiti: 1.17.1
     dev: false
 
+  /unocss/0.50.3:
+    resolution:
+      {
+        integrity: sha512-6quL19+WPJeuQmVdDIbSSXARHUhIvJSyJQYzHVlZRX4tv9fb+ZeZ2o8upRWodlIT2ulmDRnhXcUQyVdSRnRDDA==,
+      }
+    engines: { node: ">=14" }
+    peerDependencies:
+      "@unocss/webpack": 0.50.3
+    peerDependenciesMeta:
+      "@unocss/webpack":
+        optional: true
+    dependencies:
+      "@unocss/astro": 0.50.3
+      "@unocss/cli": 0.50.3
+      "@unocss/core": 0.50.3
+      "@unocss/postcss": 0.50.3
+      "@unocss/preset-attributify": 0.50.3
+      "@unocss/preset-icons": 0.50.3
+      "@unocss/preset-mini": 0.50.3
+      "@unocss/preset-tagify": 0.50.3
+      "@unocss/preset-typography": 0.50.3
+      "@unocss/preset-uno": 0.50.3
+      "@unocss/preset-web-fonts": 0.50.3
+      "@unocss/preset-wind": 0.50.3
+      "@unocss/reset": 0.50.3
+      "@unocss/transformer-attributify-jsx": 0.50.3
+      "@unocss/transformer-compile-class": 0.50.3
+      "@unocss/transformer-directives": 0.50.3
+      "@unocss/transformer-variant-group": 0.50.3
+      "@unocss/vite": 0.50.3
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vite
+    dev: false
+
   /unocss/0.50.3_vite@4.1.4:
     resolution:
       {
@@ -8436,41 +8659,6 @@ packages:
       - supports-color
       - terser
     dev: true
-
-  /vite/4.1.4:
-    resolution:
-      {
-        integrity: sha512-3knk/HsbSTKEin43zHu7jTwYWv81f8kgAL99G5NWBcA1LKvtvcVAC4JjBH1arBunO9kQka+1oGbrMKOjk4ZrBg==,
-      }
-    engines: { node: ^14.18.0 || >=16.0.0 }
-    hasBin: true
-    peerDependencies:
-      "@types/node": ">= 14"
-      less: "*"
-      sass: "*"
-      stylus: "*"
-      sugarss: "*"
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      "@types/node":
-        optional: true
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      esbuild: 0.16.17
-      postcss: 8.4.21
-      resolve: 1.22.1
-      rollup: 3.17.3
-    optionalDependencies:
-      fsevents: 2.3.2
 
   /vite/4.1.4_@types+node@18.14.5:
     resolution:

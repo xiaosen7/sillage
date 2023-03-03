@@ -1,4 +1,4 @@
-import { join } from "path";
+import { join } from "node:path";
 import { loadMeta } from "./loadMeta";
 
 export async function genByName(root: string, exportName: string) {

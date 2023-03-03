@@ -1,6 +1,6 @@
 // import {it} from "vitest"
-import { StateMachine } from "../StateMachine";
 import * as vt from "vitest";
+import { StateMachine } from "../StateMachine";
 
 vt.describe("StateMachine", () => {
   let sm: StateMachine<"S1" | "S2" | "S3", "A12" | "A23">;

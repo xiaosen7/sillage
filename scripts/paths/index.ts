@@ -1,3 +1,3 @@
-import * as path from "path";
+import path from "node:path";
 
 export const componentsRoot = path.resolve("web/materials/components");

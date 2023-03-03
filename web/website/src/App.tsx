@@ -1,9 +1,9 @@
+import classnames from "classnames";
+import * as components from "virtual:material-components";
 import { ComponentList } from "./components/ComponentList";
 import { RightTabs } from "./components/RightTabs";
 import styles from "./app.module.scss";
-import classnames from "classnames";
 import { Panel } from "./components/Panel";
-import * as components from "virtual:material-components";
 
 console.log({ components });
 

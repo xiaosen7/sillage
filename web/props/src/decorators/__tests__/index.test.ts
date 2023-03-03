@@ -1,5 +1,5 @@
-import { initialValue, getInitialValue, editor, getEditor } from "..";
 import * as vt from "vitest";
+import { editor, getEditor, getInitialValue, initialValue } from "..";
 import "reflect-metadata";
 
 vt.describe("decorators", () => {

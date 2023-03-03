@@ -1,6 +1,6 @@
 import { ComponentsLoader, PropsLoader } from "@sillage/loader";
-import type { ComponentType } from "react";
 import { ComponentProps } from "./ComponentProps";
+import type { ComponentType } from "react";
 import type { Constructable } from "@sillage/type-utils";
 
 export class Node {

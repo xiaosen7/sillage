@@ -1,6 +1,6 @@
 import { ComponentsLoader } from "@sillage/loader";
-import { Node } from "./Node";
 import { StateMachine } from "@sillage/utils";
+import { Node } from "./Node";
 
 enum States {
   Start,

@@ -1,6 +1,6 @@
+import path from "node:path";
 import { type ComponentMetaConfig } from "@sillage/meta";
 import fg from "fast-glob";
-import * as path from "path";
 
 export async function loadMeta(componentsRoot: string) {
   const files = fg.sync(["*/meta.config.ts"], {

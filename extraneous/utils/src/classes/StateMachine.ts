@@ -41,9 +41,9 @@ export class StateMachine<
     fn?: StateTransferFunction
   ): void {
     if (Array.isArray(from)) {
-      from.forEach((s) => {
+      for (const s of from) {
         this.addTransfer(s, to, action as A, fn);
-      });
+      }
     } else {
       this.addTransfer(from, to, action as A, fn);
     }

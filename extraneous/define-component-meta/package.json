@@ -1,8 +1,0 @@
-{
-  "name": "@sillage/define-component-meta",
-  "version": "1.0.0",
-  "main": "src/index.ts",
-  "devDependencies": {
-    "@sillage/meta": "workspace:^1.0.0"
-  }
-}

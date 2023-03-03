@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { useEditor } from "../context";
 import { Editor, type Node } from "@sillage/core";
+import { useEditor } from "../context";
 import { Draggable } from "./Draggable";
 
 export function ComponentList(): JSX.Element {

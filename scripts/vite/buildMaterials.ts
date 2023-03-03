@@ -1,9 +1,9 @@
+import path from "node:path";
 import { build } from "vite";
-import path from "path";
 import react from "@vitejs/plugin-react-swc";
 import { visualizer } from "rollup-plugin-visualizer";
 
-void (async () => {
+async function main() {
   await build({
     // any valid user config options, plus `mode` and `configFile`
     configFile: false,
@@ -34,4 +34,8 @@ void (async () => {
       },
     },
   });
-})();
+}
+
+main().catch((error) => {
+  throw error;
+});
