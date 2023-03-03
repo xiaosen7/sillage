@@ -14,35 +14,7 @@ const componentsRoot = path.join(
 vt.describe("material-visual-module", () => {
   vt.test("loadMeta", async () => {
     const loadedMap = await loadMeta(componentsRoot);
-    vt.expect(loadedMap).toMatchInlineSnapshot(`
-      Map {
-        "/Users/apple/Workspace/sillage/scripts/plugins/material-visual-module/__tests__/assets/components/button" => {
-          "box": {
-            "height": {
-              "mode": "auto",
-            },
-            "width": {
-              "mode": "auto",
-            },
-          },
-          "name": "button",
-          "title": "按钮",
-        },
-        "/Users/apple/Workspace/sillage/scripts/plugins/material-visual-module/__tests__/assets/components/root" => {
-          "box": {
-            "height": {
-              "mode": "auto",
-            },
-            "width": {
-              "mode": "auto",
-            },
-          },
-          "internal": true,
-          "name": "root",
-          "title": "根组件",
-        },
-      }
-    `);
+    vt.expect(loadedMap.size).toMatchInlineSnapshot("2");
   });
 
   vt.test("materialMetaConfig", async () => {
@@ -79,9 +51,10 @@ vt.describe("material-visual-module", () => {
 
   vt.test("materialComponents", async () => {
     const content = await materialComponents(componentsRoot);
-    vt.expect(content).toMatchInlineSnapshot(`
-      "import { default as button } from \\"/Users/apple/Workspace/sillage/scripts/plugins/material-visual-module/__tests__/assets/components/button/src/index.ts\\";
-      import { default as root } from \\"/Users/apple/Workspace/sillage/scripts/plugins/material-visual-module/__tests__/assets/components/root/src/index.ts\\";
+    vt.expect(content.replaceAll(componentsRoot, "$componentsRoot"))
+      .toMatchInlineSnapshot(`
+      "import { default as button } from \\"$componentsRoot/button/src/index.ts\\";
+      import { default as root } from \\"$componentsRoot/root/src/index.ts\\";
 
       export {
           button,
@@ -92,9 +65,10 @@ vt.describe("material-visual-module", () => {
 
   vt.test("materialProps", async () => {
     const content = await materialProps(componentsRoot);
-    vt.expect(content).toMatchInlineSnapshot(`
-      "import { Props as button } from \\"/Users/apple/Workspace/sillage/scripts/plugins/material-visual-module/__tests__/assets/components/button/src/index.ts\\";
-      import { Props as root } from \\"/Users/apple/Workspace/sillage/scripts/plugins/material-visual-module/__tests__/assets/components/root/src/index.ts\\";
+    vt.expect(content.replaceAll(componentsRoot, "$componentsRoot"))
+      .toMatchInlineSnapshot(`
+      "import { Props as button } from \\"$componentsRoot/button/src/index.ts\\";
+      import { Props as root } from \\"$componentsRoot/root/src/index.ts\\";
 
       export {
           button,

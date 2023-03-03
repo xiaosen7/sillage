@@ -7,7 +7,7 @@
     "postinstall": "simple-git-hooks",
     "plop": "plop",
     "typecheck": "tsx scripts/typecheck",
-    "test": "vitest -p scripts/vitest.config.ts"
+    "test": "vitest -c scripts/vite/vitest.config.ts"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
@@ -28,7 +28,10 @@
   },
   "lint-staged": {
     "**/*.{ts,tsx}": "pnpm typecheck",
-    "**/*.{js,jsx,ts,tsx}": "eslint --fix",
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "pnpm run test --run"
+    ],
     "**/*.{css,scss}": "stylelint --fix",
     "**/*": "prettier --write"
   }
