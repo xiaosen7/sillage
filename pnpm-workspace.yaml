@@ -1,6 +1,6 @@
 packages:
   - "web/*"
   - "node/*"
+  - "materials/*/*"
   - "extraneous/*"
-  - "web/materials/*/*"
   - "scripts"

@@ -1,31 +1,36 @@
 import { getEditor, getInitialValue } from "@sillage/props";
-import { type ComponentType } from "react";
 import { Map } from "immutable";
+import { type Constructable } from "@sillage/type-utils";
 
 export class ComponentProp {
   private readonly name: string;
-  private readonly value: any;
-  private readonly editor: ComponentType;
   private readonly data: Map<string, any>;
+  private readonly PropsConstructor: Constructable;
 
-  constructor(propsInstance: any, name: string) {
+  constructor(PropsConstructor: Constructable, name: string, value?: any) {
     this.name = name;
+    this.PropsConstructor = PropsConstructor;
 
-    const value = getInitialValue(propsInstance, name);
+    if (value === undefined) {
+      value = getInitialValue(PropsConstructor, name);
+    }
+
     this.data = Map([[name, value]]);
-
-    this.editor = getEditor(propsInstance, name);
   }
 
   public getName(): string {
     return this.name;
   }
 
-  public getValue(): any {
+  public get(): any {
     return this.data.get(this.name);
   }
 
-  public getEditor(): ComponentType {
-    return this.editor;
+  public set(newValue: any) {
+    this.data.set(this.name, newValue);
+  }
+
+  public getEditor() {
+    return getEditor(this.PropsConstructor, this.name);
   }
 }

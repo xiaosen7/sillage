@@ -4,7 +4,7 @@ import { PropertyEditor } from "./PropertyEditor";
 export function RightTabs(): JSX.Element {
   return (
     <div>
-      <PropertyEditor node={Node.fromName("Button")} />
+      <PropertyEditor node={new Node("Button")} />
     </div>
   );
 }

@@ -4,12 +4,15 @@
   "main": "src/index.ts",
   "dependencies": {
     "@sillage/loader": "workspace:^1.0.0",
+    "@sillage/meta": "workspace:^1.0.0",
     "@sillage/props": "workspace:^1.0.0",
     "@sillage/utils": "workspace:^1.0.0",
-    "immutable": "^4.2.4"
+    "immutable": "^4.2.4",
+    "invariant": "^2.2.4"
   },
   "devDependencies": {
     "@sillage/type-utils": "workspace:^0.0.0",
+    "@types/invariant": "^2.2.35",
     "@types/react": "^18.0.27"
   }
 }

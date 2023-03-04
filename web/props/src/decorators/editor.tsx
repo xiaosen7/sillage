@@ -1,3 +1,4 @@
+import { type EditorComponentType } from "@sillage/core";
 import type { FunctionComponent } from "react";
 
 /**
@@ -31,7 +32,7 @@ export function editor<T extends FunctionComponent<any>>(
 export function getEditor(
   PropsConstructorOrInstance: any,
   propertyKey: string
-): FunctionComponent {
+): EditorComponentType {
   let inst = PropsConstructorOrInstance;
   if (typeof PropsConstructorOrInstance === "function") {
     inst = new PropsConstructorOrInstance();

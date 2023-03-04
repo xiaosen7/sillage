@@ -1,10 +1,11 @@
 {
   "name": "@sillage/website",
   "version": "0.0.0",
-  "main": "src/main.tsx",
+  "private": true,
   "dependencies": {
     "@sillage/core": "workspace:^0.0.0",
     "@sillage/loader": "workspace:^1.0.0",
+    "@sillage/meta": "workspace:^1.0.0",
     "@sillage/props": "workspace:^1.0.0",
     "@sillage/utils": "workspace:^1.0.0",
     "@unocss/reset": "^0.50.3",

@@ -1,14 +1,10 @@
 import os from "node:os";
 import { execaCommand } from "execa";
-import fg from "fast-glob";
+import tsConfig from "../tsconfig.json";
 import { runAsyncFunction } from "./utils";
 
 runAsyncFunction(async () => {
-  const tsconfigFiles = await fg([
-    "tsconfig.*.json",
-    "!tsconfig.base.json",
-    "!tsconfig.json",
-  ]);
+  const tsconfigFiles = tsConfig.references.map((x) => x.path);
 
   console.log(
     `${os.EOL}Found config files: ${tsconfigFiles.join(", ")}${os.EOL}`
@@ -16,7 +12,7 @@ runAsyncFunction(async () => {
 
   await Promise.all(
     tsconfigFiles.map((f) =>
-      execaCommand(`pnpm tsc --noemit -p ${f}`, {
+      execaCommand(`pnpm tsc -p ${f} --composite false --noEmit`, {
         stdout: "inherit",
       })
     )

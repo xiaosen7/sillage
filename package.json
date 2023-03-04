@@ -5,12 +5,13 @@
     "dev": "tsx scripts/vite/startViteServer",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "simple-git-hooks",
-    "plop": "plop",
+    "gen": "plop",
     "typecheck": "tsx scripts/typecheck",
-    "test": "vitest -c scripts/vite/vitest.config.ts"
+    "test": "vitest -c scripts/vite/vitest.config.ts",
+    "test-run": "vitest -c scripts/vite/vitest.config.ts --run"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
+    "pre-commit": "pnpm typecheck && pnpm test-run && pnpm lint-staged"
   },
   "devDependencies": {
     "@sillage/eslint-config": "workspace:^0.0.0",
@@ -27,11 +28,7 @@
     "vitest": "^0.29.1"
   },
   "lint-staged": {
-    "**/*.{ts,tsx}": "pnpm typecheck",
-    "**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "pnpm run test --run"
-    ],
+    "**/*.{js,jsx,ts,tsx}": "eslint --fix",
     "**/*.{css,scss}": "stylelint --fix",
     "**/*": "prettier --write"
   }

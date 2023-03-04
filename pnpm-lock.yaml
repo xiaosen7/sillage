@@ -48,6 +48,108 @@ importers:
     dependencies:
       rxjs: 7.8.0
 
+  materials/components/button:
+    specifiers:
+      "@sillage-material-prop-editors/select": workspace:^1.0.0
+      "@sillage/meta": workspace:^1.0.0
+      "@sillage/props": workspace:^1.0.0
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      react: ^18.2.0
+      react-awesome-button: ^7.0.5
+      react-dom: ^18.2.0
+    dependencies:
+      "@sillage-material-prop-editors/select": link:../../prop-editors/select
+      "@sillage/meta": link:../../../extraneous/meta
+      "@sillage/props": link:../../../web/props
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+      react-awesome-button: 7.0.5
+
+  materials/components/page:
+    specifiers:
+      "@sillage/meta": workspace:^1.0.0
+      "@sillage/props": workspace:^1.0.0
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      "@sillage/meta": link:../../../extraneous/meta
+      "@sillage/props": link:../../../web/props
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/components/root:
+    specifiers:
+      "@sillage/meta": workspace:^1.0.0
+      "@sillage/props": workspace:^1.0.0
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      "@sillage/props": link:../../../web/props
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@sillage/meta": link:../../../extraneous/meta
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/prop-editors/select:
+    specifiers:
+      "@sillage/props": workspace:^1.0.0
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      react: ^18.2.0
+      react-dom: ^18.2.0
+      react-select: ^5.7.0
+    dependencies:
+      "@sillage/props": link:../../../web/props
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-select: 5.7.0_zula6vjvt3wdocc4mwcxqa6nzi
+    devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/prop-editors/size:
+    specifiers:
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      antd: ^5.2.3
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/prop-editors/text:
+    specifiers:
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      antd: ^5.2.3
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
   node/eslint-config:
     specifiers:
       "@typescript-eslint/eslint-plugin": ^5.53.0
@@ -115,18 +217,24 @@ importers:
   web/core:
     specifiers:
       "@sillage/loader": workspace:^1.0.0
+      "@sillage/meta": workspace:^1.0.0
       "@sillage/props": workspace:^1.0.0
       "@sillage/type-utils": workspace:^0.0.0
       "@sillage/utils": workspace:^1.0.0
+      "@types/invariant": ^2.2.35
       "@types/react": ^18.0.27
       immutable: ^4.2.4
+      invariant: ^2.2.4
     dependencies:
       "@sillage/loader": link:../loader
+      "@sillage/meta": link:../../extraneous/meta
       "@sillage/props": link:../props
       "@sillage/utils": link:../../extraneous/utils
       immutable: 4.2.4
+      invariant: 2.2.4
     devDependencies:
       "@sillage/type-utils": link:../../extraneous/type-utils
+      "@types/invariant": 2.2.35
       "@types/react": 18.0.28
 
   web/loader:
@@ -138,91 +246,6 @@ importers:
       "@sillage/meta": link:../../extraneous/meta
       "@sillage/type-utils": link:../../extraneous/type-utils
       "@types/react": 18.0.28
-
-  web/materials/components/button:
-    specifiers:
-      "@sillage-material-prop-editors/select": workspace:^1.0.0
-      "@sillage/meta": workspace:^1.0.0
-      "@sillage/props": workspace:^1.0.0
-      "@types/react": ^18.0.27
-      "@types/react-dom": ^18.0.10
-      react: ^18.2.0
-      react-awesome-button: ^7.0.5
-      react-dom: ^18.2.0
-    dependencies:
-      "@sillage-material-prop-editors/select": link:../../prop-editors/select
-      "@sillage/meta": link:../../../../extraneous/meta
-      "@sillage/props": link:../../../props
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    devDependencies:
-      "@types/react": 18.0.28
-      "@types/react-dom": 18.0.11
-      react-awesome-button: 7.0.5
-
-  web/materials/components/root:
-    specifiers:
-      "@sillage/meta": workspace:^1.0.0
-      "@sillage/props": workspace:^1.0.0
-      "@types/react": ^18.0.27
-      "@types/react-dom": ^18.0.10
-      react: ^18.2.0
-      react-dom: ^18.2.0
-    dependencies:
-      "@sillage/props": link:../../../props
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    devDependencies:
-      "@sillage/meta": link:../../../../extraneous/meta
-      "@types/react": 18.0.28
-      "@types/react-dom": 18.0.11
-
-  web/materials/prop-editors/select:
-    specifiers:
-      "@sillage/props": workspace:^1.0.0
-      "@types/react": ^18.0.27
-      "@types/react-dom": ^18.0.10
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      react-select: ^5.7.0
-    dependencies:
-      "@sillage/props": link:../../../props
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      react-select: 5.7.0_zula6vjvt3wdocc4mwcxqa6nzi
-    devDependencies:
-      "@types/react": 18.0.28
-      "@types/react-dom": 18.0.11
-
-  web/materials/prop-editors/size:
-    specifiers:
-      "@types/react": ^18.0.27
-      "@types/react-dom": ^18.0.10
-      antd: ^5.2.3
-      react: ^18.2.0
-      react-dom: ^18.2.0
-    dependencies:
-      antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    devDependencies:
-      "@types/react": 18.0.28
-      "@types/react-dom": 18.0.11
-
-  web/materials/prop-editors/text:
-    specifiers:
-      "@types/react": ^18.0.27
-      "@types/react-dom": ^18.0.10
-      antd: ^5.2.3
-      react: ^18.2.0
-      react-dom: ^18.2.0
-    dependencies:
-      antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    devDependencies:
-      "@types/react": 18.0.28
-      "@types/react-dom": 18.0.11
 
   web/props:
     specifiers:
@@ -243,6 +266,7 @@ importers:
     specifiers:
       "@sillage/core": workspace:^0.0.0
       "@sillage/loader": workspace:^1.0.0
+      "@sillage/meta": workspace:^1.0.0
       "@sillage/props": workspace:^1.0.0
       "@sillage/utils": workspace:^1.0.0
       "@types/react": ^18.0.27
@@ -257,6 +281,7 @@ importers:
     dependencies:
       "@sillage/core": link:../core
       "@sillage/loader": link:../loader
+      "@sillage/meta": link:../../extraneous/meta
       "@sillage/props": link:../props
       "@sillage/utils": link:../../extraneous/utils
       "@unocss/reset": 0.50.3
@@ -1596,6 +1621,13 @@ packages:
     dependencies:
       "@types/through": 0.0.30
       rxjs: 7.8.0
+    dev: true
+
+  /@types/invariant/2.2.35:
+    resolution:
+      {
+        integrity: sha512-DxX1V9P8zdJPYQat1gHyY0xj3efl8gnMVjiM9iCY6y27lj+PoQWkgjt8jDqmovPqULkKVpKRg8J36iQiA+EtEg==,
+      }
     dev: true
 
   /@types/json-schema/7.0.11:

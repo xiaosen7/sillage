@@ -1,5 +1,7 @@
-import { ComponentsLoader } from "@sillage/loader";
+import { MetaConfigsLoader } from "@sillage/loader";
 import { StateMachine } from "@sillage/utils";
+import invariant from "invariant";
+import { type JsonRootNode } from "../types";
 import { Node } from "./Node";
 
 enum States {
@@ -15,28 +17,34 @@ enum Actions {
   EvtDrop,
 }
 
-// const defaultNodeJson: NodeDataJson = {
-//   passProps: null,
-//   type: "Root",
-//   children: [
-//     {
-//       type: "Page",
-//     },
-//   ],
-// };
-
 export class Editor extends StateMachine<States, Actions> {
   static Actions = Actions;
 
   private readonly componentMaterials: Node[];
 
-  // root: Node
+  root: Node;
 
-  constructor() {
+  constructor(jsonRootNode: JsonRootNode) {
     super(States.Start);
-    this.componentMaterials = ComponentsLoader.get()
+
+    const isRoot = jsonRootNode.type === "root";
+    invariant(
+      isRoot,
+      `The type of jsonRootNode should be 'root', but got ${jsonRootNode.type}`
+    );
+
+    const maybePageType = jsonRootNode.children[0].type;
+    const isPage = maybePageType === "page";
+    invariant(
+      isPage,
+      `The type of jsonPageNode should be 'page', but got ${maybePageType}`
+    );
+
+    this.root = Node.fromJson(jsonRootNode);
+
+    this.componentMaterials = MetaConfigsLoader.get()
       .getNames()
-      .map((name) => Node.fromName(name));
+      .map((name) => new Node(name));
 
     this.describe("添加组件", (register) => {
       let activeNode: Node;

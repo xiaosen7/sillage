@@ -33,7 +33,7 @@ export class Loader<Value> {
 
     const ret = this.data.get(name);
     if (!ret) {
-      throw new Error(`${name} loaded failed.`);
+      throw new Error(`The type "${name}" is not existed.`);
     }
 
     return ret;

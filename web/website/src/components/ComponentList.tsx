@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { Editor, type Node } from "@sillage/core";
+import { ComponentsLoader } from "@sillage/loader";
 import { useEditor } from "../context";
 import { Draggable } from "./Draggable";
 
@@ -15,11 +16,13 @@ export function ComponentList(): JSX.Element {
   return (
     <section>
       {editor.getComponentMaterials().map((materialNode) => {
-        const Component = materialNode.getComponent();
+        const Component = ComponentsLoader.get().loadByName(
+          materialNode.getMaterialName()
+        );
         const props = materialNode.getPassProps();
         return (
           <Draggable
-            key={materialNode.getType()}
+            key={materialNode.getMaterialName()}
             onDragStart={() => {
               handleDragStart(materialNode);
             }}

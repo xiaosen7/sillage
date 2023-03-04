@@ -6,10 +6,13 @@ import { ComponentProp } from "./ComponentProp";
 export class ComponentProps {
   private readonly data: Map<string, ComponentProp>;
 
-  constructor(PropsConstructor: Constructable) {
+  constructor(PropsConstructor: Constructable, passProps: any = {}) {
     const data = Map<string, ComponentProp>();
-    for (const propKey of Object.keys(new PropsConstructor())) {
-      data.set(propKey, new ComponentProp(PropsConstructor, propKey));
+    for (const propName of Object.keys(PropsConstructor)) {
+      data.set(
+        propName,
+        new ComponentProp(PropsConstructor, passProps[propName])
+      );
     }
 
     this.data = data;
@@ -21,17 +24,25 @@ export class ComponentProps {
     return new ComponentProps(PropsConstructor);
   }
 
-  public getValue() {
-    const ret = {} as any;
-    for (const [key, prop] of this.data.entries()) {
-      ret[key] = prop.getValue();
+  public getPassProps() {
+    const props = {} as any;
+    for (const [propName, prop] of this.data.entries()) {
+      props[propName] = prop.get();
     }
 
-    return ret;
+    return props;
   }
 
-  public getEditorOfProp(prop: string) {
-    return this.data.get(prop)?.getEditor();
+  public setPassProps(partial: any) {
+    for (const [name, value] of Object.entries(partial)) {
+      if (this.data.has(name)) {
+        this.data.get(name)?.set(value);
+      }
+    }
+  }
+
+  public getEditorOfProp(propName: string) {
+    return this.data.get(propName)?.getEditor();
   }
 
   public getNames() {

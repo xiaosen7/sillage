@@ -3,5 +3,5 @@
   "compilerOptions": {
     "isolatedModules": false
   },
-  "include": ["scripts", "node"]
+  "include": ["scripts", "node", "tsconfig.json"]
 }

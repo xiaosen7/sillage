@@ -6,6 +6,7 @@ module.exports = {
     project: [
       "tsconfig.node.json",
       "tsconfig.web.json",
+      "tsconfig.material.json",
       "tsconfig.extraneous.json",
     ],
   },

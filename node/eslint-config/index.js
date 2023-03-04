@@ -16,7 +16,14 @@ module.exports = defineConfig({
     "plugin:unicorn/recommended",
     "prettier",
   ],
-  overrides: [],
+  overrides: [
+    {
+      files: ["materials/*/*/src/**", "materials/components/*/meta.config.ts"],
+      rules: {
+        "@typescript-eslint/prefer-nullish-coalescing": "off",
+      },
+    },
+  ],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
@@ -27,6 +34,7 @@ module.exports = defineConfig({
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-extraneous-class": "off",
+    "@typescript-eslint/consistent-type-imports": "warn",
     "import/order": [
       "error",
       {

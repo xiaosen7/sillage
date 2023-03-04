@@ -1,7 +1,19 @@
 import { createContext, useContext } from "react";
-import { Editor } from "@sillage/core";
+import { Editor, type JsonRootNode } from "@sillage/core";
 
-export const EditorContext = createContext(new Editor());
+const defaultNodeJson: JsonRootNode = {
+  passProps: {},
+  type: "root",
+  children: [
+    {
+      type: "page",
+      passProps: {},
+      children: [],
+    },
+  ],
+};
+
+export const EditorContext = createContext(new Editor(defaultNodeJson));
 
 export function useEditor() {
   return useContext(EditorContext);

@@ -1,55 +1,56 @@
-import { ComponentsLoader, PropsLoader } from "@sillage/loader";
+import { PropsLoader } from "@sillage/loader";
+import { Set } from "immutable";
+import { type JsonNode } from "../types";
 import { ComponentProps } from "./ComponentProps";
-import type { ComponentType } from "react";
-import type { Constructable } from "@sillage/type-utils";
 
 export class Node {
-  private readonly props: ComponentProps;
-  private readonly PropsConstructor: Constructable;
+  private readonly materialName: string;
+  private readonly componentProps: ComponentProps;
 
-  private readonly Component: ComponentType<any>;
-  private readonly type: string;
+  children: Set<Node>;
 
-  constructor(Component: ComponentType, PropsConstructor: Constructable) {
-    if (!Component.name) {
-      throw new Error("Component should have name");
+  constructor(materialName: string) {
+    this.materialName = materialName;
+
+    const PropsConstructor = PropsLoader.get().loadByName(materialName);
+    this.componentProps = new ComponentProps(PropsConstructor);
+
+    this.children = Set();
+  }
+
+  static fromJson(jsonNode: JsonNode) {
+    const { passProps, children, type } = jsonNode;
+    const node = new Node(type);
+    node.setPassProps(passProps);
+    for (const childJsonNode of children) {
+      const child = Node.fromJson(childJsonNode);
+      node.addChild(child);
     }
 
-    this.type = Component.name;
-    this.Component = Component;
-    this.PropsConstructor = PropsConstructor;
-    this.props = new ComponentProps(PropsConstructor);
-  }
-
-  getType() {
-    return this.type;
-  }
-
-  static fromName(name: string) {
-    const Component = ComponentsLoader.get().loadByName(name);
-    const Props = PropsLoader.get().loadByName(name);
-    return new Node(Component, Props);
-  }
-
-  getPassProps() {
-    return this.props.getValue();
+    return node;
   }
 
   getComponentProps() {
-    return this.props;
+    return this.componentProps;
   }
 
-  getComponent() {
-    return this.Component;
+  getPassProps() {
+    return this.componentProps.getPassProps();
+  }
+
+  setPassProps(partial: any) {
+    this.componentProps.setPassProps(partial);
   }
 
   clone() {
-    return new Node(this.Component, this.PropsConstructor);
+    return new Node(this.materialName);
   }
 
-  //   toJson(): NodeDataJson {
-  //     return {
-  //       passProps: this.getComponentProps().getValue(),
-  //     };
-  //   }
+  addChild(node: Node) {
+    this.children.add(node);
+  }
+
+  getMaterialName() {
+    return this.materialName;
+  }
 }
