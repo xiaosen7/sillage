@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "dist",
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -16,7 +17,10 @@
     "isolatedModules": true,
     "composite": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@sillage/*": ["web/*/src/index", "extraneous/*/src/index"]
+    }
   },
   "exclude": ["**/assets"]
 }

@@ -17,10 +17,18 @@ module.exports = defineConfig({
     "prettier",
   ],
   overrides: [
+    // material
     {
       files: ["materials/*/*/src/**", "materials/components/*/meta.config.ts"],
       rules: {
         "@typescript-eslint/prefer-nullish-coalescing": "off",
+      },
+    },
+    // tests
+    {
+      files: ["**/*.test.*"],
+      rules: {
+        "unicorn/consistent-function-scoping": "off",
       },
     },
   ],
@@ -30,13 +38,15 @@ module.exports = defineConfig({
   },
   plugins: ["react", "jsx-a11y"],
   rules: {
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-non-null-assertion": "warn",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-extraneous-class": "off",
     "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/no-confusing-void-expression": "off",
     "import/order": [
-      "error",
+      "warn",
       {
         groups: [
           "builtin",
@@ -141,6 +151,7 @@ module.exports = defineConfig({
     "unicorn/no-null": "off",
     "unicorn/prefer-module": "warn",
     "unicorn/prefer-top-level-await": "off",
+    "unicorn/no-array-reduce": "off",
   },
   settings: {
     react: {

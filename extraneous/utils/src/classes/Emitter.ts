@@ -4,7 +4,7 @@ type ObserverFunction = (data: any) => void;
 export class Emitter<Topic extends keyof any> {
   private readonly observers = new Map<Topic, Set<ObserverFunction>>();
 
-  public on(topic: Topic | Topic[]): any {
+  public on(topic: Topic | Topic[]) {
     return new Observable((subscriber) => {
       if (Array.isArray(topic)) {
         for (const t of topic) {

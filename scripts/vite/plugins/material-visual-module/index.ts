@@ -6,22 +6,27 @@ import { materialProps } from "./materialProps";
 
 export function MaterialVisualModule(): Plugin {
   const m = {
-    "virtual:material-components": materialComponents,
-    "virtual:material-props": materialProps,
-    "virtual:material-meta-configs": materialMetaConfigs,
+    "virtual:material-components": null,
+    "virtual:material-props": null,
+    "virtual:material-meta-configs": null,
+  };
+  const n = {
+    "\0virtual:material-components": materialComponents,
+    "\0virtual:material-props": materialProps,
+    "\0virtual:material-meta-configs": materialMetaConfigs,
   };
 
   return {
     name: "material-visual-module", // required, will show up in warnings and errors
     resolveId(id) {
       if (id in m) {
-        return id;
+        return "\0" + id;
       }
     },
     load(id) {
-      const module = id as keyof typeof m;
-      if (module in m) {
-        return m[module](componentsRoot);
+      if (id in n) {
+        // @ts-expect-error it's ok
+        return n[id](componentsRoot);
       }
     },
   };

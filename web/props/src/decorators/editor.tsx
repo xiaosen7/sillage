@@ -1,4 +1,5 @@
 import { type EditorComponentType } from "@sillage/core";
+import { withMark } from "./mark";
 import type { FunctionComponent } from "react";
 
 /**
@@ -16,11 +17,9 @@ export function editor<T extends FunctionComponent<any>>(
     },
   };
 
-  return (target: object, key: string) => {
-    // @ts-expect-error it's ok
-    target.constructor[key] = undefined;
-    Reflect.metadata(editor.name, dummy[PropEditorComponent.name])(target, key);
-  };
+  return withMark(
+    Reflect.metadata(editor.name, dummy[PropEditorComponent.name])
+  );
 }
 
 /**
@@ -32,7 +31,7 @@ export function editor<T extends FunctionComponent<any>>(
 export function getEditor(
   PropsConstructorOrInstance: any,
   propertyKey: string
-): EditorComponentType {
+): EditorComponentType | undefined {
   let inst = PropsConstructorOrInstance;
   if (typeof PropsConstructorOrInstance === "function") {
     inst = new PropsConstructorOrInstance();

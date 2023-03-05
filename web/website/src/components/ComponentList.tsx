@@ -1,36 +1,37 @@
-import { useCallback } from "react";
-import { Editor, type Node } from "@sillage/core";
-import { ComponentsLoader } from "@sillage/loader";
-import { useEditor } from "../context";
-import { Draggable } from "./Draggable";
+import { useMemo } from "react";
+import { type Material, Materials, Node, useUIContext } from "@sillage/core";
+import { Draggable, RenderComponent, Wrapped } from "@sillage/core";
+import styles from "./componentList.module.scss";
+
+function RenderMaterial({ material }: { material: Material }) {
+  const node = useMemo(() => Node.fromMaterial(material), [material]);
+  return (
+    <Draggable node={node}>
+      <Wrapped node={node}>
+        <RenderComponent node={node} />
+      </Wrapped>
+    </Draggable>
+  );
+}
 
 export function ComponentList(): JSX.Element {
-  const editor = useEditor();
-  const handleDragStart = useCallback(
-    (materialNode: Node) => {
-      editor.dispatch(Editor.Actions.EvtStartDragAdd, materialNode);
-    },
-    [editor]
-  );
-
+  const ui = useUIContext();
   return (
-    <section>
-      {editor.getComponentMaterials().map((materialNode) => {
-        const Component = ComponentsLoader.get().loadByName(
-          materialNode.getMaterialName()
-        );
-        const props = materialNode.getPassProps();
+    <ul className={styles["component-list"]}>
+      {Materials.get().map((material, name) => {
+        if (material.isInternal()) {
+          return null;
+        }
+
         return (
-          <Draggable
-            key={materialNode.getMaterialName()}
-            onDragStart={() => {
-              handleDragStart(materialNode);
-            }}
+          <li
+            key={name}
+            className={`${styles["component-list__item"]} shadow self-stretch justify-self-stretch`}
           >
-            <Component key={Component.name} {...props} />
-          </Draggable>
+            <RenderMaterial material={material} />
+          </li>
         );
       })}
-    </section>
+    </ul>
   );
 }

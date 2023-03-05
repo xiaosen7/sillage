@@ -1,3 +1,5 @@
+import { withMark } from "./mark";
+
 const metadataKey = "initialValue";
 
 /**
@@ -6,7 +8,7 @@ const metadataKey = "initialValue";
  * @returns
  */
 export function initialValue(value: any): any {
-  return Reflect.metadata(metadataKey, value);
+  return withMark(Reflect.metadata(metadataKey, value));
 }
 
 /**

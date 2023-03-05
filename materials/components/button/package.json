@@ -1,17 +1,17 @@
 {
   "name": "@sillage-material-components/button",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "src/index.ts",
   "dependencies": {
-    "@sillage-material-prop-editors/select": "workspace:^1.0.0",
-    "@sillage/meta": "workspace:^1.0.0",
-    "@sillage/props": "workspace:^1.0.0",
+    "@sillage/meta": "workspace:*",
+    "@sillage/props": "workspace:*",
+    "antd": "^5.2.3",
     "react": "^18.2.0",
+    "react-awesome-button": "^7.0.5",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
-    "react-awesome-button": "^7.0.5"
+    "@types/react-dom": "^18.0.10"
   }
 }

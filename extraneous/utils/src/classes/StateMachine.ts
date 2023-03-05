@@ -1,11 +1,14 @@
+import { Emitter } from "./Emitter";
+
 type StateTransferFunction = (...args: any[]) => void;
 
 const AUTO_ACTION = "<auto>";
 
 export class StateMachine<
   S extends string | number,
-  A extends string | number
-> {
+  A extends string | number,
+  T extends string | number = any
+> extends Emitter<T> {
   private state: S;
 
   // S -> A -> S
@@ -15,6 +18,7 @@ export class StateMachine<
   >;
 
   constructor(initialState: S) {
+    super();
     this.state = initialState;
     this.transferTable = new Map();
   }
@@ -58,6 +62,8 @@ export class StateMachine<
     }
 
     const [fn, nextS] = transfer;
+    this.printAction(this.state, nextS, action, args);
+
     if (typeof fn === "function") {
       fn(...args);
     }
@@ -75,5 +81,9 @@ export class StateMachine<
 
   describe(title: string, cb: (register: typeof this.register) => void) {
     cb(this.register.bind(this));
+  }
+
+  protected printAction(currentState: S, nextState: S, action: A, args: any[]) {
+    // console.log("Action:", action, "Args:", args);
   }
 }

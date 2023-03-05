@@ -1,1 +1,9 @@
-export class Props {}
+import { editor, initialValue } from "@sillage/props";
+
+const supportedTypes = ["primary", "secondary", "anchor", "danger"] as const;
+
+export class Props {
+  @initialValue("secondary")
+  @editor(Select, { options: supportedTypes })
+  type: string;
+}

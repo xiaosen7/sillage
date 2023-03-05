@@ -1,0 +1,59 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Node > children 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "id": "buttonId",
+      "isContainer": false,
+      "name": "button",
+      "passProps": {},
+      "position": [
+        0,
+        0,
+      ],
+    },
+  ],
+  "id": "rectId",
+  "isContainer": true,
+  "name": "rect",
+  "passProps": {
+    "height": 844,
+    "width": 390,
+  },
+  "position": [
+    0,
+    0,
+  ],
+}
+`;
+
+exports[`Node > children 2`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "id": "buttonId",
+      "isContainer": false,
+      "name": "button",
+      "passProps": {},
+      "position": [
+        30,
+        30,
+      ],
+    },
+  ],
+  "id": "rectId",
+  "isContainer": true,
+  "name": "rect",
+  "passProps": {
+    "height": 844,
+    "width": 390,
+  },
+  "position": [
+    0,
+    0,
+  ],
+}
+`;

@@ -1,24 +1,25 @@
-import { type PropsWithPropValue } from "@sillage/props";
+import { type EditorProps } from "@sillage/props";
 import { type ComponentType } from "react";
 
 export interface JsonNode {
   passProps: any;
-  type: string;
+  name: string;
   children: JsonNode[];
+  position: [number, number];
+  isContainer: boolean;
+  id: string;
 }
 
-export interface JsonPageNode {
-  passProps: any;
-  type: "page";
-  children: JsonNode[];
+export interface JsonRootNode extends JsonNode {
+  name: "root";
+  position: [0, 0];
+  isContainer: true;
 }
 
-export interface JsonRootNode {
-  passProps: any;
-  type: "root";
-  children: [JsonPageNode];
-}
+// export interface JsonRootNode {
+//   passProps: any;
+//   type: "root";
+//   children: [JsonPageNode];
+// }
 
-export type EditorComponentType<Props = any> = ComponentType<
-  PropsWithPropValue<Props>
->;
+export type EditorComponentType = ComponentType<EditorProps>;

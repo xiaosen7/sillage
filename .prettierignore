@@ -33,3 +33,4 @@ dist-ssr
 _template
 .prettierignore
 *.hbs
+*.snap

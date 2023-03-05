@@ -1,8 +1,9 @@
 import type { Bridge } from "@sillage/core";
 
-export type PropsWithPropValue<T> = {
-  propValue: any;
-} & T;
+export interface EditorProps {
+  value: any;
+  onChange: (value: any) => void;
+}
 
 export type PropsWithBridge<T> = {
   bridge: Bridge;

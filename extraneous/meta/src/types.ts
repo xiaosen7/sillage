@@ -51,13 +51,9 @@ export interface ComponentMetaConfig {
   // 组件名称
   name: string;
 
-  // 标题
-  title: string;
+  internal: boolean;
 
-  // 盒子模型
-  box: BoxDescriptorInput;
-
-  internal?: boolean;
+  isContainer: boolean;
 }
 
 export interface BasicJsonNode {

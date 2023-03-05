@@ -3,20 +3,21 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@sillage/core": "workspace:^0.0.0",
-    "@sillage/loader": "workspace:^1.0.0",
-    "@sillage/meta": "workspace:^1.0.0",
-    "@sillage/props": "workspace:^1.0.0",
-    "@sillage/utils": "workspace:^1.0.0",
+    "@sillage/core": "workspace:*",
+    "@sillage/meta": "workspace:*",
+    "@sillage/props": "workspace:*",
+    "@sillage/utils": "workspace:*",
     "@unocss/reset": "^0.50.3",
     "classnames": "^2.3.2",
     "immutable": "^4.2.4",
+    "invariant": "^2.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rxjs": "^7.8.0",
     "unocss": "^0.50.3"
   },
   "devDependencies": {
+    "@types/invariant": "^2.2.35",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10"
   }

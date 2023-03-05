@@ -5,7 +5,9 @@
 type ExportsType<T> = Record<string, T>;
 
 declare module "virtual:material-components" {
-  const ret: ExportsType<import("react").ComponentType>;
+  const ret: ExportsType<
+    import("@sillage/props").PropsWithBridge<import("react").ComponentTypeType>
+  >;
 
   export = ret;
 }

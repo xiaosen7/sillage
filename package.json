@@ -1,6 +1,6 @@
 {
   "name": "@sillage/monorepo",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "scripts": {
     "dev": "tsx scripts/vite/startViteServer",
     "preinstall": "npx only-allow pnpm",
@@ -14,9 +14,9 @@
     "pre-commit": "pnpm typecheck && pnpm test-run && pnpm lint-staged"
   },
   "devDependencies": {
-    "@sillage/eslint-config": "workspace:^0.0.0",
-    "@sillage/scripts": "workspace:^0.0.0",
-    "@sillage/stylelint-config": "workspace:^0.0.0",
+    "@sillage/eslint-config": "workspace:*",
+    "@sillage/scripts": "workspace:*",
+    "@sillage/stylelint-config": "workspace:*",
     "eslint": "^8.34.0",
     "lint-staged": "^13.1.2",
     "plop": "^3.1.2",
