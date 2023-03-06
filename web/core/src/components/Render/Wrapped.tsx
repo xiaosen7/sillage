@@ -30,13 +30,11 @@ export function Wrapped({
 
   console.log({ outerWrapperProps, innerWrapperProps });
   return (
-    <div {...outerWrapperProps}>
-      <div ref={mountPoint} {...innerWrapperProps}>
-        {React.cloneElement(children, {
-          ...children.props,
-          ...innerWrapperProps,
-        })}
-      </div>
+    <div ref={mountPoint} {...innerWrapperProps}>
+      {React.cloneElement(children, {
+        ...children.props,
+        ...innerWrapperProps,
+      })}
     </div>
   );
 }

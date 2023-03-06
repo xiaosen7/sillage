@@ -25,6 +25,4 @@ vt.test("Map", () => {
   });
 
   map = map.set("position", List([30, 30]));
-
-  console.log(map.toJS());
 });

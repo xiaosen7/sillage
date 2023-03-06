@@ -2,8 +2,9 @@
   "name": "@sillage-material-components/rect",
   "version": "0.0.0",
   "main": "src/index.ts",
+  "type": "module",
   "dependencies": {
-    "@sillage/meta": "workspace:*",
+    "@sillage/meta": "workspace:^0.0.0",
     "@sillage/props": "workspace:*",
     "antd": "^5.2.3",
     "react": "^18.2.0",

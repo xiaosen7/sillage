@@ -14,8 +14,15 @@ runAsyncFunction(async () => {
     server: {
       port: 8080,
     },
+    build: {
+      rollupOptions: {
+        output: {
+          format: "esm",
+        },
+      },
+    },
   });
-  await server.listen();
 
+  await server.listen();
   server.printUrls();
 });

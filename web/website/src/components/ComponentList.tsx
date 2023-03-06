@@ -15,7 +15,6 @@ function RenderMaterial({ material }: { material: Material }) {
 }
 
 export function ComponentList(): JSX.Element {
-  const ui = useUIContext();
   return (
     <ul className={styles["component-list"]}>
       {Materials.get().map((material, name) => {
@@ -28,7 +27,10 @@ export function ComponentList(): JSX.Element {
             key={name}
             className={`${styles["component-list__item"]} shadow self-stretch justify-self-stretch`}
           >
-            <RenderMaterial material={material} />
+            <header>
+              <RenderMaterial material={material} />
+            </header>
+            <footer>{name}</footer>
           </li>
         );
       })}

@@ -1,5 +1,5 @@
-import { type ComponentMetaConfig } from "@sillage/meta";
-import { type PropsWithBridge, getInitialValue } from "@sillage/props";
+import { type ComponentMetaConfig } from "@sillage/core";
+import { type MaterialComponentProps, getInitialValue } from "@sillage/props";
 import { type Constructable } from "@sillage/type-utils";
 import * as components from "virtual:material-components";
 import * as metaConfigs from "virtual:material-meta-configs";
@@ -13,12 +13,11 @@ export class Material {
 
   constructor(
     public readonly name: string,
-    public readonly Component: PropsWithBridge<React.ComponentType<any>>,
+    public readonly Component: MaterialComponentProps<React.ComponentType<any>>,
     public readonly Props: Constructable,
     public readonly metaConfig: ComponentMetaConfig
   ) {
     const initialProps = {} as any;
-    console.log(name);
     for (const prop of Object.keys(Props)) {
       initialProps[prop] = getInitialValue(Props, prop);
     }
@@ -27,7 +26,11 @@ export class Material {
   }
 
   isInternal() {
-    return this.metaConfig.internal;
+    return this.metaConfig.isInternal;
+  }
+
+  getPropNames() {
+    return Object.keys(this.Props);
   }
 }
 

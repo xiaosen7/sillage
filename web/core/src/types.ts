@@ -1,26 +1,8 @@
-import { type EditorProps } from "@sillage/props";
-import { type CSSProperties, type ComponentType } from "react";
+import { Bridge } from "./models";
+import type { ComponentType } from "react";
 
-export interface JsonNode {
-  id: string;
-  name: string;
-  children: JsonNode[];
-  passProps: any;
-  position: [number, number];
-  isContainer: boolean;
-  style: CSSProperties;
-}
-
-export interface JsonRootNode extends JsonNode {
-  name: "root";
-  position: [0, 0];
-  isContainer: true;
-}
-
-// export interface JsonRootNode {
-//   passProps: any;
-//   type: "root";
-//   children: [JsonPageNode];
-// }
-
-export type EditorComponentType = ComponentType<EditorProps>;
+export * from "@sillage/meta";
+export type EditorComponentType<T = any> = ComponentType<{
+  onChange: (value: T) => void;
+  value: T;
+}>;

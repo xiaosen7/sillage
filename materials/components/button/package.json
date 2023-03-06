@@ -2,11 +2,12 @@
   "name": "@sillage-material-components/button",
   "version": "0.0.0",
   "main": "src/index.ts",
+  "type": "module",
   "dependencies": {
     "@primer/octicons-react": "^18.0.0",
     "@sillage-material-prop-editors/icon": "workspace:^0.0.0",
     "@sillage-material-prop-editors/input-text": "workspace:^0.0.0",
-    "@sillage/meta": "workspace:*",
+    "@sillage/meta": "workspace:^0.0.0",
     "@sillage/props": "workspace:*",
     "antd": "^5.2.3",
     "react": "^18.2.0",

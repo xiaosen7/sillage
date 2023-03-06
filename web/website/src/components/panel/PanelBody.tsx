@@ -35,13 +35,21 @@ export function PanelBody({
   const handleMouseUp = useCallback(
     (e: MouseEvent<any>) => {
       ui.dispatch(UIModel.Actions.StopScrollPanel, [e.clientX, e.clientY]);
+      ui.setActiveNode(null);
+    },
+    [ui]
+  );
+
+  const handleMouseLeave = useCallback(
+    (e: MouseEvent<any>) => {
+      ui.dispatch(UIModel.Actions.StopScrollPanel, [e.clientX, e.clientY]);
     },
     [ui]
   );
 
   return (
     <div
-      onMouseLeave={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
       onMouseDown={handleMouseDown}

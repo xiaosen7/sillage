@@ -10,24 +10,13 @@ const defaultJsonNode: JsonRootNode = {
   children: [
     {
       name: "rect",
-      isContainer: true,
-      children: [
-        // {
-        //   name: "button",
-        //   isContainer: true,
-        //   children: [],
-        //   passProps: {},
-        //   id: "button",
-        //   position: [50, 50],
-        // },
-      ],
+      isContainer: false,
+      children: [],
       passProps: {
-        width: 100,
-        height: 100,
+        style: { width: "100px", height: "100px" },
       },
       id: "rect",
       position: [0, 0],
-      style: {},
     },
   ],
   isContainer: true,
@@ -39,13 +28,14 @@ const defaultJsonNode: JsonRootNode = {
   },
   position: [0, 0],
   id: "root",
-  style: {},
+  layoutType: "free",
 };
 
 function App(): JSX.Element {
   const uiRef = useRef<UIModel>();
   if (!uiRef.current) {
-    const saved = localStorage.getItem("json");
+    // const saved = localStorage.getItem("json");
+    const saved = null;
     uiRef.current = new UIModel(
       saved ? (JSON.parse(saved) as JsonRootNode) : defaultJsonNode
     );

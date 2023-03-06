@@ -1,7 +1,8 @@
 import { defineConfig } from "@sillage/meta";
 
 export default defineConfig({
-  name: "rect",
-  internal: false,
+  name: "layout-column",
   isContainer: true,
+  isInternal: false,
+  layoutType: "column",
 });

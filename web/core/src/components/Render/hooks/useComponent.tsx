@@ -8,7 +8,12 @@ export function useComponent(node: Node) {
 
   useSubscribe(
     node,
-    [Node.Topic.PropsUpdate, Node.Topic.ChildChange, Node.Topic.PropUpdate],
+    [
+      Node.Topic.PropsUpdate,
+      Node.Topic.ChildChange,
+      Node.Topic.PropUpdate,
+      Node.Topic.StylePropertyChange,
+    ],
     () => {
       setVer();
     }

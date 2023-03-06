@@ -11,7 +11,7 @@ export async function genByName(root: string, exportName: string) {
       ([folder, metaConfig]) =>
         `import { ${exportName} as ${toExportName(
           metaConfig.name
-        )} } from "${join(folder, "src/index.ts")}";`
+        )} } from "${join(folder, "src")}";`
     )
     .join("\n");
   const exports = `export {\n    ${entries

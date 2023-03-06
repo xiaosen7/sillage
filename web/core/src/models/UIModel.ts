@@ -51,10 +51,6 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
     const root = new Node(jsonRootNode);
     this.root = root;
 
-    if (import.meta.env.DEV) {
-      defineProperty(window, "root", root);
-    }
-
     this.describe("scroll panel", (register) => {
       let startX = 0;
       let startY = 0;
@@ -201,14 +197,12 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
     action: Actions,
     args: any[]
   ): void {
-    if (import.meta.env.DEV) {
-      console.log("Dispatch", {
-        currentState: States[currentState],
-        nextState: States[nextState],
-        action: Actions[action],
-        args,
-      });
-    }
+    console.log("Dispatch", {
+      currentState: States[currentState],
+      nextState: States[nextState],
+      action: Actions[action],
+      args,
+    });
   }
 }
 

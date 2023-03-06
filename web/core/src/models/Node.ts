@@ -1,14 +1,15 @@
 import { Map, Set, is } from "immutable";
 import { Emitter, genId } from "@sillage/utils";
 import { type CSSProperties } from "react";
-import { type JsonNode } from "../types";
+import { type JsonNode, type LayoutType } from "../types";
 import { type Material } from "./Materials";
 
 enum Topic {
   PropsUpdate,
-  ChildChange,
   PropUpdate,
+  ChildChange,
   PositionUpdate,
+  StylePropertyChange,
 }
 
 const PassProps = "passProps";
@@ -18,6 +19,7 @@ const Position = "position";
 const Children = "children";
 const Id = "id";
 const Style = "style";
+const LayoutTypeKey = "layoutType";
 
 const Parent = "_parent";
 
@@ -48,17 +50,20 @@ export class Node extends Emitter<Topic> {
     const { metaConfig, name } = m;
     const { initialProps } = m;
 
-    const jsonNode: JsonNode = {
-      children: [],
-      isContainer: metaConfig.isContainer,
+    const isContainer = !!metaConfig.isContainer;
+
+    const jsonNode = {
+      children: [] as JsonNode[],
+      isContainer,
       name,
       position: [0, 0],
       passProps: initialProps,
       id: genId(),
       style: {},
+      layoutType: isContainer ? metaConfig.layoutType ?? "free" : undefined,
     };
 
-    return new Node(jsonNode);
+    return new Node(jsonNode as any as JsonNode);
   }
 
   getId(): string {
@@ -164,11 +169,23 @@ export class Node extends Emitter<Topic> {
   // /////////////////////////////////////////////////////////////////////////////
 
   // /////////////////////////////////////////////////////////////////////////////
+
+  // /////////////////////////////////////////////////////////////////////////////
   // #region style
   // /////////////////////////////////////////////////////////////////////////////
 
   getStyle(): CSSProperties {
-    return this.data.get(Style);
+    return this.data.getIn([PassProps, Style]) as CSSProperties;
+  }
+
+  setStyleProperty(property: keyof CSSProperties, value: string | number) {
+    console.log("setStyleProperty", property, value);
+    this.data = this.data.setIn([PassProps, Style, property], value);
+    this.emit(Topic.StylePropertyChange, property);
+  }
+
+  getStyleProperty(property: keyof CSSProperties): number | string {
+    return this.data.getIn([PassProps, Style, property]) as number | string;
   }
 
   // /////////////////////////////////////////////////////////////////////////////
@@ -179,13 +196,21 @@ export class Node extends Emitter<Topic> {
     return this.data.get(Name);
   }
 
+  // /////////////////////////////////////////////////////////////////////////////
+  // #region container property
+  // /////////////////////////////////////////////////////////////////////////////
+
   isContainer(): boolean {
     return this.data.get(IsContainer);
   }
 
-  setContainer(isContainer: boolean) {
-    this.data = this.data.set(IsContainer, isContainer);
+  getLayoutType(): LayoutType {
+    return this.data.get(LayoutTypeKey);
   }
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // #endregion
+  // /////////////////////////////////////////////////////////////////////////////
 
   getPosition(): [number, number] {
     return this.data.get(Position);

@@ -5,7 +5,7 @@ import { Node } from "../Node";
 vt.describe("Node", () => {
   const json: JsonNode = {
     children: [],
-    isContainer: true,
+    isContainer: false,
     name: "rect",
     passProps: {
       width: 390,
@@ -13,7 +13,6 @@ vt.describe("Node", () => {
     },
     position: [0, 0],
     id: "rectId",
-    style: {},
   };
 
   vt.test("position", () => {
@@ -50,7 +49,6 @@ vt.describe("Node", () => {
       passProps: {},
       position: [0, 0],
       id: "buttonId",
-      style: {},
     });
 
     node.linkChild(child);
@@ -74,7 +72,7 @@ vt.describe("Node", () => {
       children: [
         {
           name: "rect",
-          isContainer: true,
+          isContainer: false,
           children: [],
           passProps: {
             width: 100,
@@ -82,7 +80,6 @@ vt.describe("Node", () => {
           },
           id: "rect",
           position: [0, 0],
-          style: {},
         },
       ],
       isContainer: true,
@@ -94,7 +91,7 @@ vt.describe("Node", () => {
       },
       position: [0, 0],
       id: "root",
-      style: {},
+      layoutType: "free",
     };
 
     const root = new Node(defaultJsonNode);

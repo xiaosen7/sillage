@@ -10,7 +10,20 @@
 
 .component-list__item {
   display: flex;
-  padding: 1em;
-  place-content: center;
-  place-items: center;
+  flex-direction: column;
+  padding: 0.5em;
+
+  header {
+    display: flex;
+    flex: 1;
+    place-content: center;
+    place-items: center;
+  }
+
+  footer {
+    flex: 0;
+    color: gray;
+    font-size: 0.7em;
+    text-align: center;
+  }
 }

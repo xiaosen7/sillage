@@ -2,6 +2,6 @@ import { defineConfig } from "@sillage/meta";
 
 export default defineConfig({
   name: "button",
-  internal: false,
+  isInternal: false,
   isContainer: false,
 });

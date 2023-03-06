@@ -1,7 +1,8 @@
 import { defineConfig } from "@sillage/meta";
 
 export default defineConfig({
-  name: "input-text",
-  internal: false,
-  isContainer: false,
+  name: "root",
+  isInternal: true,
+  isContainer: true,
+  layoutType: "free",
 });

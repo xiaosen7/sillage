@@ -1,7 +1,5 @@
-import { defineConfig } from "@sillage/meta";
-
-export default defineConfig({
+export default {
   name: "input-text",
   internal: false,
   isContainer: false,
-});
+};

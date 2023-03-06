@@ -1,10 +1,10 @@
-import { type PropsWithBridge } from "@sillage/props";
+import { type MaterialComponentProps } from "@sillage/props";
 import { type Props } from "./props";
 
-export function Rect(props: PropsWithBridge<Props>) {
-  const { width, height, bridge } = props;
+export function Rect(props: MaterialComponentProps<Props>) {
+  const { bridge, style } = props;
   return (
-    <div style={{ width, height, border: "1px solid black" }}>
+    <div style={{ border: "1px solid gray", width: 50, height: 50, ...style }}>
       {bridge.renderChildren()}
     </div>
   );

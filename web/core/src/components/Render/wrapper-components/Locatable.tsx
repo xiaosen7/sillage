@@ -12,17 +12,25 @@ export function Locatable({ children, node, ...props }: WrapperComponentProps) {
     setVer();
   });
 
-  const innerWrapperProps = mergeProps(props.innerWrapperProps, {
-    style: { position: "absolute", left, top },
-  });
+  // according to parent node layoutType, we set different value
 
-  const outerWrapperProps = mergeProps(props.outerWrapperProps, {
-    style: { position: "relative" },
-  });
+  const parentNode = node.getParent();
+  const innerWrapperProps = mergeProps(
+    props.innerWrapperProps,
+    parentNode.getLayoutType() === "free"
+      ? {
+          style: { position: "absolute", left, top },
+        }
+      : {}
+  );
+
+  // const outerWrapperProps = mergeProps(props.outerWrapperProps, {
+  //   style: { position: "relative" },
+  // });
 
   const newProps = {
     innerWrapperProps,
-    outerWrapperProps,
+    // outerWrapperProps,
   };
 
   return React.cloneElement(children, {

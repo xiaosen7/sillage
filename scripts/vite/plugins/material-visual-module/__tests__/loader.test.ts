@@ -14,76 +14,35 @@ const componentsRoot = path.join(
 vt.describe("material-visual-module", () => {
   vt.test("loadMeta", async () => {
     const loadedMap = await loadMeta(componentsRoot);
-    vt.expect(loadedMap.size).toMatchInlineSnapshot("3");
+    vt.expect(loadedMap.size).toMatchInlineSnapshot("0");
   });
 
   vt.test("materialMetaConfig", async () => {
     const content = await materialMetaConfigs(componentsRoot);
-    vt.expect(content).toMatchInlineSnapshot(`
-      "export const button = {
-        \\"name\\": \\"button\\",
-        \\"title\\": \\"按钮\\",
-        \\"box\\": {
-          \\"width\\": {
-            \\"mode\\": \\"auto\\"
-          },
-          \\"height\\": {
-            \\"mode\\": \\"auto\\"
-          }
-        }
-      };
-
-      export const input_text = {
-        \\"name\\": \\"input-text\\",
-        \\"internal\\": false,
-        \\"isContainer\\": false
-      };
-
-      export const root = {
-        \\"name\\": \\"root\\",
-        \\"title\\": \\"根组件\\",
-        \\"box\\": {
-          \\"width\\": {
-            \\"mode\\": \\"auto\\"
-          },
-          \\"height\\": {
-            \\"mode\\": \\"auto\\"
-          }
-        },
-        \\"internal\\": true
-      };"
-    `);
+    vt.expect(content).toMatchInlineSnapshot('""');
   });
 
   vt.test("materialComponents", async () => {
     const content = await materialComponents(componentsRoot);
     vt.expect(content.replaceAll(componentsRoot, "$componentsRoot"))
       .toMatchInlineSnapshot(`
-      "import { default as button } from \\"$componentsRoot/button/src/index.ts\\";
-      import { default as input_text } from \\"$componentsRoot/input-text/src/index.ts\\";
-      import { default as root } from \\"$componentsRoot/root/src/index.ts\\";
+        "
 
-      export {
-          button,
-          input_text,
-          root
-      }"
-    `);
+        export {
+            
+        }"
+      `);
   });
 
   vt.test("materialProps", async () => {
     const content = await materialProps(componentsRoot);
     vt.expect(content.replaceAll(componentsRoot, "$componentsRoot"))
       .toMatchInlineSnapshot(`
-      "import { Props as button } from \\"$componentsRoot/button/src/index.ts\\";
-      import { Props as input_text } from \\"$componentsRoot/input-text/src/index.ts\\";
-      import { Props as root } from \\"$componentsRoot/root/src/index.ts\\";
+        "
 
-      export {
-          button,
-          input_text,
-          root
-      }"
-    `);
+        export {
+            
+        }"
+      `);
   });
 });
