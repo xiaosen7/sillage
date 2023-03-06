@@ -3,7 +3,7 @@ import { type ComponentMetaConfig } from "@sillage/meta";
 import fg from "fast-glob";
 
 export async function loadMeta(componentsRoot: string) {
-  const files = fg.sync(["*/meta.config.js"], {
+  const files = fg.sync(["*/meta.config.ts"], {
     cwd: componentsRoot,
     absolute: true,
   });
