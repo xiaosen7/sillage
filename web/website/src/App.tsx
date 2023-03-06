@@ -2,7 +2,7 @@ import classnames from "classnames";
 import { useEffect, useRef } from "react";
 import { type JsonRootNode, Render, UIContext, UIModel } from "@sillage/core";
 import { ComponentList } from "./components/ComponentList";
-import { RightTabs } from "./components/RightTabs";
+import { RightTabs } from "./components/right-tabs";
 import styles from "./app.module.scss";
 import { Panel } from "./components/panel";
 
@@ -27,6 +27,7 @@ const defaultJsonNode: JsonRootNode = {
       },
       id: "rect",
       position: [0, 0],
+      style: {},
     },
   ],
   isContainer: true,
@@ -38,6 +39,7 @@ const defaultJsonNode: JsonRootNode = {
   },
   position: [0, 0],
   id: "root",
+  style: {},
 };
 
 function App(): JSX.Element {

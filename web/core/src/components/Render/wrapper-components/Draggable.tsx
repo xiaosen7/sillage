@@ -15,9 +15,14 @@ export function Draggable({ node, children, ...props }: WrapperComponentProps) {
     [node, ui]
   );
 
+  const onDragEnd = useCallback(() => {
+    ui.dispatch(UIModel.Actions.DragEnd);
+  }, [ui]);
+
   const innerWrapperProps = mergeProps(props.innerWrapperProps, {
     draggable: true,
     onDragStart,
+    onDragEnd,
   });
 
   return React.cloneElement(children, {

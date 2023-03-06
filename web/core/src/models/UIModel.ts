@@ -15,7 +15,7 @@ enum States {
   // states of drag node
   StartedDragNode,
   DraggingOnContainer,
-  DragEnded,
+  Dropped,
 }
 
 enum Actions {
@@ -27,6 +27,7 @@ enum Actions {
   // Actions of drag node
   StartDragNode,
   DragOnContainer,
+  Drop,
   DragEnd,
 }
 
@@ -125,8 +126,8 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
 
       register(
         States.DraggingOnContainer,
-        States.DragEnded,
-        Actions.DragEnd,
+        States.Dropped,
+        Actions.Drop,
         (container: Node, endXY: [number, number]) => {
           if (!source) {
             return;
@@ -136,9 +137,11 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
             source.setPosition(
               calcPosition(container.getParent(), target, startXY, endXY)
             );
+            this.setActiveNode(source);
           } else if (container.hasChild(source)) {
             // update position only
             source.setPosition(calcPosition(container, target, startXY, endXY));
+            this.setActiveNode(source);
           } else {
             if (source.getParent()) {
               // move to this container
@@ -147,6 +150,7 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
               source.setPosition(
                 calcPosition(container, target, startXY, endXY)
               );
+              this.setActiveNode(source);
             } else {
               // create a new node
               const cloned = source.clone();
@@ -154,12 +158,19 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
                 calcPosition(container, target, startXY, endXY)
               );
               container.linkChild(cloned);
+              this.setActiveNode(cloned);
             }
           }
         }
       );
 
-      register(States.DragEnded, States.Start, "<auto>");
+      register(
+        [States.StartedDragNode, States.DraggingOnContainer, States.Dropped],
+        States.Start,
+        Actions.DragEnd
+      );
+
+      // register(States.Dropped, States.Start, "<auto>");
     });
   }
 

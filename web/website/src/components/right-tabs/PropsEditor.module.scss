@@ -1,16 +1,9 @@
-.component-list {
+.props-editor__list {
   display: grid;
   padding: 1em;
   grid-gap: 1em;
   grid-template-columns: [c1] 100px [c2] 100px;
   grid-template-rows: [r1] 100px [r2] 100px;
   place-content: space-evenly;
-  place-items: center;
-}
-
-.component-list__item {
-  display: flex;
-  padding: 1em;
-  place-content: center;
   place-items: center;
 }

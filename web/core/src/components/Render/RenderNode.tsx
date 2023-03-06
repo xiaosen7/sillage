@@ -11,25 +11,21 @@ import { RenderComponent } from "./RenderComponent";
 export function RenderNode({ node }: { node: Node }) {
   return (
     <Selectable node={node}>
-      <Locatable node={node}>
-        <Draggable node={node}>
-          {node.isContainer() ? (
-            <Droppable node={node}>
-              <Wrapped
-                node={node}
-                innerWrapperProps={{}}
-                outerWrapperProps={{}}
-              >
-                <RenderComponent node={node} />
-              </Wrapped>
-            </Droppable>
-          ) : (
+      {/* <Locatable node={node}> */}
+      <Draggable node={node}>
+        {node.isContainer() ? (
+          <Droppable node={node}>
             <Wrapped node={node} innerWrapperProps={{}} outerWrapperProps={{}}>
               <RenderComponent node={node} />
             </Wrapped>
-          )}
-        </Draggable>
-      </Locatable>
+          </Droppable>
+        ) : (
+          <Wrapped node={node} innerWrapperProps={{}} outerWrapperProps={{}}>
+            <RenderComponent node={node} />
+          </Wrapped>
+        )}
+      </Draggable>
+      {/* </Locatable> */}
     </Selectable>
   );
 }

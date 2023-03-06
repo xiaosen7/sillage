@@ -11,7 +11,7 @@ export function Droppable({ node, children, ...props }: WrapperComponentProps) {
     (e: DragEvent) => {
       e.preventDefault();
       e.stopPropagation();
-      ui.dispatch(UIModel.Actions.DragEnd, node, [e.clientX, e.clientY]);
+      ui.dispatch(UIModel.Actions.Drop, node, [e.clientX, e.clientY]);
       setDragging(false);
     },
     [ui, node]

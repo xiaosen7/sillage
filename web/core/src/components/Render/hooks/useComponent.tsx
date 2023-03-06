@@ -6,9 +6,13 @@ import { useSubscribe } from "./useSubscribe";
 export function useComponent(node: Node) {
   const [_, setVer] = useReducer((x: number) => x + 1, 0);
 
-  useSubscribe(node, [Node.Topic.PropsUpdate, Node.Topic.ChildChange], () => {
-    setVer();
-  });
+  useSubscribe(
+    node,
+    [Node.Topic.PropsUpdate, Node.Topic.ChildChange, Node.Topic.PropUpdate],
+    () => {
+      setVer();
+    }
+  );
 
   const Component = useMemo(() => {
     let Component;

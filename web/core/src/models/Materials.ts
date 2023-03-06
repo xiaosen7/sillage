@@ -18,6 +18,7 @@ export class Material {
     public readonly metaConfig: ComponentMetaConfig
   ) {
     const initialProps = {} as any;
+    console.log(name);
     for (const prop of Object.keys(Props)) {
       initialProps[prop] = getInitialValue(Props, prop);
     }
@@ -36,11 +37,12 @@ export class Materials {
 
   private constructor() {
     const data = new Map();
-    for (const [name, metaConfig] of Object.entries(metaConfigs)) {
+    for (const [exportName, metaConfig] of Object.entries(metaConfigs)) {
+      const { name } = metaConfig;
       const material = new Material(
         name,
-        components[name],
-        props[name],
+        components[exportName],
+        props[exportName],
         metaConfig
       );
       data.set(name, material);

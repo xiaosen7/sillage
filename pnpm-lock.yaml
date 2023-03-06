@@ -50,6 +50,9 @@ importers:
 
   materials/components/button:
     specifiers:
+      "@primer/octicons-react": ^18.0.0
+      "@sillage-material-prop-editors/icon": workspace:^0.0.0
+      "@sillage-material-prop-editors/input-text": workspace:^0.0.0
       "@sillage/meta": workspace:*
       "@sillage/props": workspace:*
       "@types/react": ^18.0.27
@@ -59,11 +62,52 @@ importers:
       react-awesome-button: ^7.0.5
       react-dom: ^18.2.0
     dependencies:
+      "@primer/octicons-react": 18.0.0_react@18.2.0
+      "@sillage-material-prop-editors/icon": link:../../prop-editors/icon
+      "@sillage-material-prop-editors/input-text": link:../../prop-editors/input-text
       "@sillage/meta": link:../../../extraneous/meta
       "@sillage/props": link:../../../web/props
       antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-awesome-button: 7.0.5
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/components/input-text:
+    specifiers:
+      "@sillage-material-prop-editors/input-text": workspace:^0.0.0
+      "@sillage/meta": workspace:*
+      "@sillage/props": workspace:*
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      antd: ^5.2.3
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      "@sillage-material-prop-editors/input-text": link:../../prop-editors/input-text
+      "@sillage/meta": link:../../../extraneous/meta
+      "@sillage/props": link:../../../web/props
+      antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/components/layout-flex:
+    specifiers:
+      "@sillage/meta": workspace:*
+      "@sillage/props": workspace:*
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      "@sillage/meta": link:../../../extraneous/meta
+      "@sillage/props": link:../../../web/props
+      react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
       "@types/react": 18.0.28
@@ -102,6 +146,46 @@ importers:
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
       "@sillage/meta": link:../../../extraneous/meta
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/prop-editors/icon:
+    specifiers:
+      "@primer/octicons-react": ^18.0.0
+      "@sillage-material-components/button": workspace:^0.0.0
+      "@sillage/props": workspace:*
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      antd: ^5.2.3
+      change-case: ^4.1.2
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      "@primer/octicons-react": 18.0.0_react@18.2.0
+      "@sillage-material-components/button": link:../../components/button
+      antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
+      change-case: 4.1.2
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@sillage/props": link:../../../web/props
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/prop-editors/input-text:
+    specifiers:
+      "@sillage/props": workspace:*
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      antd: ^5.2.3
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@sillage/props": link:../../../web/props
       "@types/react": 18.0.28
       "@types/react-dom": 18.0.11
 
@@ -151,6 +235,7 @@ importers:
       "@sillage/type-utils": workspace:*
       "@types/react": ^18.0.27
       "@vitejs/plugin-react-swc": ^3.0.0
+      change-case: ^4.1.2
       execa: ^7.0.0
       fast-glob: ^3.2.12
       rollup-plugin-visualizer: ^5.9.0
@@ -162,6 +247,7 @@ importers:
       "@sillage/type-utils": link:../extraneous/type-utils
       "@types/react": 18.0.28
       "@vitejs/plugin-react-swc": 3.2.0_vite@4.1.4
+      change-case: 4.1.2
       execa: 7.0.0
       fast-glob: 3.2.12
       rollup-plugin-visualizer: 5.9.0
@@ -227,6 +313,7 @@ importers:
       "@types/react": ^18.0.27
       "@types/react-dom": ^18.0.10
       "@unocss/reset": ^0.50.3
+      antd: ^5.2.3
       classnames: ^2.3.2
       immutable: ^4.2.4
       invariant: ^2.2.4
@@ -240,6 +327,7 @@ importers:
       "@sillage/props": link:../props
       "@sillage/utils": link:../../extraneous/utils
       "@unocss/reset": 0.50.3
+      antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
       immutable: 4.2.4
       invariant: 2.2.4
@@ -1126,6 +1214,18 @@ packages:
       }
     dev: false
 
+  /@primer/octicons-react/18.0.0_react@18.2.0:
+    resolution:
+      {
+        integrity: sha512-i97d9dIwjvt145XMIB0pekNi2w0ul8bMnjtXJolF8VS6mQNUFUF31hgjYYVAyaqKCMA3/IDQuHj1K0eHshy8Bw==,
+      }
+    engines: { node: ">=8" }
+    peerDependencies:
+      react: ">=15"
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /@rc-component/context/1.3.0_biqbaboplfbrettd7655fr4n2y:
     resolution:
       {
@@ -1209,6 +1309,7 @@ packages:
       {
         integrity: sha512-7dVbzvcfL9o4UnrCaNeoIs7Ri9Ol+OMfpYYCJJV1dfm+5+pVM6DrvFjPzqifd2ACVABpXmwTQKy9KFxNm/7IdA==,
       }
+    dev: false
 
   /@rollup/pluginutils/5.0.2:
     resolution:
@@ -2538,7 +2639,6 @@ packages:
     dependencies:
       pascal-case: 3.1.2
       tslib: 2.5.0
-    dev: true
 
   /camelcase-keys/6.2.2:
     resolution:
@@ -2567,7 +2667,6 @@ packages:
       no-case: 3.0.4
       tslib: 2.5.0
       upper-case-first: 2.0.2
-    dev: true
 
   /chai/4.3.7:
     resolution:
@@ -2632,7 +2731,6 @@ packages:
       sentence-case: 3.0.4
       snake-case: 3.0.4
       tslib: 2.5.0
-    dev: true
 
   /chardet/0.7.0:
     resolution:
@@ -2855,7 +2953,6 @@ packages:
       no-case: 3.0.4
       tslib: 2.5.0
       upper-case: 2.0.2
-    dev: true
 
   /copy-to-clipboard/3.3.3:
     resolution:
@@ -3140,7 +3237,6 @@ packages:
     dependencies:
       no-case: 3.0.4
       tslib: 2.5.0
-    dev: true
 
   /duplexer/0.1.2:
     resolution:
@@ -4435,7 +4531,6 @@ packages:
     dependencies:
       capital-case: 1.0.4
       tslib: 2.5.0
-    dev: true
 
   /homedir-polyfill/1.0.3:
     resolution:
@@ -5398,7 +5493,6 @@ packages:
       }
     dependencies:
       tslib: 2.5.0
-    dev: true
 
   /lru-cache/6.0.0:
     resolution:
@@ -5638,7 +5732,6 @@ packages:
     dependencies:
       lower-case: 2.0.2
       tslib: 2.5.0
-    dev: true
 
   /node-fetch-native/1.0.2:
     resolution:
@@ -6022,7 +6115,6 @@ packages:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.5.0
-    dev: true
 
   /parent-module/1.0.1:
     resolution:
@@ -6073,7 +6165,6 @@ packages:
     dependencies:
       no-case: 3.0.4
       tslib: 2.5.0
-    dev: true
 
   /path-case/3.0.4:
     resolution:
@@ -6083,7 +6174,6 @@ packages:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.5.0
-    dev: true
 
   /path-exists/4.0.0:
     resolution:
@@ -7424,7 +7514,6 @@ packages:
       no-case: 3.0.4
       tslib: 2.5.0
       upper-case-first: 2.0.2
-    dev: true
 
   /shebang-command/2.0.0:
     resolution:
@@ -7544,7 +7633,6 @@ packages:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.5.0
-    dev: true
 
   /source-map-js/1.0.2:
     resolution:
@@ -8288,7 +8376,6 @@ packages:
       }
     dependencies:
       tslib: 2.5.0
-    dev: true
 
   /upper-case/2.0.2:
     resolution:
@@ -8297,7 +8384,6 @@ packages:
       }
     dependencies:
       tslib: 2.5.0
-    dev: true
 
   /uri-js/4.4.1:
     resolution:

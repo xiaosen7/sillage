@@ -7,17 +7,9 @@ export class Bridge {
     this.node = node;
   }
 
-  getNode() {
-    return this.node;
-  }
-
   renderChildren(): ReactNode {
-    return (
-      <>
-        {this.node.getChildren().map((node) => (
-          <Render key={node.getId()} node={node} />
-        ))}
-      </>
-    );
+    return this.node
+      .getChildren()
+      .map((node) => <Render key={node.getId()} node={node} />);
   }
 }

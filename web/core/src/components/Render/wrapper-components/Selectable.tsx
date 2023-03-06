@@ -1,4 +1,4 @@
-import React, { type MouseEvent, useCallback } from "react";
+import React, { type MouseEvent, useCallback, useReducer } from "react";
 import mergeProps from "merge-props";
 import { UIModel } from "../../../models";
 import { useUIContext } from "../../../context";
@@ -11,8 +11,11 @@ export function Selectable({
   ...props
 }: WrapperComponentProps) {
   const ui = useUIContext();
+  const [_, setVer] = useReducer((x: number) => x + 1, 0);
 
-  useSubscribe(ui, UIModel.Topic.ActiveNodeChange);
+  useSubscribe(ui, UIModel.Topic.ActiveNodeChange, () => {
+    setVer();
+  });
 
   const handleClick = useCallback(
     (e: MouseEvent<any>) => {

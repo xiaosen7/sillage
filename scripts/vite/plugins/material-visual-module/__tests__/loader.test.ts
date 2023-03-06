@@ -14,7 +14,7 @@ const componentsRoot = path.join(
 vt.describe("material-visual-module", () => {
   vt.test("loadMeta", async () => {
     const loadedMap = await loadMeta(componentsRoot);
-    vt.expect(loadedMap.size).toMatchInlineSnapshot("2");
+    vt.expect(loadedMap.size).toMatchInlineSnapshot("3");
   });
 
   vt.test("materialMetaConfig", async () => {
@@ -31,6 +31,12 @@ vt.describe("material-visual-module", () => {
             \\"mode\\": \\"auto\\"
           }
         }
+      };
+
+      export const input_text = {
+        \\"name\\": \\"input-text\\",
+        \\"internal\\": false,
+        \\"isContainer\\": false
       };
 
       export const root = {
@@ -54,10 +60,12 @@ vt.describe("material-visual-module", () => {
     vt.expect(content.replaceAll(componentsRoot, "$componentsRoot"))
       .toMatchInlineSnapshot(`
       "import { default as button } from \\"$componentsRoot/button/src/index.ts\\";
+      import { default as input_text } from \\"$componentsRoot/input-text/src/index.ts\\";
       import { default as root } from \\"$componentsRoot/root/src/index.ts\\";
 
       export {
           button,
+          input_text,
           root
       }"
     `);
@@ -68,10 +76,12 @@ vt.describe("material-visual-module", () => {
     vt.expect(content.replaceAll(componentsRoot, "$componentsRoot"))
       .toMatchInlineSnapshot(`
       "import { Props as button } from \\"$componentsRoot/button/src/index.ts\\";
+      import { Props as input_text } from \\"$componentsRoot/input-text/src/index.ts\\";
       import { Props as root } from \\"$componentsRoot/root/src/index.ts\\";
 
       export {
           button,
+          input_text,
           root
       }"
     `);

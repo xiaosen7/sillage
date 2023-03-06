@@ -1,4 +1,4 @@
-import { type ReactElement, useEffect, useRef } from "react";
+import React, { type ReactElement, useEffect, useRef } from "react";
 import mergeProps from "merge-props";
 import { type Node } from "../../models";
 
@@ -27,10 +27,15 @@ export function Wrapped({
   innerWrapperProps = mergeProps(innerWrapperProps, {
     className: "inner-wrapper",
   });
+
+  console.log({ outerWrapperProps, innerWrapperProps });
   return (
     <div {...outerWrapperProps}>
       <div ref={mountPoint} {...innerWrapperProps}>
-        {children}
+        {React.cloneElement(children, {
+          ...children.props,
+          ...innerWrapperProps,
+        })}
       </div>
     </div>
   );

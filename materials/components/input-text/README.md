@@ -1,6 +1,6 @@
-# @sillage-material-components/{{dashCase name}}
+# @sillage-material-components/input-text
 
-This is a component material named {{dashCase name}}.
+This is a component material named input-text.
 
 This project should exist `meta.config.ts` file in the project folder.
 
@@ -10,7 +10,6 @@ Decorates exported from `@sillage/props` can be use to specify the editor compon
 
 ```ts
 import { editor, initialValue } from "@sillage/props";
-import { Select } from "antd";
 
 const supportedTypes = ["primary", "secondary", "anchor", "danger"] as const;
 

@@ -13,6 +13,7 @@ exports[`Node > children 1`] = `
         0,
         0,
       ],
+      "style": {},
     },
   ],
   "id": "rectId",
@@ -26,6 +27,7 @@ exports[`Node > children 1`] = `
     0,
     0,
   ],
+  "style": {},
 }
 `;
 
@@ -42,6 +44,7 @@ exports[`Node > children 2`] = `
         30,
         30,
       ],
+      "style": {},
     },
   ],
   "id": "rectId",
@@ -55,5 +58,6 @@ exports[`Node > children 2`] = `
     0,
     0,
   ],
+  "style": {},
 }
 `;

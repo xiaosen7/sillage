@@ -13,6 +13,7 @@ vt.describe("Node", () => {
     },
     position: [0, 0],
     id: "rectId",
+    style: {},
   };
 
   vt.test("position", () => {
@@ -49,6 +50,7 @@ vt.describe("Node", () => {
       passProps: {},
       position: [0, 0],
       id: "buttonId",
+      style: {},
     });
 
     node.linkChild(child);
@@ -80,6 +82,7 @@ vt.describe("Node", () => {
           },
           id: "rect",
           position: [0, 0],
+          style: {},
         },
       ],
       isContainer: true,
@@ -91,6 +94,7 @@ vt.describe("Node", () => {
       },
       position: [0, 0],
       id: "root",
+      style: {},
     };
 
     const root = new Node(defaultJsonNode);

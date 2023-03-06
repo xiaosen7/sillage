@@ -1,13 +1,14 @@
 import { type EditorProps } from "@sillage/props";
-import { type ComponentType } from "react";
+import { type CSSProperties, type ComponentType } from "react";
 
 export interface JsonNode {
-  passProps: any;
+  id: string;
   name: string;
   children: JsonNode[];
+  passProps: any;
   position: [number, number];
   isContainer: boolean;
-  id: string;
+  style: CSSProperties;
 }
 
 export interface JsonRootNode extends JsonNode {

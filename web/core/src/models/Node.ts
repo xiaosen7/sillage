@@ -1,11 +1,13 @@
 import { Map, Set, is } from "immutable";
 import { Emitter, genId } from "@sillage/utils";
+import { type CSSProperties } from "react";
 import { type JsonNode } from "../types";
 import { type Material } from "./Materials";
 
 enum Topic {
   PropsUpdate,
   ChildChange,
+  PropUpdate,
   PositionUpdate,
 }
 
@@ -15,6 +17,7 @@ const IsContainer = "isContainer";
 const Position = "position";
 const Children = "children";
 const Id = "id";
+const Style = "style";
 
 const Parent = "_parent";
 
@@ -41,30 +44,6 @@ export class Node extends Emitter<Topic> {
     }
   }
 
-  toJSON(): JsonNode {
-    const object = this.data.toJS();
-    Reflect.deleteProperty(object, Parent);
-    const children = object.children as Node[];
-    object.children = children.map((x) => x.toJSON());
-    return object as JsonNode;
-  }
-
-  getParent(): Node {
-    return this.data.get(Parent);
-  }
-
-  setParent(parent?: Node) {
-    this.data = this.data.set(Parent, parent);
-  }
-
-  isRoot() {
-    return this.getName() === "root";
-  }
-
-  getId() {
-    return this.data.get(Id);
-  }
-
   static fromMaterial(m: Material) {
     const { metaConfig, name } = m;
     const { initialProps } = m;
@@ -76,52 +55,38 @@ export class Node extends Emitter<Topic> {
       position: [0, 0],
       passProps: initialProps,
       id: genId(),
+      style: {},
     };
 
     return new Node(jsonNode);
   }
 
-  setPassProp(prop: string, value: any) {
-    this.data = this.data.setIn([PassProps, prop], value);
-    this.emit(Topic.PropsUpdate);
+  getId(): string {
+    return this.data.get(Id);
   }
 
-  getPassProp(prop: string) {
-    return this.data.getIn([PassProps, prop]);
+  toJSON(): JsonNode {
+    const object = this.data.toJS();
+    Reflect.deleteProperty(object, Parent);
+    const children = object.children as Node[];
+    object.children = children.map((x) => x.toJSON());
+    return object as JsonNode;
   }
 
-  getPassProps() {
-    return this.data.get(PassProps);
+  // /////////////////////////////////////////////////////////////////////////////
+  // #region structure
+  // /////////////////////////////////////////////////////////////////////////////
+
+  isRoot() {
+    return this.getName() === "root";
   }
 
-  setPassProps(passProps: any) {
-    this.data = this.data.set(PassProps, passProps);
-    this.emit(Topic.PropsUpdate);
+  getParent(): Node {
+    return this.data.get(Parent);
   }
 
-  getName(): string {
-    return this.data.get(Name);
-  }
-
-  isContainer(): boolean {
-    return this.data.get(IsContainer);
-  }
-
-  setContainer(isContainer: boolean) {
-    this.data = this.data.set(IsContainer, isContainer);
-  }
-
-  getPosition(): [number, number] {
-    return this.data.get(Position);
-  }
-
-  setPosition(position: [number, number]) {
-    if (is(position, this.getPosition())) {
-      return;
-    }
-
-    this.data = this.data.set(Position, position);
-    this.emit(Topic.PositionUpdate);
+  setParent(parent?: Node) {
+    this.data = this.data.set(Parent, parent);
   }
 
   hasChild(node: Node) {
@@ -166,6 +131,73 @@ export class Node extends Emitter<Topic> {
 
   getChildren(): Set<Node> {
     return this.data.get(Children);
+  }
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // #endregion
+  // /////////////////////////////////////////////////////////////////////////////
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // #region props
+  // /////////////////////////////////////////////////////////////////////////////
+
+  setPassProp(prop: string, value: any) {
+    this.data = this.data.setIn([PassProps, prop], value);
+    this.emit(Topic.PropUpdate, prop);
+  }
+
+  getPassProp(prop: string) {
+    return this.data.getIn([PassProps, prop]);
+  }
+
+  getPassProps() {
+    return this.data.get(PassProps);
+  }
+
+  setPassProps(passProps: any) {
+    this.data = this.data.set(PassProps, passProps);
+    this.emit(Topic.PropsUpdate, passProps);
+  }
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // #endregion
+  // /////////////////////////////////////////////////////////////////////////////
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // #region style
+  // /////////////////////////////////////////////////////////////////////////////
+
+  getStyle(): CSSProperties {
+    return this.data.get(Style);
+  }
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // #endregion
+  // /////////////////////////////////////////////////////////////////////////////
+
+  getName(): string {
+    return this.data.get(Name);
+  }
+
+  isContainer(): boolean {
+    return this.data.get(IsContainer);
+  }
+
+  setContainer(isContainer: boolean) {
+    this.data = this.data.set(IsContainer, isContainer);
+  }
+
+  getPosition(): [number, number] {
+    return this.data.get(Position);
+  }
+
+  setPosition(position: [number, number]) {
+    if (is(position, this.getPosition())) {
+      return;
+    }
+
+    this.data = this.data.set(Position, position);
+    this.emit(Topic.PositionUpdate);
   }
 
   setMountPoint(el: HTMLElement) {
