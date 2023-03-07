@@ -1,5 +1,6 @@
 import * as vt from "vitest";
-import { editor, getEditor, getInitialValue, initialValue } from "..";
+import { type Constructable } from "@sillage/type-utils";
+import { editor, getEditor } from "..";
 import "reflect-metadata";
 import {
   decorateConstructor,
@@ -9,7 +10,6 @@ import {
   marked,
   withMark,
 } from "../mark";
-import { type Constructable } from "@sillage/type-utils";
 
 vt.describe("decorators", () => {
   let Props: Constructable;
@@ -24,20 +24,13 @@ vt.describe("decorators", () => {
     dummyFn = vt.vi.fn(() => {});
   });
 
-  vt.test("initialValue", () => {
-    initialValue(18)(prototypeOfProps, propName);
-    const inst = new Props();
-
-    vt.expect(getInitialValue(inst, propName)).toBe(18);
-  });
-
   vt.test("editor", () => {
     editor(dummyFn)(prototypeOfProps, propName);
 
     const inst = new Props();
     const C = getEditor(inst, propName);
     vt.expect(C).toBeDefined();
-    vt.expect(C!.name).toBe(dummyFn.name);
+    vt.expect(C?.name).toBe(dummyFn.name);
   });
 
   vt.test("isConstructable", () => {

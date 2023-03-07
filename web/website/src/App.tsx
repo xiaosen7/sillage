@@ -1,63 +1,79 @@
+import { useKeyPress } from "ahooks";
 import classnames from "classnames";
 import { useEffect, useRef } from "react";
-import { type JsonRootNode, Render, UIContext, UIModel } from "@sillage/core";
-import { ComponentList } from "./components/ComponentList";
-import { RightTabs } from "./components/right-tabs";
-import styles from "./app.module.scss";
-import { Panel } from "./components/panel";
 
-const defaultJsonNode: JsonRootNode = {
-  children: [
-    {
-      name: "rect",
-      isContainer: false,
-      children: [],
-      passProps: {
-        style: { width: "100px", height: "100px" },
-      },
-      id: "rect",
-      position: [0, 0],
-    },
-  ],
-  isContainer: true,
-  name: "root",
-  passProps: {
-    // iphone 12
-    width: 390,
-    height: 844,
-  },
-  position: [0, 0],
-  id: "root",
-  layoutType: "free",
-};
+import {
+  type JsonRootNode,
+  Materials,
+  Node,
+  Render,
+  UIContext,
+  UIModel,
+} from "@sillage/core";
+
+import styles from "./app.module.scss";
+import { ComponentList } from "./components/ComponentList";
+import { Panel } from "./components/panel";
+import { RightTabs } from "./components/right-tabs";
+
+// const defaultJsonNode: JsonRootNode = {
+//   children: [
+//     {
+//       name: "rect",
+//       isContainer: false,
+//       children: [],
+//       passProps: {
+//         style: { width: "100px", height: "100px" },
+//       },
+//       id: "rect",
+//     },
+//   ],
+//   isContainer: true,
+//   name: "root",
+//   passProps: {
+//     style: {
+
+//     },
+//   },
+//   id: "root",
+//   layoutType: "free",
+// };
+
+const root = Node.fromMaterial(Materials.get().getByName("root")!);
 
 function App(): JSX.Element {
   const uiRef = useRef<UIModel>();
   if (!uiRef.current) {
-    // const saved = localStorage.getItem("json");
-    const saved = null;
+    const saved = localStorage.getItem("json");
+    // const saved = null;
     uiRef.current = new UIModel(
-      saved ? (JSON.parse(saved) as JsonRootNode) : defaultJsonNode
+      saved ? (JSON.parse(saved) as JsonRootNode) : root
     );
   }
 
   const ui = uiRef.current;
 
-  useEffect(() => {
-    ui.setupHotKeysEventListeners();
-  }, [ui]);
+  useKeyPress(["Delete"], () => {
+    ui.dispatch(UIModel.Actions.DeleteNode);
+  });
+
+  useKeyPress(["ctrl.c"], () => {
+    ui.dispatch(UIModel.Actions.DeleteNode);
+  });
 
   useEffect(() => {
     let timer: any;
 
-    function start() {
-      const data = ui.root.toJSON();
-      localStorage.setItem("json", JSON.stringify(data, null, 2));
-      console.log("saved", data);
-      timer = setTimeout(start, 2000);
+    function next() {
+      timer = setTimeout(() => {
+        const data = ui.root.toJSON();
+        localStorage.setItem("json", JSON.stringify(data, null, 2));
+        console.log("saved", data);
+        next();
+      }, 5000);
     }
 
-    start();
+    next();
 
     return () => clearTimeout(timer);
   }, [ui]);
@@ -75,7 +91,7 @@ function App(): JSX.Element {
           </Panel>
         </section>
 
-        <aside className={classnames(styles.aside, "shadow")}>
+        <aside className={classnames(styles.aside, "shadow", "overflow-auto")}>
           <RightTabs />
         </aside>
       </main>

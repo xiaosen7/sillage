@@ -1,4 +1,7 @@
-import { editor, initialValue } from "@sillage/props";
-import { InputNumber } from "antd";
-
-export class Props {}
+export class Props {
+  style = {
+    border: "1px solid gray",
+    width: 50,
+    height: 50,
+  };
+}

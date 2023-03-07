@@ -29,11 +29,10 @@ export class StateMachine<
     action: A,
     fn?: StateTransferFunction
   ): void {
-    if (!this.transferTable.has(from)) {
-      this.transferTable.set(from, new Map());
+    let adjTable = this.transferTable.get(from);
+    if (!adjTable) {
+      this.transferTable.set(from, (adjTable = new Map()));
     }
-
-    const adjTable = this.transferTable.get(from);
 
     adjTable?.set(action, [fn, to]);
   }

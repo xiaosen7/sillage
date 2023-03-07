@@ -1,8 +1,8 @@
 {
   "name": "@sillage-material-components/rect",
   "version": "0.0.0",
-  "main": "src/index.ts",
   "type": "module",
+  "main": "src/index.ts",
   "dependencies": {
     "@sillage/meta": "workspace:^0.0.0",
     "@sillage/props": "workspace:*",

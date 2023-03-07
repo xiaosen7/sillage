@@ -1,20 +1,18 @@
 import React, { type MouseEvent, useCallback, useReducer } from "react";
 import mergeProps from "merge-props";
-import { UIModel } from "../../../models";
+import { type Node, UIModel } from "../../../models";
 import { useUIContext } from "../../../context";
 import { useSubscribe } from "../hooks";
-import { type WrapperComponentProps } from "./types";
+import { type EnhancerProps } from "./types";
 
-export function Selectable({
-  children,
-  node,
-  ...props
-}: WrapperComponentProps) {
+export function Selectable({ children, node, ...props }: EnhancerProps) {
   const ui = useUIContext();
   const [_, setVer] = useReducer((x: number) => x + 1, 0);
 
-  useSubscribe(ui, UIModel.Topic.ActiveNodeChange, () => {
-    setVer();
+  useSubscribe(ui, UIModel.Topic.ActiveNodeChange, ([last, active]: Node[]) => {
+    if (last === node || active === node) {
+      setVer();
+    }
   });
 
   const handleClick = useCallback(
@@ -27,7 +25,7 @@ export function Selectable({
 
   const innerWrapperProps = mergeProps(props.innerWrapperProps, {
     onClick: handleClick,
-    className: ui.getActiveNode() === node ? "outline-dashed" : "",
+    // className: ui.getActiveNode() === node ? "outline-dashed" : "",
   });
 
   return React.cloneElement(children, {

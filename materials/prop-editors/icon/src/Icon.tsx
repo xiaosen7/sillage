@@ -1,17 +1,13 @@
-import Button from "@sillage-material-components/button";
-import { Input, Modal, Tag, Tooltip } from "antd";
-import {
-  FunctionComponent,
-  ReactElement,
-  ReactNode,
-  useCallback,
-  useState,
-} from "react";
 import * as Icons from "@primer/octicons-react";
+
+import { Input, Modal, Tooltip } from "antd";
+import { useCallback, useState } from "react";
+
+import Button from "@sillage-material-components/button";
 import { capitalCase } from "change-case";
 import styles from "./icon.module.scss";
-import type React from "react";
 import type { EditorProps } from "@sillage/props";
+import type React from "react";
 
 interface Props extends EditorProps {
   value: string;
@@ -43,12 +39,11 @@ export function Icon(props: Props) {
     [props]
   );
 
-  console.log(props.value);
   return (
     <div>
       <Button
         before={props.value}
-        type="primary"
+        type="secondary"
         text={props.value ? capitalCase(props.value) : "choose an icon"}
         onMouseUp={showModal}
       />
@@ -69,7 +64,7 @@ export function Icon(props: Props) {
           {data.filter(makeFilter(search)).map(({ name, Icon }) => {
             return (
               <li
-                onClick={() => changeIcon(Icon.displayName)}
+                onClick={() => changeIcon(Icon.displayName!)}
                 key={name}
                 className={styles["icon-list__item"]}
               >

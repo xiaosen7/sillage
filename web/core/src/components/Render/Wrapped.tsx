@@ -4,11 +4,9 @@ import { type Node } from "../../models";
 
 export function Wrapped({
   innerWrapperProps = {},
-  outerWrapperProps = {},
   children,
   node,
 }: {
-  outerWrapperProps?: any;
   innerWrapperProps?: any;
   children: ReactElement;
   node: Node;
@@ -20,21 +18,15 @@ export function Wrapped({
     }
   }, [node]);
 
-  outerWrapperProps = mergeProps(outerWrapperProps, {
-    className: "outer-wrapper",
-  });
-
   innerWrapperProps = mergeProps(innerWrapperProps, {
-    className: "inner-wrapper",
+    className: `relative component__wrapper component__${node.getName()}`,
   });
 
-  console.log({ outerWrapperProps, innerWrapperProps });
   return (
-    <div ref={mountPoint} {...innerWrapperProps}>
+    <span ref={mountPoint} {...innerWrapperProps}>
       {React.cloneElement(children, {
         ...children.props,
-        ...innerWrapperProps,
       })}
-    </div>
+    </span>
   );
 }

@@ -2,8 +2,15 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "jsx": "react-jsx",
+    "strictNullChecks": true,
     "types": ["./scripts/node_modules/vite/client"]
   },
-  "include": ["web/*/src", "scripts/vite/client.d.ts", "extraneous/*/src"]
+  "include": [
+    "web/*/src",
+    "scripts/vite/client.d.ts",
+    "extraneous/*/src",
+    "materials/*/*/src",
+    "materials/*/*/meta.config.ts"
+  ],
+  "exclude": ["**/__tests__", "**/node_modules"]
 }

@@ -1,8 +1,8 @@
 {
   "name": "@sillage-material-components/button",
   "version": "0.0.0",
-  "main": "src/index.ts",
   "type": "module",
+  "main": "src/index.ts",
   "dependencies": {
     "@primer/octicons-react": "^18.0.0",
     "@sillage-material-prop-editors/icon": "workspace:^0.0.0",

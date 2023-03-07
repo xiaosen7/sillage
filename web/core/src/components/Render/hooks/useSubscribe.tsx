@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { type Emitter, arrayed } from "@sillage/utils";
 import { type Subscription } from "rxjs";
 
-export function useSubscribe<T extends string | number>(
+export function useSubscribe<T extends string | number, V = any>(
   emitter: Emitter<T>,
   topic: T | T[],
-  observerOrNext: (value: unknown) => void = () => null
+  observerOrNext: (value: V) => void = () => null
 ) {
   useEffect(() => {
     const subs: Subscription[] = [];

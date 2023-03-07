@@ -1,8 +1,8 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "isolatedModules": false,
-    "jsx": "react-jsx"
+    "isolatedModules": false
   },
-  "include": ["scripts", "node", "tsconfig.json"]
+  "include": ["scripts", "node", "tsconfig.json"],
+  "exclude": ["**/__tests__", "**/node_modules"]
 }

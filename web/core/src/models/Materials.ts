@@ -1,9 +1,9 @@
-import { type ComponentMetaConfig } from "@sillage/core";
-import { type MaterialComponentProps, getInitialValue } from "@sillage/props";
+import { type WithMaterialProps, getInitialProps } from "@sillage/props";
 import { type Constructable } from "@sillage/type-utils";
 import * as components from "virtual:material-components";
 import * as metaConfigs from "virtual:material-meta-configs";
 import * as props from "virtual:material-props";
+import { type ComponentMetaConfig } from "..";
 
 export class Material {
   /**
@@ -13,16 +13,11 @@ export class Material {
 
   constructor(
     public readonly name: string,
-    public readonly Component: MaterialComponentProps<React.ComponentType<any>>,
+    public readonly Component: WithMaterialProps<React.ComponentType<any>>,
     public readonly Props: Constructable,
     public readonly metaConfig: ComponentMetaConfig
   ) {
-    const initialProps = {} as any;
-    for (const prop of Object.keys(Props)) {
-      initialProps[prop] = getInitialValue(Props, prop);
-    }
-
-    this.initialProps = initialProps;
+    this.initialProps = getInitialProps(Props);
   }
 
   isInternal() {

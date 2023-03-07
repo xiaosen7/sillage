@@ -1,7 +1,8 @@
+import { Materials, Node, useSubscribe } from "@sillage/core";
 import { useCallback, useMemo, useReducer } from "react";
-import { Materials, Node, UIModel, useSubscribe } from "@sillage/core";
+
+import { Descriptions } from "antd";
 import { getEditor } from "@sillage/props";
-import { Col, Descriptions, Row } from "antd";
 
 export function PropsEditor({ node }: { node: Node }) {
   const [_, setVer] = useReducer((x: number) => x + 1, 0);

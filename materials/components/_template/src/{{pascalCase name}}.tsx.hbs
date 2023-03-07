@@ -1,6 +1,8 @@
-import { type PropsWithBridge } from "@sillage/props";
+import { useBridge } from "@sillage/core";
+import { type MaterialComponentProps } from "@sillage/props";
 import { type Props } from "./props";
 
-export function {{pascalCase name}}(props: PropsWithBridge<Props>) {
+export function {{pascalCase name}}(props: MaterialComponentProps<Props>) {
+  const bridge = useBridge();
   return <>{{pascalCase name}}</>;
 }

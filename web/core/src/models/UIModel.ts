@@ -1,8 +1,9 @@
 /* eslint-disable unicorn/filename-case */
 
-import { StateMachine, defineProperty } from "@sillage/utils";
+import { Rect, StateMachine, defineProperty } from "@sillage/utils";
 import { type JsonRootNode } from "../types";
 import { Node } from "./Node";
+import { Resizer } from "./Resizer";
 
 enum States {
   Start,
@@ -16,6 +17,14 @@ enum States {
   StartedDragNode,
   DraggingOnContainer,
   Dropped,
+
+  // resize node
+  StartedResize,
+  Resizing,
+  StoppedResize,
+
+  // delete
+  DeletedNode,
 }
 
 enum Actions {
@@ -29,6 +38,12 @@ enum Actions {
   DragOnContainer,
   Drop,
   DragEnd,
+
+  // Actions of resize node
+  StartResize,
+
+  // Actions of delete node
+  DeleteNode,
 }
 
 enum Topic {
@@ -45,11 +60,14 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
 
   root: Node;
 
-  constructor(jsonRootNode: JsonRootNode) {
+  constructor(rootNode: JsonRootNode | Node) {
     super(States.Start);
 
-    const root = new Node(jsonRootNode);
-    this.root = root;
+    if (rootNode instanceof Node) {
+      this.root = rootNode;
+    } else {
+      this.root = new Node(rootNode);
+    }
 
     this.describe("scroll panel", (register) => {
       let startX = 0;
@@ -130,30 +148,26 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
           }
 
           if (container === source) {
-            source.setPosition(
-              calcPosition(container.getParent(), target, startXY, endXY)
+            source.setRelRect(
+              getRelRect(container.getParent(), target, startXY, endXY)
             );
             this.setActiveNode(source);
           } else if (container.hasChild(source)) {
             // update position only
-            source.setPosition(calcPosition(container, target, startXY, endXY));
+            source.setRelRect(updateRelRect(source, startXY, endXY));
             this.setActiveNode(source);
           } else {
             if (source.getParent()) {
               // move to this container
               source.getParent().unlinkChild(source);
               container.linkChild(source);
-              source.setPosition(
-                calcPosition(container, target, startXY, endXY)
-              );
+              source.setRelRect(getRelRect(container, target, startXY, endXY));
               this.setActiveNode(source);
             } else {
               // create a new node
               const cloned = source.clone();
-              cloned.setPosition(
-                calcPosition(container, target, startXY, endXY)
-              );
               container.linkChild(cloned);
+              cloned.setRelRect(getRelRect(container, target, startXY, endXY));
               this.setActiveNode(cloned);
             }
           }
@@ -166,25 +180,76 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
         Actions.DragEnd
       );
 
-      // register(States.Dropped, States.Start, "<auto>");
+      register(States.Dropped, States.Start, "<auto>");
     });
-  }
 
-  setupHotKeysEventListeners() {
-    document.addEventListener("keydown", (e: KeyboardEvent) => {
-      if (e.code === "Delete") {
+    this.describe("resize node", (register) => {
+      let node: Node;
+      let startX = 0;
+      let startY = 0;
+      let resizer: Resizer;
+
+      register(
+        States.Start,
+        States.StartedResize,
+        Actions.StartResize,
+        ([x, y], _node, _type) => {
+          startX = x;
+          startY = y;
+          node = _node;
+          resizer = new Resizer(_type);
+        }
+      );
+
+      register(States.StartedResize, States.Resizing, Actions.MoveOnPanel);
+
+      register(
+        States.Resizing,
+        States.Resizing,
+        Actions.MoveOnPanel,
+        ([x, y]) => {
+          const vec = [x - startX, y - startY] as [number, number];
+
+          const rect = node.getRelRect()!;
+          const nextRect = resizer.nextRect(rect, vec);
+          console.log({ rect, nextRect, vec });
+          node.setRelRect(nextRect);
+
+          startX = x;
+          startY = y;
+        }
+      );
+
+      register(
+        [States.StartedResize, States.Resizing],
+        States.StoppedResize,
+        Actions.StopScrollPanel
+      );
+
+      register(States.StoppedResize, States.Start, "<auto>");
+    });
+
+    this.describe("delete Node", (register) => {
+      register(States.Start, States.DeletedNode, Actions.DeleteNode, () => {
         const activeNode = this.activeNode;
         if (activeNode) {
           activeNode.getParent().unlinkChild(activeNode);
           this.setActiveNode(null);
         }
-      }
+      });
+
+      register(States.DeletedNode, States.Start, "<auto>");
     });
+
+    if (import.meta.env.DEV) {
+      defineProperty(window, "ui", this);
+    }
   }
 
   setActiveNode(node: Node | null) {
+    const prevActiveNode = this.activeNode;
     this.activeNode = node;
-    this.emit(Topic.ActiveNodeChange, node);
+    this.emit(Topic.ActiveNodeChange, [prevActiveNode, node]);
   }
 
   getActiveNode() {
@@ -204,22 +269,36 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
       args,
     });
   }
+
+  printState() {
+    console.log(States[this.getState()]);
+  }
 }
 
-function calcPosition(
+function updateRelRect(
+  source: Node,
+  [sx, sy]: [number, number],
+  [ex, ey]: [number, number]
+) {
+  const offsetX = ex - sx;
+  const offsetY = ey - sy;
+  const { x, y, width, height } = source.getRelRect()!;
+  return new Rect(x + offsetX, y + offsetY, width, height);
+}
+
+function getRelRect(
   container: Node,
   target: HTMLElement,
-  startXY: [number, number],
-  endXY: [number, number]
+  [sx, sy]: [number, number],
+  [ex, ey]: [number, number]
 ) {
-  const [endX, endY] = endXY;
-  const containerBoundingRect = container.getMountBoundingRect()!;
-  const targetBoundingRect = target.getBoundingClientRect();
+  // xy are both relative to window
+  const { width, height, x: tx, y: ty } = target.getBoundingClientRect();
 
-  const position = [
-    endX - containerBoundingRect.x - (startXY[0] - targetBoundingRect.x),
-    endY - containerBoundingRect.y - (startXY[1] - targetBoundingRect.y),
-  ] as [number, number];
+  const { x: cx, y: cy } = container.getMountedAbsRect()!;
 
-  return position;
+  const left = ex - cx - (sx - tx);
+  const top = ey - cy - (sy - ty);
+
+  return new Rect(left, top, width, height);
 }

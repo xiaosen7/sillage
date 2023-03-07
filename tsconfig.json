@@ -10,7 +10,7 @@
       "path": "tsconfig.extraneous.json"
     },
     {
-      "path": "tsconfig.material.json"
+      "path": "tsconfig.test.json"
     }
   ]
 }

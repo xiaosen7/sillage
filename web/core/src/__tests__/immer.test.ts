@@ -1,14 +1,6 @@
 import * as vt from "vitest";
+
 import { List, fromJS } from "immutable";
-
-// vt.test("immer", () => {
-//   const obj = {};
-//   const obj2 = produce(obj, (draft) => {
-//     draft.name = 1;
-//   });
-
-//   console.log(obj2);
-// });
 
 vt.test("Map", () => {
   let map = fromJS({

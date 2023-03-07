@@ -152,6 +152,7 @@ module.exports = defineConfig({
     "unicorn/prefer-module": "warn",
     "unicorn/prefer-top-level-await": "off",
     "unicorn/no-array-reduce": "off",
+    "unicorn/prefer-ternary": "off",
   },
   settings: {
     react: {

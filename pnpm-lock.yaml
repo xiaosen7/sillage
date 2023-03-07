@@ -96,6 +96,7 @@ importers:
 
   materials/components/layout-column:
     specifiers:
+      "@sillage/core": workspace:*
       "@sillage/meta": workspace:*
       "@sillage/props": workspace:*
       "@types/react": ^18.0.27
@@ -103,6 +104,45 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
+      "@sillage/core": link:../../../web/core
+      "@sillage/meta": link:../../../extraneous/meta
+      "@sillage/props": link:../../../web/props
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/components/layout-free:
+    specifiers:
+      "@sillage/core": workspace:*
+      "@sillage/meta": workspace:*
+      "@sillage/props": workspace:*
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      "@sillage/core": link:../../../web/core
+      "@sillage/meta": link:../../../extraneous/meta
+      "@sillage/props": link:../../../web/props
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/components/layout-row:
+    specifiers:
+      "@sillage/core": workspace:*
+      "@sillage/meta": workspace:*
+      "@sillage/props": workspace:*
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      "@sillage/core": link:../../../web/core
       "@sillage/meta": link:../../../extraneous/meta
       "@sillage/props": link:../../../web/props
       react: 18.2.0
@@ -132,6 +172,7 @@ importers:
 
   materials/components/root:
     specifiers:
+      "@sillage/core": workspace:*
       "@sillage/meta": workspace:^0.0.0
       "@sillage/props": workspace:*
       "@types/react": ^18.0.27
@@ -139,11 +180,52 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
+      "@sillage/core": link:../../../web/core
       "@sillage/meta": link:../../../extraneous/meta
       "@sillage/props": link:../../../web/props
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/components/text:
+    specifiers:
+      "@sillage-material-prop-editors/input-text": workspace:*
+      "@sillage/core": workspace:*
+      "@sillage/meta": workspace:*
+      "@sillage/props": workspace:*
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      "@sillage-material-prop-editors/input-text": link:../../prop-editors/input-text
+      "@sillage/core": link:../../../web/core
+      "@sillage/meta": link:../../../extraneous/meta
+      "@sillage/props": link:../../../web/props
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@types/react": 18.0.28
+      "@types/react-dom": 18.0.11
+
+  materials/prop-editors/color:
+    specifiers:
+      "@sillage/props": workspace:*
+      "@types/react": ^18.0.27
+      "@types/react-dom": ^18.0.10
+      ahooks: ^3.7.5
+      react: ^18.2.0
+      react-colorful: ^5.6.1
+      react-dom: ^18.2.0
+    dependencies:
+      ahooks: 3.7.5_react@18.2.0
+      react: 18.2.0
+      react-colorful: 5.6.1_biqbaboplfbrettd7655fr4n2y
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@sillage/props": link:../../../web/props
       "@types/react": 18.0.28
       "@types/react-dom": 18.0.11
 
@@ -171,23 +253,6 @@ importers:
       "@types/react-dom": 18.0.11
 
   materials/prop-editors/input-css-length:
-    specifiers:
-      "@sillage/props": workspace:*
-      "@types/react": ^18.0.27
-      "@types/react-dom": ^18.0.10
-      antd: ^5.2.3
-      react: ^18.2.0
-      react-dom: ^18.2.0
-    dependencies:
-      antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    devDependencies:
-      "@sillage/props": link:../../../web/props
-      "@types/react": 18.0.28
-      "@types/react-dom": 18.0.11
-
-  materials/prop-editors/input-px:
     specifiers:
       "@sillage/props": workspace:*
       "@types/react": ^18.0.27
@@ -297,6 +362,7 @@ importers:
       "@sillage/utils": workspace:*
       "@types/invariant": ^2.2.35
       "@types/react": ^18.0.27
+      ahooks: ^3.7.5
       classnames: ^2.3.2
       immer: ^9.0.19
       immutable: ^4.2.4
@@ -306,6 +372,7 @@ importers:
     dependencies:
       "@sillage/props": link:../props
       "@sillage/utils": link:../../extraneous/utils
+      ahooks: 3.7.5
       classnames: 2.3.2
       immer: 9.0.19
       immutable: 4.2.4
@@ -339,6 +406,7 @@ importers:
 
   web/website:
     specifiers:
+      "@sillage-material-prop-editors/color": workspace:^0.0.0
       "@sillage-material-prop-editors/input-css-length": workspace:^0.0.0
       "@sillage/core": workspace:*
       "@sillage/props": workspace:*
@@ -347,25 +415,30 @@ importers:
       "@types/react": ^18.0.27
       "@types/react-dom": ^18.0.10
       "@unocss/reset": ^0.50.3
+      ahooks: ^3.7.5
       antd: ^5.2.3
       classnames: ^2.3.2
       immutable: ^4.2.4
       invariant: ^2.2.4
       react: ^18.2.0
+      react-colorful: ^5.6.1
       react-dom: ^18.2.0
       rxjs: ^7.8.0
       unocss: ^0.50.3
     dependencies:
+      "@sillage-material-prop-editors/color": link:../../materials/prop-editors/color
       "@sillage-material-prop-editors/input-css-length": link:../../materials/prop-editors/input-css-length
       "@sillage/core": link:../core
       "@sillage/props": link:../props
       "@sillage/utils": link:../../extraneous/utils
       "@unocss/reset": 0.50.3
+      ahooks: 3.7.5_react@18.2.0
       antd: 5.2.3_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
       immutable: 4.2.4
       invariant: 2.2.4
       react: 18.2.0
+      react-colorful: 5.6.1_biqbaboplfbrettd7655fr4n2y
       react-dom: 18.2.0_react@18.2.0
       rxjs: 7.8.0
       unocss: 0.50.3
@@ -1561,6 +1634,13 @@ packages:
       }
     dev: true
 
+  /@types/js-cookie/2.2.7:
+    resolution:
+      {
+        integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==,
+      }
+    dev: false
+
   /@types/json-schema/7.0.11:
     resolution:
       {
@@ -2253,6 +2333,54 @@ packages:
       clean-stack: 2.2.0
       indent-string: 4.0.0
     dev: true
+
+  /ahooks-v3-count/1.0.0:
+    resolution:
+      {
+        integrity: sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==,
+      }
+    dev: false
+
+  /ahooks/3.7.5:
+    resolution:
+      {
+        integrity: sha512-RWkJYK5xj9ZXROj9jABRDqdpTBimkY1tlyeJQ8Ci7MAl1sC5xzSzwO20ydk6BjtdbWt56DPCYZhq4lGu3O2Zwg==,
+      }
+    engines: { node: ">=8.0.0" }
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      "@types/js-cookie": 2.2.7
+      ahooks-v3-count: 1.0.0
+      dayjs: 1.11.7
+      intersection-observer: 0.12.2
+      js-cookie: 2.2.1
+      lodash: 4.17.21
+      resize-observer-polyfill: 1.5.1
+      screenfull: 5.2.0
+      tslib: 2.5.0
+    dev: false
+
+  /ahooks/3.7.5_react@18.2.0:
+    resolution:
+      {
+        integrity: sha512-RWkJYK5xj9ZXROj9jABRDqdpTBimkY1tlyeJQ8Ci7MAl1sC5xzSzwO20ydk6BjtdbWt56DPCYZhq4lGu3O2Zwg==,
+      }
+    engines: { node: ">=8.0.0" }
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      "@types/js-cookie": 2.2.7
+      ahooks-v3-count: 1.0.0
+      dayjs: 1.11.7
+      intersection-observer: 0.12.2
+      js-cookie: 2.2.1
+      lodash: 4.17.21
+      react: 18.2.0
+      resize-observer-polyfill: 1.5.1
+      screenfull: 5.2.0
+      tslib: 2.5.0
+    dev: false
 
   /ajv/6.12.6:
     resolution:
@@ -4963,6 +5091,13 @@ packages:
     engines: { node: ">= 0.10" }
     dev: true
 
+  /intersection-observer/0.12.2:
+    resolution:
+      {
+        integrity: sha512-7m1vEcPCxXYI8HqnL8CKI6siDyD+eIWSwgB3DZA+ZTogxk9I4CDnj4wilt9x/+/QbHI4YG5YZNmC6458/e9Ktg==,
+      }
+    dev: false
+
   /invariant/2.2.4:
     resolution:
       {
@@ -5392,6 +5527,13 @@ packages:
         integrity: sha512-NZIITw8uZQFuzQimqjUxIrIcEdxYDFIe/0xYfIlVXTkiBjjyBEvgasj5bb0/cHtPRD/NziPbT312sFrkI5ALpw==,
       }
     hasBin: true
+    dev: false
+
+  /js-cookie/2.2.1:
+    resolution:
+      {
+        integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==,
+      }
     dev: false
 
   /js-sdsl/4.3.0:
@@ -7469,6 +7611,19 @@ packages:
       "@rcaferati/wac": 1.0.0
     dev: false
 
+  /react-colorful/5.6.1_biqbaboplfbrettd7655fr4n2y:
+    resolution:
+      {
+        integrity: sha512-1exovf0uGTGyq5mXQT0zgQ80uvj2PCwvF8zY1RN9/vbJVSjSo3fsB/4L3ObbF7u70NduSiK4xu4Y6q1MHoUGEw==,
+      }
+    peerDependencies:
+      react: ">=16.8.0"
+      react-dom: ">=16.8.0"
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /react-dom/18.2.0_react@18.2.0:
     resolution:
       {
@@ -7860,6 +8015,14 @@ packages:
       }
     dependencies:
       loose-envify: 1.4.0
+    dev: false
+
+  /screenfull/5.2.0:
+    resolution:
+      {
+        integrity: sha512-9BakfsO2aUQN2K9Fdbj87RJIEZ82Q9IGim7FqM5OsebfoFC6ZHXgDq/KvniuLTPdeM8wY2o6Dj3WQ7KeQCj3cA==,
+      }
+    engines: { node: ">=0.10.0" }
     dev: false
 
   /scroll-into-view-if-needed/3.0.6:

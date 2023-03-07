@@ -1,4 +1,3 @@
-import type { Bridge } from "@sillage/core";
 import type { CSSProperties } from "react";
 
 export interface EditorProps {
@@ -6,7 +5,6 @@ export interface EditorProps {
   onChange: (value: any) => void;
 }
 
-export type MaterialComponentProps<T> = {
-  bridge: Bridge;
+export type WithMaterialProps<T> = {
   style?: CSSProperties;
 } & T;

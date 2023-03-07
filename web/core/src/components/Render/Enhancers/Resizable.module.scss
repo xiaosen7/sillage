@@ -1,0 +1,58 @@
+.cube-container {
+}
+
+.cube {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid gray;
+  background-color: white;
+}
+
+.cube__1 {
+  top: -5px;
+  left: -5px;
+  cursor: nw-resize;
+}
+
+.cube__2 {
+  top: -5px;
+  left: calc(50% - 5px);
+  cursor: n-resize;
+}
+
+.cube__3 {
+  top: -5px;
+  left: calc(100% - 5px);
+  cursor: ne-resize;
+}
+
+.cube__4 {
+  top: calc(50% - 5px);
+  left: calc(100% - 5px);
+  cursor: e-resize;
+}
+
+.cube__5 {
+  top: calc(100% - 5px);
+  left: calc(100% - 5px);
+  cursor: se-resize;
+}
+
+.cube__6 {
+  top: calc(100% - 5px);
+  left: calc(50% - 5px);
+  cursor: s-resize;
+}
+
+.cube__7 {
+  top: calc(100% - 5px);
+  left: -5px;
+  cursor: sw-resize;
+}
+
+.cube__8 {
+  top: calc(50% - 5px);
+  left: -5px;
+  cursor: w-resize;
+}

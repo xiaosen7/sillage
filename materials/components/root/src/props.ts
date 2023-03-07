@@ -1,9 +1,11 @@
-import { initialValue } from "@sillage/props";
+import { type CSSProperties } from "react";
 
 export class Props {
-  @initialValue(5000)
-  height!: number;
-
-  @initialValue(5000)
-  width!: number;
+  style: CSSProperties = {
+    background: "white",
+    cursor: "default",
+    // iphone 12
+    width: 390,
+    height: 844,
+  };
 }

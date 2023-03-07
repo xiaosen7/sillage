@@ -5,20 +5,20 @@ import {
   useSubscribe,
   useUIContext,
 } from "@sillage/core";
-import { type PropsWithChildren, ReactElement, ReactNode, useState } from "react";
+import { type PropsWithChildren, useState } from "react";
 import { Tabs, type TabsProps } from "antd";
 import { PropsEditor } from "./PropsEditor";
 import { StyleEditor } from "./StyleEditor";
 
 export function RightTabs() {
   const ui = useUIContext();
-  const [activeNode, setNode] = useState<Node | null>(null);
+  const [node, setNode] = useState<Node | null>(null);
 
-  useSubscribe(ui, UIModel.Topic.ActiveNodeChange, (node: any) => {
-    setNode(node);
+  useSubscribe(ui, UIModel.Topic.ActiveNodeChange, ([last, active]: Node[]) => {
+    setNode(active);
   });
 
-  if (!activeNode) {
+  if (!node) {
     return null;
   }
 
@@ -28,15 +28,13 @@ export function RightTabs() {
 
   const tabs: TabsProps["items"] = [];
 
-  if (
-    Materials.get().getByName(activeNode.getName())!.getPropNames().length > 0
-  ) {
+  if (Materials.get().getByName(node.getName())!.getPropNames().length > 0) {
     tabs.push({
       label: "Props",
       key: "Props",
       children: (
         <Wrapper>
-          <PropsEditor node={activeNode} />
+          <PropsEditor node={node} />
         </Wrapper>
       ),
     });
@@ -47,7 +45,7 @@ export function RightTabs() {
     key: "Style",
     children: (
       <Wrapper>
-        <StyleEditor node={activeNode} />
+        <StyleEditor node={node} />
       </Wrapper>
     ),
   });

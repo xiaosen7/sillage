@@ -1,4 +1,3 @@
-import { Bridge } from "./models";
 import type { ComponentType } from "react";
 
 export * from "@sillage/meta";

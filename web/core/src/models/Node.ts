@@ -1,6 +1,7 @@
-import { Map, Set, is } from "immutable";
-import { Emitter, genId } from "@sillage/utils";
+import { Map, Set, fromJS } from "immutable";
+import { Emitter, Rect, genId } from "@sillage/utils";
 import { type CSSProperties } from "react";
+import invariant from "invariant";
 import { type JsonNode, type LayoutType } from "../types";
 import { type Material } from "./Materials";
 
@@ -8,14 +9,13 @@ enum Topic {
   PropsUpdate,
   PropUpdate,
   ChildChange,
-  PositionUpdate,
+  RectUpdate,
   StylePropertyChange,
 }
 
 const PassProps = "passProps";
 const Name = "name";
 const IsContainer = "isContainer";
-const Position = "position";
 const Children = "children";
 const Id = "id";
 const Style = "style";
@@ -34,15 +34,26 @@ export class Node extends Emitter<Topic> {
   constructor(initialJsonNode: JsonNode) {
     super();
 
-    const { children, ...rest } = initialJsonNode;
+    this.data = fromJS(initialJsonNode, (key, value) => {
+      if (key === "children") {
+        const children = value;
+        const childrenNodes: Node[] = [];
+        for (const jsonNode of children) {
+          const child = new Node(jsonNode as any as JsonNode);
+          childrenNodes.push(child);
+        }
 
-    this.data = Map(rest);
+        return Set(childrenNodes);
+      } else if (value instanceof Object) {
+        return Map(value as any);
+      } else {
+        return value;
+      }
+    }).toMap() as any;
 
     // link children
-    this.data = this.data.set(Children, Set());
-    for (const jsonNode of children) {
-      const node = new Node(jsonNode);
-      this.linkChild(node);
+    for (const child of this.getChildren()) {
+      this.linkChild(child);
     }
   }
 
@@ -56,12 +67,15 @@ export class Node extends Emitter<Topic> {
       children: [] as JsonNode[],
       isContainer,
       name,
-      position: [0, 0],
-      passProps: initialProps,
+      passProps: {
+        style: {},
+        ...initialProps,
+      },
       id: genId(),
-      style: {},
       layoutType: isContainer ? metaConfig.layoutType ?? "free" : undefined,
     };
+
+    console.log({ jsonNode });
 
     return new Node(jsonNode as any as JsonNode);
   }
@@ -156,7 +170,7 @@ export class Node extends Emitter<Topic> {
   }
 
   getPassProps() {
-    return this.data.get(PassProps);
+    return this.data.get(PassProps).toJS();
   }
 
   setPassProps(passProps: any) {
@@ -175,11 +189,14 @@ export class Node extends Emitter<Topic> {
   // /////////////////////////////////////////////////////////////////////////////
 
   getStyle(): CSSProperties {
-    return this.data.getIn([PassProps, Style]) as CSSProperties;
+    const map = this.data.getIn([PassProps, Style]) as Map<
+      keyof CSSProperties,
+      any
+    >;
+    return map.toJS() as CSSProperties;
   }
 
   setStyleProperty(property: keyof CSSProperties, value: string | number) {
-    console.log("setStyleProperty", property, value);
     this.data = this.data.setIn([PassProps, Style, property], value);
     this.emit(Topic.StylePropertyChange, property);
   }
@@ -212,31 +229,77 @@ export class Node extends Emitter<Topic> {
   // #endregion
   // /////////////////////////////////////////////////////////////////////////////
 
-  getPosition(): [number, number] {
-    return this.data.get(Position);
+  setMountPoint(el: HTMLElement) {
+    this.mountPoint = el;
   }
 
-  setPosition(position: [number, number]) {
-    if (is(position, this.getPosition())) {
+  // /////////////////////////////////////////////////////////////////////////////
+  // #region rect
+  // /////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * get the Bounding rect when node mounted in document
+   * @returns
+   */
+  getMountedBoundingRect() {
+    return this.mountPoint?.getBoundingClientRect();
+  }
+
+  /**
+   * get the rect which relative window when node mounted in document
+   * @returns
+   */
+  getMountedAbsRect() {
+    const box = this.getMountedBoundingRect();
+    if (box === undefined) {
+      invariant(
+        box,
+        `getMountedBoundingRect() returns undefined, may be caused by this node haven't be mounted.`
+      );
       return;
     }
 
-    this.data = this.data.set(Position, position);
-    this.emit(Topic.PositionUpdate);
+    return new Rect(box.left, box.top, box.width, box.height);
   }
 
-  setMountPoint(el: HTMLElement) {
-    if (this.mountPoint) {
-      return false;
-    }
-
-    this.mountPoint = el;
-    return true;
+  /**
+   * get the rect which relative parent container when node mounted in document
+   * @returns
+   */
+  getRelRect() {
+    const absRect = this.getMountedAbsRect();
+    const parentAbsRect = this.getParent().getMountedAbsRect();
+    return absRect?.minus(parentAbsRect!);
   }
 
-  getMountBoundingRect() {
-    return this.mountPoint?.getBoundingClientRect();
+  /**
+   * set the rect which is relative parent container
+   * @param rect
+   */
+  setRelRect(rect: Rect) {
+    this.setStyleProperty("left", rect.left);
+    this.setStyleProperty("top", rect.top);
+    this.setStyleProperty("width", rect.width);
+    this.setStyleProperty("height", rect.height);
+    this.emit(Node.Topic.RectUpdate);
   }
+
+  /**
+   * set the rect which is relative window
+   * @param rect
+   */
+  setAbsRect(rect: Rect) {
+    const parentRect = this.getParent().getMountedAbsRect()!;
+    this.setStyleProperty("left", rect.left - parentRect.left);
+    this.setStyleProperty("top", rect.top - parentRect.top);
+    this.setStyleProperty("width", rect.width);
+    this.setStyleProperty("height", rect.height);
+    this.emit(Node.Topic.RectUpdate);
+  }
+
+  // /////////////////////////////////////////////////////////////////////////////
+  // #endregion rect
+  // /////////////////////////////////////////////////////////////////////////////
 
   clone() {
     const json = this.toJSON();

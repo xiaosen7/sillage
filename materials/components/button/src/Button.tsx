@@ -1,12 +1,12 @@
-import { type FunctionComponent } from "react";
-import type React from "react";
-import { isValidElement, useCallback } from "react";
+import * as Icons from "@primer/octicons-react";
+import { type WithMaterialProps } from "@sillage/props";
+import { type FunctionComponent, useCallback } from "react";
 import { AwesomeButton } from "react-awesome-button";
 import "react-awesome-button/src/styles/styles.scss";
-import * as Icons from "@primer/octicons-react";
 import { type Props } from "./props";
+import type React from "react";
 
-export function Button(props: Props) {
+export function Button(props: WithMaterialProps<Props>) {
   const { href, before, onMouseUp, ...awesomeButtonProps } = props;
 
   const handleMouseUp = useCallback(
@@ -22,7 +22,9 @@ export function Button(props: Props) {
     [href, onMouseUp]
   );
 
-  const BeforeIcon = Reflect.get(Icons, before) as FunctionComponent;
+  const BeforeIcon = before
+    ? (Reflect.get(Icons, before) as FunctionComponent)
+    : undefined;
 
   return (
     <>
@@ -33,10 +35,6 @@ export function Button(props: Props) {
       >
         {props.text}
       </AwesomeButton>
-      {/* <AwesomeButton type="secondary">Secondary</AwesomeButton>
-      <AwesomeButton type="anchor">Anchor</AwesomeButton>
-      <AwesomeButton type="danger">Danger</AwesomeButton>
-      <AwesomeButton disabled={true}>Disabled</AwesomeButton> */}
     </>
   );
 }

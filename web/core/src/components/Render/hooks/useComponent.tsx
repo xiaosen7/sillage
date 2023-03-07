@@ -34,13 +34,17 @@ export function useComponent(node: Node) {
 
   const key = node.getId();
 
-  const passProps = node.getPassProps();
+  const props = node.getPassProps();
   const bridge = new Bridge(node);
-  const props = { ...passProps, bridge };
+
+  // proxy by wrap <span>
+  delete props.style.left;
+  delete props.style.top;
 
   return {
     key,
     props,
     Component,
+    bridge,
   };
 }

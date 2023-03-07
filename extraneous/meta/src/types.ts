@@ -9,10 +9,9 @@ interface NodeBase {
   name: string;
   children: JsonNode[];
   passProps: {
-    style?: CSSProperties;
+    style: CSSProperties;
     [K: string]: any;
   };
-  position: [number, number];
 }
 
 /**
@@ -34,7 +33,6 @@ export type JsonNode = ContainerNodeType | NodeType;
 
 export interface JsonRootNode extends ContainerNodeType {
   name: "root";
-  position: [0, 0];
   layoutType: "free";
 }
 

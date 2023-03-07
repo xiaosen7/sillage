@@ -1,2 +1,3 @@
-export * from "./StateMachine";
 export * from "./Emitter";
+export * from "./Rect";
+export * from "./StateMachine";

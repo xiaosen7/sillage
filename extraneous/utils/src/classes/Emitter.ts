@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 
-type ObserverFunction = (data: any) => void;
+export type ObserverFunction = (data: any) => void;
 export class Emitter<Topic extends keyof any> {
   private readonly observers = new Map<Topic, Set<ObserverFunction>>();
 
@@ -20,7 +20,7 @@ export class Emitter<Topic extends keyof any> {
     });
   }
 
-  private addObservableFunction(topic: Topic, fn: ObserverFunction): void {
+  protected addObservableFunction(topic: Topic, fn: ObserverFunction): void {
     let fns = this.observers.get(topic);
     if (!fns) {
       this.observers.set(topic, (fns = new Set()));

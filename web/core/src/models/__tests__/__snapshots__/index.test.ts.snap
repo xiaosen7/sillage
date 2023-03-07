@@ -8,52 +8,19 @@ exports[`Node > children 1`] = `
       "id": "buttonId",
       "isContainer": false,
       "name": "button",
-      "passProps": {},
-      "position": [
-        0,
-        0,
-      ],
+      "passProps": {
+        "style": {},
+      },
     },
   ],
   "id": "rectId",
   "isContainer": false,
   "name": "rect",
   "passProps": {
-    "height": 844,
-    "width": 390,
-  },
-  "position": [
-    0,
-    0,
-  ],
-}
-`;
-
-exports[`Node > children 2`] = `
-{
-  "children": [
-    {
-      "children": [],
-      "id": "buttonId",
-      "isContainer": false,
-      "name": "button",
-      "passProps": {},
-      "position": [
-        30,
-        30,
-      ],
+    "style": {
+      "height": 844,
+      "width": 390,
     },
-  ],
-  "id": "rectId",
-  "isContainer": false,
-  "name": "rect",
-  "passProps": {
-    "height": 844,
-    "width": 390,
   },
-  "position": [
-    0,
-    0,
-  ],
 }
 `;

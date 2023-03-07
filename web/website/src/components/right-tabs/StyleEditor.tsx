@@ -2,6 +2,7 @@ import { type EditorComponentType, Node, useSubscribe } from "@sillage/core";
 import { type CSSProperties, useCallback, useReducer } from "react";
 import InputCssLength from "@sillage-material-prop-editors/input-css-length";
 import { Descriptions } from "antd";
+import Color from "@sillage-material-prop-editors/color";
 
 const styleList: Array<{
   name: keyof CSSProperties;
@@ -17,6 +18,62 @@ const styleList: Array<{
   },
   {
     name: "fontSize",
+    Editor: InputCssLength,
+  },
+  {
+    name: "backgroundColor",
+    Editor: Color,
+  },
+  {
+    name: "color",
+    Editor: Color,
+  },
+  {
+    name: "borderWidth",
+    Editor: InputCssLength,
+  },
+  {
+    name: "borderColor",
+    Editor: Color,
+  },
+  {
+    name: "left",
+    Editor: InputCssLength,
+  },
+  {
+    name: "top",
+    Editor: InputCssLength,
+  },
+  {
+    name: "marginLeft",
+    Editor: InputCssLength,
+  },
+  {
+    name: "marginRight",
+    Editor: InputCssLength,
+  },
+  {
+    name: "marginTop",
+    Editor: InputCssLength,
+  },
+  {
+    name: "marginBottom",
+    Editor: InputCssLength,
+  },
+  {
+    name: "paddingLeft",
+    Editor: InputCssLength,
+  },
+  {
+    name: "paddingRight",
+    Editor: InputCssLength,
+  },
+  {
+    name: "paddingTop",
+    Editor: InputCssLength,
+  },
+  {
+    name: "paddingBottom",
     Editor: InputCssLength,
   },
 ];

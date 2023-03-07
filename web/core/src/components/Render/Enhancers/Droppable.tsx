@@ -1,10 +1,10 @@
 import mergeProps from "merge-props";
 
 import React, { type DragEvent, useCallback, useState } from "react";
-import { UIModel, useUIContext } from "../../../";
-import { type WrapperComponentProps } from "./types";
+import { UIModel, useUIContext } from "../../..";
+import { type EnhancerProps } from "./types";
 
-export function Droppable({ node, children, ...props }: WrapperComponentProps) {
+export function Droppable({ node, children, ...props }: EnhancerProps) {
   const [dragging, setDragging] = useState(false);
   const ui = useUIContext();
   const onDrop = useCallback(

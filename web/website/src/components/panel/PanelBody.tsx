@@ -1,5 +1,11 @@
 import { type Node, UIModel, useUIContext } from "@sillage/core";
-import { type MouseEvent, type ReactNode, useCallback, useRef } from "react";
+import {
+  type MouseEvent,
+  type ReactNode,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import styles from "./panel.module.scss";
 
 export function PanelBody({
@@ -15,12 +21,15 @@ export function PanelBody({
 }) {
   const ui = useUIContext();
   const panelBodyEl = useRef<HTMLDivElement>(null);
+  const [cursor, setCursor] = useState("grab");
 
   const handleMouseDown = useCallback(
     (e: MouseEvent<any>) => {
       if (e.target === panelBodyEl.current) {
         ui.dispatch(UIModel.Actions.StartScrollOnPanel, [e.clientX, e.clientY]);
       }
+
+      setCursor("grabbing");
     },
     [ui]
   );
@@ -36,6 +45,7 @@ export function PanelBody({
     (e: MouseEvent<any>) => {
       ui.dispatch(UIModel.Actions.StopScrollPanel, [e.clientX, e.clientY]);
       ui.setActiveNode(null);
+      setCursor("grab");
     },
     [ui]
   );
@@ -43,6 +53,7 @@ export function PanelBody({
   const handleMouseLeave = useCallback(
     (e: MouseEvent<any>) => {
       ui.dispatch(UIModel.Actions.StopScrollPanel, [e.clientX, e.clientY]);
+      setCursor("grab");
     },
     [ui]
   );
@@ -54,7 +65,11 @@ export function PanelBody({
       onMouseMove={handleMouseMove}
       onMouseDown={handleMouseDown}
       ref={panelBodyEl}
-      style={{ width, height }}
+      style={{
+        width,
+        height,
+        cursor,
+      }}
       className={styles["panel-body"]}
     >
       {children}

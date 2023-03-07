@@ -8,19 +8,10 @@ vt.describe("Node", () => {
     isContainer: false,
     name: "rect",
     passProps: {
-      width: 390,
-      height: 844,
+      style: { width: 390, height: 844 },
     },
-    position: [0, 0],
     id: "rectId",
   };
-
-  vt.test("position", () => {
-    const node = new Node(json);
-    node.setPosition([20, 20]);
-    vt.expect(node.getPosition()).toEqual([20, 20]);
-    vt.expect(node.toJSON().position).toEqual([20, 20]);
-  });
 
   vt.test("passProps", () => {
     const node = new Node(json);
@@ -28,8 +19,7 @@ vt.describe("Node", () => {
     node.setPassProp("name", "rect");
     vt.expect(node.getPassProp("name")).toEqual("rect");
     vt.expect(node.getPassProps()).toEqual({
-      width: 390,
-      height: 844,
+      style: { width: 390, height: 844 },
       name: "rect",
     });
 
@@ -46,8 +36,9 @@ vt.describe("Node", () => {
       children: [],
       isContainer: false,
       name: "button",
-      passProps: {},
-      position: [0, 0],
+      passProps: {
+        style: {},
+      },
       id: "buttonId",
     });
 
@@ -55,9 +46,6 @@ vt.describe("Node", () => {
     vt.expect(node.hasChild(child)).toBeTruthy();
     vt.expect(node.toJSON()).toMatchSnapshot();
     vt.expect(child.getParent()).toBe(node);
-
-    child.setPosition([30, 30]);
-    vt.expect(node.toJSON()).toMatchSnapshot();
 
     node.deleteChild(child);
     vt.expect(node.hasChild(child)).toBeFalsy();
@@ -75,21 +63,16 @@ vt.describe("Node", () => {
           isContainer: false,
           children: [],
           passProps: {
-            width: 100,
-            height: 100,
+            style: {},
           },
           id: "rect",
-          position: [0, 0],
         },
       ],
       isContainer: true,
       name: "root",
       passProps: {
-        // iphone 12
-        width: 390,
-        height: 844,
+        style: {},
       },
-      position: [0, 0],
       id: "root",
       layoutType: "free",
     };

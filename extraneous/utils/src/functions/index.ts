@@ -15,3 +15,12 @@ export function arrayed<T>(value: T) {
 
   return [value];
 }
+
+export function pick<T>(obj: T, keys: Array<keyof T>) {
+  const ret: Partial<T> = {};
+  for (const key of keys) {
+    ret[key] = obj[key];
+  }
+
+  return ret;
+}
