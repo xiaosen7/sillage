@@ -7,4 +7,5 @@ export const projRoot = path.join(
   ".."
 );
 
-export const componentsRoot = path.join(projRoot, "materials/components");
+export const materialsRoot = path.join(projRoot, "materials");
+export const websiteRoot = path.join(projRoot, "web", "website");

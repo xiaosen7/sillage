@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "type": "module",
   "main": "src/index.ts",
-  "module": "src/index.ts",
+  "dependencies": {
+    "@sillage/type-utils": "workspace:^0.0.0"
+  },
   "devDependencies": {
+    "@sillage/tsconfig": "workspace:^0.0.0",
     "@types/react": "^18.0.27"
   }
 }

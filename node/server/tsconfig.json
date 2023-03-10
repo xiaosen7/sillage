@@ -1,0 +1,7 @@
+{
+  "extends": "@sillage/tsconfig/tsconfig.node",
+  "compilerOptions": {
+    "strictNullChecks": false,
+    "outDir": "dist"
+  }
+}

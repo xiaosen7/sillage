@@ -3,7 +3,7 @@ import React from "react";
 import mergeProps from "merge-props";
 import { pick } from "@sillage/utils";
 import { Node } from "../../../";
-import { useSubscribe } from "../hooks";
+import { useSubscribe } from "../../../hooks";
 import { type EnhancerProps } from "./types";
 
 interface StyledProps extends EnhancerProps {}

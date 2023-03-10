@@ -1,0 +1,4 @@
+{
+  "extends": "@sillage/tsconfig/tsconfig.web",
+  "include": ["src"]
+}

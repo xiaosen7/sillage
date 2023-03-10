@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import mergeProps from "merge-props";
-import { useSubscribe } from "../hooks";
+import { useSubscribe } from "../../../hooks";
 import { Node } from "../../..";
 import { type EnhancerProps } from "./types";
 
@@ -20,7 +20,7 @@ export function Locatable({ children, node, ...props }: EnhancerProps) {
   const parentNode = node.getParent();
   let innerWrapperProps;
 
-  if (parentNode.getLayoutType() === "free") {
+  if (parentNode?.getLayoutType() === "free") {
     innerWrapperProps = mergeProps(props.innerWrapperProps, {
       style: { position: "absolute", left, top },
     });

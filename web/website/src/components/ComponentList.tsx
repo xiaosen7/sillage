@@ -1,15 +1,16 @@
 import { useMemo } from "react";
 
 import {
-  Draggable,
   type Material,
   Materials,
   Node,
+  Render,
   RenderComponent,
   Wrapped,
 } from "@sillage/core";
+import { Draggable } from "@sillage/editor-core";
 
-import styles from "./componentList.module.scss";
+import styles from "./ComponentList.module.scss";
 
 function RenderMaterial({ material }: { material: Material }) {
   const node = useMemo(() => Node.fromMaterial(material), [material]);
@@ -17,7 +18,7 @@ function RenderMaterial({ material }: { material: Material }) {
     <Draggable node={node}>
       <Wrapped node={node}>
         <>
-          <RenderComponent node={node} />
+          <RenderComponent Render={Render} node={node} />
         </>
       </Wrapped>
     </Draggable>

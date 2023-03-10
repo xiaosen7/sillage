@@ -1,0 +1,242 @@
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [],
+          "isContainer": false,
+          "name": "InputText",
+          "passProps": {
+            "style": {
+              "left": 56,
+              "top": 34,
+              "width": 84,
+              "height": 32
+            },
+            "placeholder": "请输入文本"
+          },
+          "id": "hue05hbrcx"
+        },
+        {
+          "children": [],
+          "isContainer": false,
+          "name": "Button",
+          "passProps": {
+            "style": {
+              "left": 81,
+              "top": 2,
+              "width": 76.6875,
+              "height": 44
+            },
+            "type": "primary",
+            "text": "button"
+          },
+          "id": "kd0qjx4p11"
+        }
+      ],
+      "isContainer": true,
+      "name": "LayoutRow",
+      "passProps": {
+        "style": {
+          "width": 181,
+          "height": 157,
+          "outline": "solid",
+          "left": 135,
+          "top": 410
+        }
+      },
+      "id": "61zwux71z2e",
+      "layoutType": "row"
+    },
+    {
+      "children": [
+        {
+          "children": [],
+          "isContainer": false,
+          "name": "Button",
+          "passProps": {
+            "style": {
+              "left": -0.34375,
+              "top": 93,
+              "width": "144px",
+              "height": 44,
+              "paddingTop": "3px",
+              "fontSize": "26px",
+              "color": "#87404080"
+            },
+            "type": "primary",
+            "text": "button"
+          },
+          "id": "ann6h1hnr0w"
+        },
+        {
+          "children": [],
+          "isContainer": false,
+          "name": "Button",
+          "passProps": {
+            "style": {
+              "left": 13.65625,
+              "top": 135,
+              "width": 76.6875,
+              "height": 44
+            },
+            "type": "primary",
+            "text": "button4"
+          },
+          "id": "z6rj5d8gdsr"
+        },
+        {
+          "children": [],
+          "isContainer": false,
+          "name": "Button",
+          "passProps": {
+            "style": {
+              "left": 38.65625,
+              "top": 110,
+              "width": 76.6875,
+              "height": 44
+            },
+            "type": "primary",
+            "text": "button3"
+          },
+          "id": "j6wkgjzg4zs"
+        },
+        {
+          "children": [],
+          "isContainer": false,
+          "name": "Button",
+          "passProps": {
+            "style": {
+              "left": 2.65625,
+              "top": 98,
+              "width": 76.6875,
+              "height": 44,
+              "fontSize": "23px"
+            },
+            "type": "primary",
+            "text": "button2"
+          },
+          "id": "3du0cw7360l"
+        }
+      ],
+      "isContainer": true,
+      "name": "LayoutColumn",
+      "passProps": {
+        "style": {
+          "width": 199,
+          "height": 191,
+          "outline": "solid",
+          "left": 149,
+          "top": 219
+        }
+      },
+      "id": "f372a6jbghe",
+      "layoutType": "column"
+    },
+    {
+      "children": [],
+      "isContainer": true,
+      "name": "LayoutFree",
+      "passProps": {
+        "style": {
+          "width": 50,
+          "height": 50,
+          "outline": "solid",
+          "left": 36,
+          "top": 232.5
+        }
+      },
+      "id": "9rld6iibhc",
+      "layoutType": "free"
+    },
+    {
+      "children": [],
+      "isContainer": true,
+      "name": "LayoutFree",
+      "passProps": {
+        "style": {
+          "width": 50,
+          "height": 50,
+          "outline": "solid",
+          "left": 84,
+          "top": 129
+        }
+      },
+      "id": "0lgf18m8hvr",
+      "layoutType": "free"
+    },
+    {
+      "children": [],
+      "isContainer": false,
+      "name": "Text",
+      "passProps": {
+        "style": {
+          "left": 78,
+          "top": 633,
+          "width": 32,
+          "height": 24
+        },
+        "text": "文本"
+      },
+      "id": "grpsxlfv1f9"
+    },
+    {
+      "children": [],
+      "isContainer": false,
+      "name": "Text",
+      "passProps": {
+        "style": {
+          "left": 47,
+          "top": 349,
+          "width": 32,
+          "height": 24
+        },
+        "text": "文本"
+      },
+      "id": "1eopzgqdyi8"
+    },
+    {
+      "children": [],
+      "isContainer": false,
+      "name": "Rect",
+      "passProps": {
+        "style": {
+          "border": "1px solid gray",
+          "width": 50,
+          "height": 50,
+          "left": 204,
+          "top": 138.5
+        }
+      },
+      "id": "higldh1386n"
+    },
+    {
+      "children": [],
+      "isContainer": false,
+      "name": "Text",
+      "passProps": {
+        "style": {
+          "left": 67,
+          "top": 488.5,
+          "width": 32,
+          "height": 24
+        },
+        "text": "文本"
+      },
+      "id": "g90qlbp2r7l"
+    }
+  ],
+  "isContainer": true,
+  "name": "Root",
+  "passProps": {
+    "style": {
+      "background": "white",
+      "cursor": "default",
+      "width": 390,
+      "height": 844
+    },
+    "className": "shadow"
+  },
+  "id": "ng6e7tjw51e",
+  "layoutType": "free"
+}

@@ -15,6 +15,7 @@ dist-ssr
 *.local
 *.dot
 *.svg
+.secret
 
 # Editor directories and files
 .vscode/*
@@ -26,3 +27,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+./build

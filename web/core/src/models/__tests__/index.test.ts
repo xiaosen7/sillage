@@ -1,12 +1,12 @@
 import * as vt from "vitest";
-import { type JsonNode, type JsonRootNode } from "../../types";
+import { type JSONNode } from "../../types";
 import { Node } from "../Node";
 
 vt.describe("Node", () => {
-  const json: JsonNode = {
+  const json: JSONNode = {
     children: [],
     isContainer: false,
-    name: "rect",
+    componentName: "rect",
     passProps: {
       style: { width: 390, height: 844 },
     },
@@ -35,7 +35,7 @@ vt.describe("Node", () => {
     const child = new Node({
       children: [],
       isContainer: false,
-      name: "button",
+      componentName: "button",
       passProps: {
         style: {},
       },
@@ -43,12 +43,12 @@ vt.describe("Node", () => {
     });
 
     node.linkChild(child);
-    vt.expect(node.hasChild(child)).toBeTruthy();
+    vt.expect(node.includeChild(child)).toBeTruthy();
     vt.expect(node.toJSON()).toMatchSnapshot();
     vt.expect(child.getParent()).toBe(node);
 
     node.deleteChild(child);
-    vt.expect(node.hasChild(child)).toBeFalsy();
+    vt.expect(node.includeChild(child)).toBeFalsy();
     vt.expect(child.getParent()).toBe(node);
 
     node.unlinkChild(child);
@@ -56,10 +56,10 @@ vt.describe("Node", () => {
   });
 
   vt.test("initialize children", () => {
-    const defaultJsonNode: JsonRootNode = {
+    const defaultJsonNode: JSONNode = {
       children: [
         {
-          name: "rect",
+          componentName: "rect",
           isContainer: false,
           children: [],
           passProps: {
@@ -69,7 +69,7 @@ vt.describe("Node", () => {
         },
       ],
       isContainer: true,
-      name: "root",
+      componentName: "Root",
       passProps: {
         style: {},
       },
@@ -80,8 +80,55 @@ vt.describe("Node", () => {
     const root = new Node(defaultJsonNode);
     const rect = root.getChildren().toJS()[0] as Node;
 
-    vt.expect(rect.getName()).toBe("rect");
+    vt.expect(rect.getComponentName()).toBe("rect");
     vt.expect(rect.getParent()).toBe(root);
-    vt.expect(root.hasChild(rect)).toBe(true);
+    vt.expect(root.includeChild(rect)).toBe(true);
+  });
+
+  vt.test("toIterator", () => {
+    const defaultJsonNode: JSONNode = {
+      children: [
+        {
+          componentName: "c2",
+          isContainer: false,
+          children: [
+            {
+              componentName: "c3",
+              isContainer: false,
+              passProps: {
+                style: {},
+              },
+              id: "c3",
+              children: [],
+            },
+          ],
+          passProps: {
+            style: {},
+          },
+          id: "rect",
+        },
+        {
+          componentName: "c4",
+          isContainer: false,
+          children: [],
+          passProps: {
+            style: {},
+          },
+          id: "c4",
+        },
+      ],
+      isContainer: true,
+      componentName: "c1",
+      passProps: {
+        style: {},
+      },
+      id: "root",
+      layoutType: "free",
+    };
+
+    const node = new Node(defaultJsonNode);
+    const nodes = [...node.toIterator()];
+    const componentNames = nodes.map((node) => node.getComponentName());
+    vt.expect(componentNames).toEqual(["c1", "c2", "c3", "c4"]);
   });
 });

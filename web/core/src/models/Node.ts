@@ -1,8 +1,8 @@
-import { Map, Set, fromJS } from "immutable";
+import { List, Map, fromJS } from "immutable";
 import { Emitter, Rect, genId } from "@sillage/utils";
 import { type CSSProperties } from "react";
 import invariant from "invariant";
-import { type JsonNode, type LayoutType } from "../types";
+import { type JSONNode, type LayoutType } from "../types";
 import { type Material } from "./Materials";
 
 enum Topic {
@@ -13,8 +13,9 @@ enum Topic {
   StylePropertyChange,
 }
 
-const PassProps = "passProps";
 const Name = "name";
+const PassProps = "passProps";
+const ComponentName = "componentName";
 const IsContainer = "isContainer";
 const Children = "children";
 const Id = "id";
@@ -31,7 +32,7 @@ export class Node extends Emitter<Topic> {
   private data: Map<string, any>;
   private mountPoint: HTMLElement | null = null;
 
-  constructor(initialJsonNode: JsonNode) {
+  constructor(initialJsonNode: JSONNode) {
     super();
 
     this.data = fromJS(initialJsonNode, (key, value) => {
@@ -39,11 +40,11 @@ export class Node extends Emitter<Topic> {
         const children = value;
         const childrenNodes: Node[] = [];
         for (const jsonNode of children) {
-          const child = new Node(jsonNode as any as JsonNode);
+          const child = new Node(jsonNode as any as JSONNode);
           childrenNodes.push(child);
         }
 
-        return Set(childrenNodes);
+        return List(childrenNodes);
       } else if (value instanceof Object) {
         return Map(value as any);
       } else {
@@ -58,15 +59,15 @@ export class Node extends Emitter<Topic> {
   }
 
   static fromMaterial(m: Material) {
-    const { metaConfig, name } = m;
+    const { metaConfig, componentName } = m;
     const { initialProps } = m;
 
     const isContainer = !!metaConfig.isContainer;
 
     const jsonNode = {
-      children: [] as JsonNode[],
+      children: [] as JSONNode[],
       isContainer,
-      name,
+      componentName,
       passProps: {
         style: {},
         ...initialProps,
@@ -75,21 +76,50 @@ export class Node extends Emitter<Topic> {
       layoutType: isContainer ? metaConfig.layoutType ?? "free" : undefined,
     };
 
-    console.log({ jsonNode });
-
-    return new Node(jsonNode as any as JsonNode);
+    return new Node(jsonNode as any as JSONNode);
   }
 
   getId(): string {
     return this.data.get(Id);
   }
 
-  toJSON(): JsonNode {
+  hasName() {
+    return this.data.get(Name) !== undefined;
+  }
+
+  getName() {
+    return this.data.get(Name);
+  }
+
+  setName(name: string) {
+    this.data = this.data.set(Name, name);
+  }
+
+  getNodesByName(name: string): Node | null {
+    const children = this.getChildren();
+    for (const child of children) {
+      if (child.getId() === name) {
+        return child;
+      }
+
+      const grandson = child.getNodesByName(name);
+      if (grandson) {
+        return grandson;
+      }
+    }
+
+    return null;
+  }
+
+  toJSON(): JSONNode {
     const object = this.data.toJS();
+
     Reflect.deleteProperty(object, Parent);
+
     const children = object.children as Node[];
     object.children = children.map((x) => x.toJSON());
-    return object as JsonNode;
+
+    return object as JSONNode;
   }
 
   // /////////////////////////////////////////////////////////////////////////////
@@ -97,7 +127,7 @@ export class Node extends Emitter<Topic> {
   // /////////////////////////////////////////////////////////////////////////////
 
   isRoot() {
-    return this.getName() === "root";
+    return this.getComponentName() === "Root";
   }
 
   getParent(): Node {
@@ -108,8 +138,8 @@ export class Node extends Emitter<Topic> {
     this.data = this.data.set(Parent, parent);
   }
 
-  hasChild(node: Node) {
-    return this.getChildren().has(node);
+  includeChild(node: Node) {
+    return this.getChildren().includes(node);
   }
 
   /**
@@ -122,7 +152,7 @@ export class Node extends Emitter<Topic> {
   }
 
   linkChild(child: Node) {
-    if (this.hasChild(child) && child.getParent() === this) {
+    if (this.includeChild(child) && child.getParent() === this) {
       return;
     }
 
@@ -134,7 +164,10 @@ export class Node extends Emitter<Topic> {
 
     child.setParent(this);
     const children = this.getChildren();
-    this.data = this.data.set(Children, children.add(child));
+    if (!children.includes(child)) {
+      this.data = this.data.set(Children, children.push(child));
+    }
+
     this.emit(Node.Topic.ChildChange);
   }
 
@@ -143,13 +176,41 @@ export class Node extends Emitter<Topic> {
    * @param node
    */
   deleteChild(node: Node) {
-    const children = this.getChildren().delete(node);
-    this.data = this.data.set(Children, children);
-    this.emit(Node.Topic.ChildChange);
+    let children = this.getChildren();
+    const index = children.indexOf(node);
+    if (index >= 0) {
+      children = children.delete(index);
+      this.data = this.data.set(Children, children);
+      this.emit(Node.Topic.ChildChange);
+    }
   }
 
-  getChildren(): Set<Node> {
+  getChildren(): List<Node> {
     return this.data.get(Children);
+  }
+
+  moveForwardChild(child: Node) {
+    let children = this.getChildren();
+    const index = children.indexOf(child);
+    const prevChild = children.get(index - 1);
+    if (index - 1 >= 0 && prevChild) {
+      children = children.set(index, prevChild);
+      children = children.set(index - 1, child);
+      this.data = this.data.set(Children, children);
+      this.emit(Node.Topic.ChildChange);
+    }
+  }
+
+  moveBackChild(child: Node) {
+    let children = this.getChildren();
+    const index = children.indexOf(child);
+    const siblingChild = children.get(index + 1);
+    if (index + 1 < children.size && siblingChild) {
+      children = children.set(index, siblingChild);
+      children = children.set(index + 1, child);
+      this.data = this.data.set(Children, children);
+      this.emit(Node.Topic.ChildChange);
+    }
   }
 
   // /////////////////////////////////////////////////////////////////////////////
@@ -209,8 +270,8 @@ export class Node extends Emitter<Topic> {
   // #endregion
   // /////////////////////////////////////////////////////////////////////////////
 
-  getName(): string {
-    return this.data.get(Name);
+  getComponentName(): string {
+    return this.data.get(ComponentName);
   }
 
   // /////////////////////////////////////////////////////////////////////////////
@@ -231,6 +292,10 @@ export class Node extends Emitter<Topic> {
 
   setMountPoint(el: HTMLElement) {
     this.mountPoint = el;
+  }
+
+  getMountPoint() {
+    return this.mountPoint;
   }
 
   // /////////////////////////////////////////////////////////////////////////////
@@ -305,5 +370,17 @@ export class Node extends Emitter<Topic> {
     const json = this.toJSON();
     json.id = genId();
     return new Node(json);
+  }
+
+  *toIterator(): Generator<Node> {
+    yield this;
+
+    const children = this.getChildren();
+    for (const child of children) {
+      const it = child.toIterator();
+      for (const item of it) {
+        yield item;
+      }
+    }
   }
 }

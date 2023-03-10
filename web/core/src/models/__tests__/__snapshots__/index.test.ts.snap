@@ -5,17 +5,17 @@ exports[`Node > children 1`] = `
   "children": [
     {
       "children": [],
+      "componentName": "button",
       "id": "buttonId",
       "isContainer": false,
-      "name": "button",
       "passProps": {
         "style": {},
       },
     },
   ],
+  "componentName": "rect",
   "id": "rectId",
   "isContainer": false,
-  "name": "rect",
   "passProps": {
     "style": {
       "height": 844,

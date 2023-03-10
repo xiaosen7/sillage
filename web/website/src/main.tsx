@@ -6,6 +6,8 @@ import App from "./App";
 import "uno.css";
 import "virtual:unocss-devtools";
 import "@unocss/reset/tailwind.css";
+import "animate.css";
+import "./global.scss";
 
 const root = document.querySelector("#root");
 if (root) {

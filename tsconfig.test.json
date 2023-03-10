@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "strictNullChecks": true,
-    "types": ["./scripts/node_modules/vite/client"]
-  },
-  "exclude": ["**/node_modules", "**/assets", "materials"]
-}

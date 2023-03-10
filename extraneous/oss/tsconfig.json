@@ -1,0 +1,7 @@
+{
+  "extends": "@sillage/tsconfig/tsconfig.extraneous",
+  "compilerOptions": {
+    "strictNullChecks": false,
+    "outDir": "dist"
+  }
+}

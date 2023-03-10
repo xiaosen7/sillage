@@ -1,0 +1,23 @@
+{
+  "name": "@sillage/materials",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@primer/octicons-react": "^18.0.0",
+    "@sillage/core": "workspace:*",
+    "@sillage/editors": "workspace:^0.0.0",
+    "@sillage/meta": "workspace:*",
+    "@sillage/props": "workspace:*",
+    "@sillage/utils": "workspace:^0.0.0",
+    "antd": "^5.2.3",
+    "react": "^18.2.0",
+    "react-awesome-button": "^7.0.5",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@sillage/tsconfig": "workspace:^0.0.0",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10"
+  }
+}

@@ -19,7 +19,7 @@ export function Wrapped({
   }, [node]);
 
   innerWrapperProps = mergeProps(innerWrapperProps, {
-    className: `relative component__wrapper component__${node.getName()}`,
+    className: `relative component__wrapper component__${node.getComponentName()}`,
   });
 
   return (

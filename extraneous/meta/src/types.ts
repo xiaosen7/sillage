@@ -1,4 +1,5 @@
-import type { CSSProperties } from "react";
+import { type Constructable } from "@sillage/type-utils";
+import type { CSSProperties, ComponentType } from "react";
 
 // /////////////////////////////////////////////////////////////////////////////
 // #region Node
@@ -6,8 +7,9 @@ import type { CSSProperties } from "react";
 
 interface NodeBase {
   id: string;
-  name: string;
-  children: JsonNode[];
+  name?: string;
+  componentName: string;
+  children: JSONNode[];
   passProps: {
     style: CSSProperties;
     [K: string]: any;
@@ -29,12 +31,15 @@ interface ContainerNodeType extends NodeBase {
   layoutType: LayoutType;
 }
 
-export type JsonNode = ContainerNodeType | NodeType;
+export type JSONNode = ContainerNodeType | NodeType;
 
-export interface JsonRootNode extends ContainerNodeType {
-  name: "root";
-  layoutType: "free";
+// #region page
+export interface JSONPage {
+  root: JSONNode;
+  scriptUrl?: string;
+  scriptCompiledUrl?: string;
 }
+// #endregion page
 
 // /////////////////////////////////////////////////////////////////////////////
 // #endregion
@@ -45,11 +50,21 @@ export interface JsonRootNode extends ContainerNodeType {
 // /////////////////////////////////////////////////////////////////////////////
 
 export interface ComponentMetaConfig
-  extends Pick<JsonNode, "name" | "isContainer"> {
+  extends Pick<JSONNode, "name" | "isContainer"> {
   isInternal: boolean;
   layoutType?: LayoutType;
+  styleEditor?: {
+    supportGroups?: string[];
+    unSupportGroups?: string[];
+    unSupportProperties?: Array<keyof CSSProperties>;
+  };
 }
 
 // /////////////////////////////////////////////////////////////////////////////
 // #endregion
 // /////////////////////////////////////////////////////////////////////////////
+
+export type MaterialComponent<T> = ComponentType<T> & {
+  Props: Constructable<T>;
+  metaConfig: ComponentMetaConfig;
+};

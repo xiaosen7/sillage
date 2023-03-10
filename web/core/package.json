@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "module": "src/index.ts",
   "dependencies": {
+    "@sillage/materials": "workspace:^0.0.0",
     "@sillage/props": "workspace:*",
     "@sillage/utils": "workspace:*",
     "ahooks": "^3.7.5",
@@ -12,13 +13,23 @@
     "immer": "^9.0.19",
     "immutable": "^4.2.4",
     "invariant": "^2.2.4",
-    "merge-props": "^5.0.3"
+    "merge-props": "^5.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@sillage/meta": "workspace:^0.0.0",
+    "@sillage/tsconfig": "workspace:^0.0.0",
     "@sillage/type-utils": "workspace:*",
     "@types/invariant": "^2.2.35",
     "@types/react": "^18.0.27",
-    "rxjs": "^7.8.0"
+    "editor-core": "link:web/editor-core",
+    "editors": "link:web/editors",
+    "materials": "link:web/materials",
+    "preview": "link:web/preview",
+    "props": "link:web/props",
+    "rxjs": "^7.8.0",
+    "vite": "^4.1.4",
+    "website": "link:web/website"
   }
 }

@@ -7,6 +7,10 @@ module.exports = defineConfig({
     es2021: true,
     node: true,
   },
+  parserOptions: {
+    project: "./tsconfig.lint.json",
+    sourceType: "module",
+  },
   extends: [
     "plugin:react/recommended",
     "standard-with-typescript",
@@ -31,14 +35,30 @@ module.exports = defineConfig({
         "unicorn/consistent-function-scoping": "off",
       },
     },
+    // vite env
+    {
+      files: ["**/vite-env.d.ts"],
+      rules: {
+        "unicorn/filename-case": "off",
+        "@typescript-eslint/triple-slash-reference": "off",
+      },
+    },
   ],
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-  },
-  plugins: ["react", "jsx-a11y"],
+
+  plugins: ["react", "jsx-a11y", "unused-imports"],
   rules: {
-    "@typescript-eslint/no-unused-vars": "warn",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        vars: "all",
+        varsIgnorePattern: "^_",
+        args: "after-used",
+        argsIgnorePattern: "^_",
+      },
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-non-null-assertion": "warn",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",

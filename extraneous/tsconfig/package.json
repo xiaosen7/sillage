@@ -1,0 +1,8 @@
+{
+  "name": "@sillage/tsconfig",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@sillage/tsconfig": "workspace:^0.0.0"
+  }
+}

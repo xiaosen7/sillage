@@ -1,0 +1,20 @@
+{
+  "name": "@sillage/server",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "tsup src/index.ts --watch --format esm | nodemon dist/index.js"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.17",
+    "express": "^4.18.2",
+    "reflect-metadata": "^0.1.13",
+    "tsup": "^6.6.3",
+    "typeorm": "0.3.12",
+    "typescript": "^4.7.4"
+  },
+  "devDependencies": {
+    "@sillage/tsconfig": "workspace:^0.0.0"
+  }
+}

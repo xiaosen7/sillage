@@ -1,8 +1,6 @@
 import { type WithMaterialProps, getInitialProps } from "@sillage/props";
 import { type Constructable } from "@sillage/type-utils";
-import * as components from "virtual:material-components";
-import * as metaConfigs from "virtual:material-meta-configs";
-import * as props from "virtual:material-props";
+import * as materials from "@sillage/materials";
 import { type ComponentMetaConfig } from "..";
 
 export class Material {
@@ -12,7 +10,7 @@ export class Material {
   public readonly initialProps: any;
 
   constructor(
-    public readonly name: string,
+    public readonly componentName: string,
     public readonly Component: WithMaterialProps<React.ComponentType<any>>,
     public readonly Props: Constructable,
     public readonly metaConfig: ComponentMetaConfig
@@ -35,15 +33,18 @@ export class Materials {
 
   private constructor() {
     const data = new Map();
-    for (const [exportName, metaConfig] of Object.entries(metaConfigs)) {
-      const { name } = metaConfig;
+    for (const [componentName, Component] of Object.entries(materials)) {
+      if (!Component.metaConfig) {
+        continue;
+      }
+
       const material = new Material(
-        name,
-        components[exportName],
-        props[exportName],
-        metaConfig
+        componentName,
+        Component,
+        Component.Props,
+        Component.metaConfig
       );
-      data.set(name, material);
+      data.set(componentName, material);
     }
 
     this.data = data;
@@ -53,11 +54,16 @@ export class Materials {
     return Materials.inst;
   }
 
-  getByName(name: string) {
-    return this.data.get(name);
+  getByComponentName(componentName: string) {
+    const material = this.data.get(componentName);
+    if (!material) {
+      throw new Error(`Can't get Material from name ${componentName}`);
+    }
+
+    return material;
   }
 
-  map<T>(cb: (material: Material, name: string) => T): T[] {
+  map<T>(cb: (material: Material, componentName: string) => T): T[] {
     return [...this.data.entries()].map(([name, m]) => cb(m, name));
   }
 }

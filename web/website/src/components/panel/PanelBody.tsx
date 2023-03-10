@@ -1,4 +1,4 @@
-import { type Node, UIModel, useUIContext } from "@sillage/core";
+import { UIModel, useUIContext } from "@sillage/editor-core";
 import {
   type MouseEvent,
   type ReactNode,
@@ -9,12 +9,10 @@ import {
 import styles from "./panel.module.scss";
 
 export function PanelBody({
-  root,
   width,
   height,
   children,
 }: {
-  root: Node;
   width: number;
   height: number;
   children: ReactNode;
@@ -44,7 +42,7 @@ export function PanelBody({
   const handleMouseUp = useCallback(
     (e: MouseEvent<any>) => {
       ui.dispatch(UIModel.Actions.StopScrollPanel, [e.clientX, e.clientY]);
-      ui.setActiveNode(null);
+      // ui.setActiveNode(null);
       setCursor("grab");
     },
     [ui]
