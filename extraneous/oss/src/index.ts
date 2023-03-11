@@ -2,7 +2,6 @@ import OSS from "ali-oss";
 
 const client = new OSS({
   accessKeyId: "LTAI5tPCa9s9Gmj8NLRkzpBn",
-  accessKeySecret: "mQj9rENC2opUsdstwCXHIuC3zshDgj",
   bucket: "sillage-ui",
   region: "oss-cn-beijing",
   timeout: 0,
