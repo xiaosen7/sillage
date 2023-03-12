@@ -23,7 +23,6 @@ export function Draggable({ node, children, ...props }: EnhancerProps) {
   }, [ui]);
 
   const onMouseOver = (e: React.MouseEvent) => {
-    console.log("onMouseOver");
     e.stopPropagation();
     e.preventDefault();
   };

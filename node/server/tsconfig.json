@@ -2,6 +2,11 @@
   "extends": "@sillage/tsconfig/tsconfig.node",
   "compilerOptions": {
     "strictNullChecks": false,
-    "outDir": "dist"
+    "outDir": "dist",
+    "target": "ESNext",
+    "module": "commonjs",
+    "watch": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }

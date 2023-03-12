@@ -1,56 +1,18 @@
 /* eslint-disable unicorn/filename-case */
 import { useKeyPress } from "ahooks";
 import classnames from "classnames";
-import { useEffect, useRef } from "react";
 
-import { type JSONPage } from "@sillage/core";
-import { RenderInEditor, UIContext, UIModel } from "@sillage/editor-core";
+import { RenderInEditor, UIModel, useUIContext } from "@sillage/editor-core";
 
+import { message } from "antd";
 import { ComponentList } from "../components/ComponentList";
 import { Panel } from "../components/panel";
 import { RightTabs } from "../components/right-tabs";
+import { savePage } from "../utils";
 import styles from "./Editor.module.scss";
 
-const defaultPage: JSONPage = {
-  root: {
-    componentName: "Root",
-    isContainer: true,
-    children: [],
-    layoutType: "free",
-    passProps: {
-      style: {
-        background: "white",
-        cursor: "default",
-        // iphone 12
-        width: 390,
-        height: 844,
-      },
-    },
-    id: "Root",
-  },
-  scriptUrl: `http://127.0.0.1:${
-    import.meta.env.SILLAGE_WEBSITE_PORT as string
-  }/script.js`,
-};
-
 function UIEditor(): JSX.Element {
-  const uiRef = useRef<UIModel>();
-  if (!uiRef.current) {
-    const jsonPage = localStorage.getItem("page");
-    if (jsonPage) {
-      const page = JSON.parse(jsonPage) as JSONPage;
-      uiRef.current = new UIModel(page);
-      console.log("reloaded from localStorage", page);
-    } else {
-      uiRef.current = new UIModel(defaultPage);
-    }
-  }
-
-  const ui = uiRef.current;
-
-  useKeyPress(["Delete", "backspace"], () => {
-    ui.dispatch(UIModel.Actions.DeleteNode);
-  });
+  const ui = useUIContext();
 
   // TODO Copy node
   // useKeyPress(["ctrl.c"], () => {
@@ -67,42 +29,33 @@ function UIEditor(): JSX.Element {
     ui.dispatch(UIModel.Actions.MoveBackNode);
   });
 
-  // set a timer
-  useEffect(() => {
-    let timer: any;
+  useKeyPress(["ctrl.s", "meta.s"], (e) => {
+    e.preventDefault();
 
-    function next() {
-      timer = setTimeout(() => {
-        const data = ui.toJSON();
-        localStorage.setItem("page", JSON.stringify(data, null, 2));
-        console.log("saved", data);
-        next();
-      }, 5000);
-    }
-
-    next();
-
-    return () => clearTimeout(timer);
-  }, [ui]);
+    const jsonPage = ui.toJSON();
+    savePage(jsonPage)
+      .then(() => message.success("save successfully"))
+      .catch((error: Error) =>
+        message.error(`save error: ${error.toString()}`)
+      );
+  });
 
   return (
-    <UIContext.Provider value={ui}>
-      <section className={styles["ui-editor"]}>
-        <aside className={"shadow"}>
-          <ComponentList />
-        </aside>
+    <section className={styles["ui-editor"]}>
+      <aside className={"shadow"}>
+        <ComponentList />
+      </aside>
 
-        <section className="flex-grow">
-          <Panel>
-            <RenderInEditor page={ui.page} />
-          </Panel>
-        </section>
-
-        <aside className={classnames(styles.aside, "shadow", "overflow-auto")}>
-          <RightTabs />
-        </aside>
+      <section className="flex-grow">
+        <Panel>
+          <RenderInEditor page={ui.page} />
+        </Panel>
       </section>
-    </UIContext.Provider>
+
+      <aside className={classnames(styles.aside, "shadow", "overflow-auto")}>
+        <RightTabs />
+      </aside>
+    </section>
   );
 }
 

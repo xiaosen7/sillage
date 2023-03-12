@@ -4,5 +4,8 @@
   "main": "src/index.ts",
   "devDependencies": {
     "@sillage/tsconfig": "workspace:^0.0.0"
+  },
+  "dependencies": {
+    "@sillage/env": "workspace:^0.0.0"
   }
 }

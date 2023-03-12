@@ -3,7 +3,10 @@ import invariant from "invariant";
 import { Bridge, Materials, Node } from "../models";
 import { useSubscribe } from "./useSubscribe";
 
-export function useComponent(node: Node, Render: ComponentType) {
+export function useComponent(
+  node: Node,
+  ChildRender: ComponentType<{ node: Node }>
+) {
   const [_, setVer] = useReducer((x: number) => x + 1, 0);
 
   useSubscribe(
@@ -37,7 +40,7 @@ export function useComponent(node: Node, Render: ComponentType) {
   const key = node.getId();
 
   const props = node.getPassProps();
-  const bridge = new Bridge(node, Render);
+  const bridge = new Bridge(node, ChildRender);
 
   // proxy by wrap <span>
   delete props.style.left;

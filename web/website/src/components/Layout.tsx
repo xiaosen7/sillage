@@ -1,8 +1,14 @@
 import { NavLink, Outlet } from "react-router-dom";
 import classnames from "classnames";
+import { type Mode, env } from "@sillage/env";
+import { useUIContext } from "@sillage/editor-core";
 import styles from "./Layout.module.scss";
 
+const previewUrl = env[import.meta.env.MODE as Mode].previewUrl;
+
 export default function Layout() {
+  const ui = useUIContext();
+
   return (
     <section className={styles.layout}>
       <header
@@ -18,8 +24,11 @@ export default function Layout() {
       >
         <h1>Sillage</h1>
         <nav className="gap-3 flex">
-          <NavLink to={"/editor"}>UI editor</NavLink>
-          <NavLink to={"/codeless"}>Code editor</NavLink>
+          <NavLink to={"/"}>Editor</NavLink>
+          <NavLink to={"/codeless"}>Codeless</NavLink>
+          <NavLink target={"_blank"} to={`${previewUrl}?id=${ui.page.id}`}>
+            Preview
+          </NavLink>
         </nav>
       </header>
 

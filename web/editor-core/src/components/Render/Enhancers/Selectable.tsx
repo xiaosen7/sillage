@@ -17,7 +17,7 @@ export function Selectable({ children, node, ...props }: EnhancerProps) {
   const handleClick = useCallback(
     (e: MouseEvent<any>) => {
       e.stopPropagation();
-      ui.setActiveNode(node);
+      ui.emit(UIModel.Topic.ActiveNode, node);
     },
     [ui, node]
   );

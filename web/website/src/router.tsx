@@ -11,12 +11,13 @@ export const router: any = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/editor",
+        path: "/",
         element: (
           <React.Suspense fallback={<h1>loading...</h1>}>
             <LaziedEditor />
           </React.Suspense>
         ),
+        index: true,
       },
       {
         path: "/codeless",

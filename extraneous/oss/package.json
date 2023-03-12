@@ -2,7 +2,9 @@
   "name": "@sillage/oss",
   "main": "src/index.ts",
   "dependencies": {
-    "ali-oss": "^6.17.1"
+    "@sillage/env": "workspace:^0.0.0",
+    "ali-oss": "^6.17.1",
+    "axios": "^1.3.4"
   },
   "devDependencies": {
     "@sillage/tsconfig": "workspace:^0.0.0",

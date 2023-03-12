@@ -1,5 +1,5 @@
 import { Materials, Node, useSubscribe } from "@sillage/core";
-import { useCallback, useMemo, useReducer } from "react";
+import React, { useCallback, useMemo, useReducer } from "react";
 
 import { Descriptions } from "antd";
 import { getEditor } from "@sillage/props";
@@ -22,15 +22,11 @@ export function PropsEditor({ node }: { node: Node }) {
     setVer();
   });
 
-  if (!material) {
-    return null;
-  }
-
   const { Props } = material;
   const passProps = node.getPassProps();
   return (
     <Descriptions column={1} bordered>
-      {Object.keys(Props).map((prop, index) => {
+      {Object.keys(Props).map((prop) => {
         const PropEditor = getEditor(Props, prop);
         if (!PropEditor) {
           return null;
@@ -40,10 +36,12 @@ export function PropsEditor({ node }: { node: Node }) {
         const key = prop;
         return (
           <Descriptions.Item key={key} label={prop}>
-            <PropEditor
-              onChange={(value: any) => handleChange(prop, value)}
-              value={value}
-            />
+            <React.Suspense fallback="loading...">
+              <PropEditor
+                onChange={(value: any) => handleChange(prop, value)}
+                value={value}
+              />
+            </React.Suspense>
           </Descriptions.Item>
         );
       })}

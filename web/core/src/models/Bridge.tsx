@@ -1,10 +1,11 @@
-import { type CSSProperties, type ComponentType, type ReactNode } from "react";
+import { type CSSProperties, type ReactNode } from "react";
+import { type NodeRenderType } from "../types";
 import { type Node } from "./Node";
 
 export class Bridge {
   constructor(
     private readonly node: Node,
-    private readonly NodeRender: ComponentType<any>
+    private readonly ChildRender: NodeRenderType
   ) {
     this.node = node;
   }
@@ -21,7 +22,7 @@ export class Bridge {
             flexDirection: layoutType,
           };
 
-    const Render = this.NodeRender;
+    const Render = this.ChildRender;
     return (
       <div style={{ width: "100%", height: "100%", ...layoutStyle }}>
         {this.node.getChildren().map((node) => (

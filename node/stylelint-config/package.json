@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "dependencies": {
+    "@sillage/env": "workspace:^0.0.0",
     "stylelint": "^14.2.0",
     "stylelint-config-idiomatic-order": "^9.0.0",
     "stylelint-scss": "^4.4.0"

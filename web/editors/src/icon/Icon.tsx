@@ -57,14 +57,14 @@ export default function Icon(props: Props) {
         />
 
         <ul className={styles["icon-list"]}>
-          {data.filter(makeFilter(search)).map(({ name, Icon }) => {
+          {data.filter(makeFilter(search)).map(({ name, Icon, title }) => {
             return (
               <li
-                onClick={() => changeIcon(Icon.name)}
+                onClick={() => changeIcon(name)}
                 key={name}
                 className={styles["icon-list__item"]}
               >
-                <Tooltip title={name}>
+                <Tooltip title={title}>
                   <span>
                     <Icon />
                   </span>
@@ -79,15 +79,20 @@ export default function Icon(props: Props) {
 }
 
 function buildDataSource() {
-  const ret = [] as Array<{ name: string; Icon: React.FunctionComponent }>;
+  const ret = [] as Array<{
+    name: string;
+    Icon: React.FunctionComponent;
+    title: string;
+  }>;
   for (const [name, Icon] of Object.entries(Icons)) {
     if (!name.endsWith("Icon")) {
       continue;
     }
 
     ret.push({
-      name: capitalCase(name),
+      title: capitalCase(name),
       Icon,
+      name,
     });
   }
 
@@ -96,7 +101,7 @@ function buildDataSource() {
 
 function makeFilter(search: string) {
   const reg = new RegExp(search, "i");
-  return ({ name }: { name: string }) => {
-    return reg.test(name);
+  return ({ title }: { title: string }) => {
+    return reg.test(title);
   };
 }

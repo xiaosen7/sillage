@@ -31,6 +31,6 @@ dist-ssr
 
 # own
 assets
-_template
+__template__.ts
 .eslintrc.js
 **/public/**

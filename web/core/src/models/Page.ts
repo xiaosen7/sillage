@@ -4,7 +4,8 @@ import * as sillage from "../";
 import { Node } from "./Node";
 
 enum Topic {
-  UpdateScriptUrl,
+  UpdateScript,
+  UpdateCompiledScript,
   Mounted,
 }
 
@@ -12,92 +13,43 @@ export class Page extends Emitter<Topic> {
   static readonly Topic = Topic;
   readonly root: Node;
   private scriptUrl: string | undefined;
+  readonly id: string;
+  private compiledScriptUrl: string | undefined;
   constructor(jsonPage: JSONPage) {
     super();
-    const { root, scriptUrl } = jsonPage;
+    const { root, scriptUrl, id, compiledScriptUrl } = jsonPage;
+    this.id = id;
     this.root = new Node(root);
     this.scriptUrl = scriptUrl;
+    this.compiledScriptUrl = compiledScriptUrl;
+  }
 
-    this.on(Topic.Mounted).subscribe(() => {
-      this.runScript();
-    });
+  getScriptUrl() {
+    return this.scriptUrl;
   }
 
   setScriptUrl(scriptUrl: string) {
     this.scriptUrl = scriptUrl;
-    this.emit(Topic.UpdateScriptUrl, scriptUrl);
+    this.emit(Topic.UpdateScript, scriptUrl);
   }
 
-  runScript() {
-    const { scriptUrl, root } = this;
-    if (!scriptUrl) {
-      return;
-    }
+  getCompiledScriptUrl() {
+    return this.compiledScriptUrl;
+  }
 
-    const text = `var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === undefined) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() { return m[k]; } };
-      }
-      Object.defineProperty(o, k2, desc);
-  }) : (function(o, m, k, k2) {
-      if (k2 === undefined) k2 = k;
-      o[k2] = m[k];
-  }));
-  var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-  }) : function(o, v) {
-      o["default"] = v;
-  });
-  var __importStar = (this && this.__importStar) || function (mod) {
-      if (mod && mod.__esModule) return mod;
-      var result = {};
-      if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-      __setModuleDefault(result, mod);
-      return result;
-  };
-  define(["require", "exports", "@sillage/runtime"], function (require, exports, sillage) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      sillage = __importStar(sillage);
-      console.log({ sillage });
-  });
-  `;
-
-    fetch(scriptUrl)
-      .then(async (r) => await r.text())
-      .then(() => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars, unicorn/consistent-function-scoping
-        function define(deps: string[], callback: (...deps: any[]) => void) {
-          if (!callback) {
-            // @ts-expect-error it's ok
-            callback = deps;
-            deps = [];
-          }
-          console.log("deps", deps);
-          const depTypes = deps.map((stringName) => {
-            const modules = Modules.get();
-            return modules.resolve(stringName);
-          });
-          // eslint-disable-next-line n/no-callback-literal
-          callback(...depTypes);
-        }
-
-        // eslint-disable-next-line no-eval
-        return eval(text);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  setCompiledScriptUrl(compiledScriptUrl: string) {
+    this.compiledScriptUrl = compiledScriptUrl;
+    this.emit(Topic.UpdateCompiledScript, compiledScriptUrl);
   }
 
   toJSON(): JSONPage {
     const root = this.root.toJSON();
-    const { scriptUrl } = this;
+    const { scriptUrl, id, compiledScriptUrl } = this;
     return {
       root,
       scriptUrl,
+      id,
+      compiledScriptUrl,
     };
   }
 }

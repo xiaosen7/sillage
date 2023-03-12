@@ -37,7 +37,8 @@ export type JSONNode = ContainerNodeType | NodeType;
 export interface JSONPage {
   root: JSONNode;
   scriptUrl?: string;
-  scriptCompiledUrl?: string;
+  compiledScriptUrl?: string;
+  id: string;
 }
 // #endregion page
 

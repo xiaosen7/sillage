@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "src/index.ts",
   "dependencies": {
+    "@sillage/env": "workspace:^0.0.0",
     "@sillage/utils": "workspace:*",
     "reflect-metadata": "^0.1.13"
   },

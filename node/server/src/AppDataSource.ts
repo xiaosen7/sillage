@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Material } from "./entity/Material.js";
-import { User } from "./entity/User.js";
+import { Project } from "./entity/Project";
 
 export const AppDataSource = new DataSource({
   type: "mariadb",
@@ -12,5 +11,5 @@ export const AppDataSource = new DataSource({
   logging: false,
   database: "sillage-ui",
   synchronize: true,
-  entities: [User, Material],
+  entities: [Project],
 });

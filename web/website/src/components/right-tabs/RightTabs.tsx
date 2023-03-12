@@ -1,10 +1,10 @@
 import { Materials, type Node, useSubscribe } from "@sillage/core";
 import { UIModel, useUIContext } from "@sillage/editor-core";
-import { type PropsWithChildren, useState } from "react";
+import { type PropsWithChildren, useMemo, useState } from "react";
 import { Tabs, type TabsProps, Typography } from "antd";
-import { PropsEditor } from "./props-editor";
 import { StyleEditor } from "./style-editor";
 import { CodeLess } from "./codeless";
+import { PropsEditor } from "./props-editor";
 
 export function RightTabs() {
   const ui = useUIContext();
@@ -16,55 +16,57 @@ export function RightTabs() {
     }
   });
 
-  if (!node) {
-    return null;
-  }
-
-  console.log("render");
-
   const Wrapper = (props: PropsWithChildren) => (
     <div className="pr pl animate__animated animate__fadeIn">
       {props.children}
     </div>
   );
 
-  const tabs: TabsProps["items"] = [];
-
-  if (
-    Materials.get().getByComponentName(node.getComponentName())!.getPropNames()
-      .length > 0
-  ) {
-    tabs.push({
-      label: "Props",
-      key: "Props",
-      children: (
-        <Wrapper>
-          <PropsEditor node={node} />
-        </Wrapper>
-      ),
-    });
-  }
-
-  tabs.push(
-    {
-      label: "Style",
-      key: "Style",
-      children: (
-        <Wrapper>
-          <StyleEditor node={node} />
-        </Wrapper>
-      ),
-    },
-    {
-      label: "Codeless",
-      key: "Codeless",
-      children: (
-        <Wrapper>
-          <CodeLess node={node} />
-        </Wrapper>
-      ),
+  const tabs = useMemo(() => {
+    if (!node) {
+      return [];
     }
-  );
+
+    const ret: TabsProps["items"] = [];
+
+    const hasProps =
+      Materials.get().getByComponentName(node.getComponentName()).getPropNames()
+        .length > 0;
+    if (hasProps) {
+      ret.push({
+        label: "Props",
+        key: "Props",
+        children: (
+          <Wrapper>
+            <PropsEditor node={node} />
+          </Wrapper>
+        ),
+      });
+    }
+
+    ret.push(
+      {
+        label: "Style",
+        key: "Style",
+        children: (
+          <Wrapper>
+            <StyleEditor node={node} />
+          </Wrapper>
+        ),
+      },
+      {
+        label: "Codeless",
+        key: "Codeless",
+        children: (
+          <Wrapper>
+            <CodeLess node={node} />
+          </Wrapper>
+        ),
+      }
+    );
+
+    return ret;
+  }, [node]);
 
   return (
     <Tabs
@@ -74,7 +76,7 @@ export function RightTabs() {
             className="mr-4 animate__animated animate__headShake"
             level={5}
           >
-            {node.getComponentName()}
+            {node?.getComponentName()}
           </Typography.Title>
         ),
       }}

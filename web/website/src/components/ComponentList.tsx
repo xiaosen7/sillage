@@ -4,7 +4,6 @@ import {
   type Material,
   Materials,
   Node,
-  Render,
   RenderComponent,
   Wrapped,
 } from "@sillage/core";
@@ -18,7 +17,7 @@ function RenderMaterial({ material }: { material: Material }) {
     <Draggable node={node}>
       <Wrapped node={node}>
         <>
-          <RenderComponent Render={Render} node={node} />
+          <RenderComponent ChildRender={() => null} node={node} />
         </>
       </Wrapped>
     </Draggable>
@@ -41,7 +40,7 @@ export function ComponentList(): JSX.Element {
             <header>
               <RenderMaterial material={material} />
             </header>
-            <footer>{name}</footer>
+            <footer className="select-none">{name}</footer>
           </li>
         );
       })}

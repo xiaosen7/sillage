@@ -11,4 +11,7 @@ export default defineConfig({
     },
   },
   plugins: [react({ tsDecorators: true })],
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("development"),
+  },
 });

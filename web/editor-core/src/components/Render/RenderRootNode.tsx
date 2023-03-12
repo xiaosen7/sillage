@@ -7,7 +7,7 @@ export function RenderRootNodeInEditor({ root }: { root: Node }) {
   return (
     <Droppable node={root}>
       <Wrapped node={root}>
-        <RenderComponent Render={RenderNodeInEditor} node={root} />
+        <RenderComponent ChildRender={RenderNodeInEditor} node={root} />
       </Wrapped>
     </Droppable>
   );

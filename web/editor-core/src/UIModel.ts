@@ -58,6 +58,7 @@ enum Actions {
 enum Topic {
   UpdatePanelScroll,
   ActiveNodeChange,
+  ActiveNode,
 }
 
 export class UIModel extends StateMachine<States, Actions, Topic> {
@@ -159,24 +160,24 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
             source.setRelRect(
               getRelRect(container.getParent(), target, startXY, endXY)
             );
-            this.setActiveNode(source);
+            this.emit(Topic.ActiveNode, source);
           } else if (container.includeChild(source)) {
             // update position only
             source.setRelRect(updateRelRect(source, startXY, endXY));
-            this.setActiveNode(source);
+            this.emit(Topic.ActiveNode, source);
           } else {
             if (source.getParent()) {
               // move to this container
               source.getParent().unlinkChild(source);
               container.linkChild(source);
               source.setRelRect(getRelRect(container, target, startXY, endXY));
-              this.setActiveNode(source);
+              this.emit(Topic.ActiveNode, source);
             } else {
               // create a new node
               const cloned = source.clone();
               container.linkChild(cloned);
               cloned.setRelRect(getRelRect(container, target, startXY, endXY));
-              this.setActiveNode(cloned);
+              this.emit(Topic.ActiveNode, cloned);
             }
           }
         }
@@ -245,13 +246,14 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
     // #region StateMachine delete Node
     // /////////////////////////////////////////////////////////////////////////////
     this.describe("delete Node", (register) => {
-      register(States.Start, States.DeletedNode, Actions.DeleteNode, () => {
-        const activeNode = this.activeNode;
-        if (activeNode) {
-          activeNode.getParent().unlinkChild(activeNode);
-          this.setActiveNode(null);
+      register(
+        States.Start,
+        States.DeletedNode,
+        Actions.DeleteNode,
+        (node: Node) => {
+          node.getParent().unlinkChild(node);
         }
-      });
+      );
 
       register(States.DeletedNode, States.Start, "<auto>");
     });
@@ -289,15 +291,15 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
     });
     // #endregion MoveNode
 
+    this.on(Topic.ActiveNode).subscribe((node: any) => {
+      const prevActiveNode = this.activeNode;
+      this.activeNode = node;
+      this.emit(Topic.ActiveNodeChange, [prevActiveNode, node]);
+    });
+
     if (import.meta.env.DEV) {
       defineProperty(window, "ui", this);
     }
-  }
-
-  setActiveNode(node: Node | null) {
-    const prevActiveNode = this.activeNode;
-    this.activeNode = node;
-    this.emit(Topic.ActiveNodeChange, [prevActiveNode, node]);
   }
 
   getActiveNode() {

@@ -5,12 +5,12 @@ import { useComponent } from "../../hooks";
 
 export function RenderComponent({
   node,
-  Render,
+  ChildRender,
 }: {
   node: Node;
-  Render: ComponentType<any>;
+  ChildRender: ComponentType<{ node: Node }>;
 }) {
-  const { Component, key, props, bridge } = useComponent(node, Render);
+  const { Component, key, props, bridge } = useComponent(node, ChildRender);
   return (
     <BridgeContext.Provider key={key} value={bridge}>
       <Component {...props} />

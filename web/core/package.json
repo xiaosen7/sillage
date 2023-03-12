@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "module": "src/index.ts",
   "dependencies": {
+    "@sillage/env": "workspace:^0.0.0",
     "@sillage/materials": "workspace:^0.0.0",
     "@sillage/props": "workspace:*",
     "@sillage/utils": "workspace:*",
@@ -18,6 +19,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.34.4",
     "@sillage/meta": "workspace:^0.0.0",
     "@sillage/tsconfig": "workspace:^0.0.0",
     "@sillage/type-utils": "workspace:*",

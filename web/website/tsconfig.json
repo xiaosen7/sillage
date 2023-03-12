@@ -1,4 +1,5 @@
 {
   "extends": "@sillage/tsconfig/tsconfig.web",
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["**/__template__.ts"]
 }

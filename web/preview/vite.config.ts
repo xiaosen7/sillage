@@ -1,12 +1,16 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import UnoCSS from "unocss/vite";
-
-const port = Number(process.env.SILLAGE_PREVIEW_PORT);
+import visualizer from "rollup-plugin-visualizer";
+import { env } from "../../extraneous/env";
 
 export default defineConfig({
-  plugins: [react({ tsDecorators: true }), UnoCSS()],
+  plugins: [react({ tsDecorators: true }), UnoCSS(), visualizer()],
   server: {
-    port,
+    port: env.development.previewPort,
+    open: true,
+  },
+  define: {
+    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
   },
 });

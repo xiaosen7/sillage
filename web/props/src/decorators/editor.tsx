@@ -13,6 +13,7 @@ export function editor<T extends FunctionComponent<any>>(
 ) {
   const dummy = {
     [PropEditorComponent.name](props: Parameters<T>[0]) {
+      console.log(PropEditorComponent.name, props);
       return <PropEditorComponent {...initialProps} {...props} />;
     },
   };

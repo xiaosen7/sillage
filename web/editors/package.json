@@ -3,6 +3,7 @@
   "main": "src/index.ts",
   "dependencies": {
     "@primer/octicons-react": "^18.0.0",
+    "@sillage/env": "workspace:^0.0.0",
     "@sillage/materials": "workspace:^0.0.0",
     "@types/ali-oss": "^6.16.7",
     "ahooks": "^3.7.5",

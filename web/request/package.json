@@ -1,0 +1,10 @@
+{
+  "name": "@sillage/request",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@sillage/env": "workspace:^0.0.0",
+    "@sillage/oss": "workspace:*",
+    "axios": "^1.3.4"
+  }
+}
