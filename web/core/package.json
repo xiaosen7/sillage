@@ -4,6 +4,9 @@
   "type": "module",
   "main": "src/index.ts",
   "module": "src/index.ts",
+  "scripts": {
+    "api": "tsc && api-extractor run --local || true"
+  },
   "dependencies": {
     "@sillage/env": "workspace:^0.0.0",
     "@sillage/materials": "workspace:^0.0.0",

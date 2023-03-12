@@ -1,6 +1,6 @@
 import { UIModel, useUIContext } from "@sillage/editor-core";
 import { type ReactNode, useEffect, useLayoutEffect, useRef } from "react";
-import styles from "./panel.module.scss";
+import styles from "./Panel.module.scss";
 import { PanelBody } from "./PanelBody";
 
 export function Panel({ children }: { children: ReactNode }) {

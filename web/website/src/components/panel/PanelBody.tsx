@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import styles from "./panel.module.scss";
+import styles from "./Panel.module.scss";
 
 export function PanelBody({
   width,

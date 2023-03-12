@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { Button } from "@sillage/materials";
 import { capitalCase } from "change-case";
 import * as Icons from "@primer/octicons-react";
-import styles from "./icon.module.scss";
+import styles from "./Icon.module.scss";
 import type { EditorProps } from "@sillage/props";
 import type React from "react";
 

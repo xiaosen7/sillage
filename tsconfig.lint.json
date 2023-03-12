@@ -8,5 +8,5 @@
     "**/vite.config.ts",
     "vitest.config.ts"
   ],
-  "exclude": ["**/node_modules", "**/__template__.ts"]
+  "exclude": ["**/node_modules"]
 }

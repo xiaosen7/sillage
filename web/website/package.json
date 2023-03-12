@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "dev": "pnpm -F core run api && vite",
+    "build": "pnpm -F core run api && vite build"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.4.6",

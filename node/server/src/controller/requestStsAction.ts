@@ -8,12 +8,7 @@ export async function requestStsAction() {
     accessKeySecret: process.env.accessKeySecret,
   });
 
-  const result = await sts.assumeRole(
-    "acs:ram::1874547672839522:role/ramosstest",
-    ``,
-    3000,
-    "sessiontest"
-  );
+  const result = await sts.assumeRole(process.env.acs, ``, 3000, "sessiontest");
 
   return {
     AccessKeyId: result.credentials.AccessKeyId,
