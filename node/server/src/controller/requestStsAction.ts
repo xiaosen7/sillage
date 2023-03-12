@@ -4,8 +4,8 @@ export async function requestStsAction() {
   // https://help.aliyun.com/document_detail/32077.html
   const sts = new STS({
     // 填写步骤1创建的RAM用户AccessKey。
-    accessKeyId: "LTAI5tHm1PMeqt3wcPEA72gN",
-    accessKeySecret: "z1p0v4kfDSvoFxvSOu5TBBcvXkNFWL",
+    accessKeyId: process.env.accessKeyId,
+    accessKeySecret: process.env.accessKeySecret,
   });
 
   const result = await sts.assumeRole(
