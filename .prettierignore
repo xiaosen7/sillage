@@ -40,3 +40,5 @@ public
 *.snap
 .env.development
 .stylelintignore
+nginx.conf
+init.sql

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --ignore __tests__/** --exec ts-node src/index.ts"
+    "dev": "cross-env NODE_ENV=development nodemon --ignore __tests__/** --exec ts-node src/index.ts",
+    "start": "pm2 start --name @sillage/server ../../scripts/npm_run_dev.mjs"
   },
   "dependencies": {
     "@sillage/env": "workspace:^0.0.0",
@@ -15,6 +16,7 @@
     "cors": "^2.8.5",
     "esbuild": "^0.17.11",
     "express": "^4.18.2",
+    "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
     "tsup": "^6.6.3",
     "typeorm": "0.3.12",
