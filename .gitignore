@@ -29,3 +29,5 @@ dist-ssr
 *.sw?
 
 ./build/**
+!web/website/dist
+!web/preview/dist

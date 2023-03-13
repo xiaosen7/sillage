@@ -6,6 +6,7 @@ import { env } from "../../extraneous/env";
 
 export default defineConfig({
   plugins: [react({ tsDecorators: true }), UnoCSS(), visualizer()],
+  base: "/preview",
   server: {
     port: env.development.previewPort,
     open: true,

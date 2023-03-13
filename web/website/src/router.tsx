@@ -1,11 +1,11 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import React, { lazy } from "react";
 import Layout from "./components/Layout";
 
 const LaziedEditor = lazy(async () => await import("./pages/Editor"));
 const LaziedCodeless = lazy(async () => await import("./pages/Codeless"));
 
-export const router: any = createBrowserRouter([
+export const router: any = createHashRouter([
   {
     path: "/",
     element: <Layout />,
