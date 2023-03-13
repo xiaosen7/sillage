@@ -1,4 +1,9 @@
-import { UIModel, useUIContext } from "@sillage/editor-core";
+import { useSubscribe } from "@sillage/core";
+import {
+  type AssistantLineValue,
+  UIModel,
+  useUIContext,
+} from "@sillage/editor-core";
 import {
   type MouseEvent,
   type ReactNode,
@@ -6,6 +11,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { Line } from "./Line";
 import styles from "./Panel.module.scss";
 
 export function PanelBody({
@@ -20,6 +26,7 @@ export function PanelBody({
   const ui = useUIContext();
   const panelBodyEl = useRef<HTMLDivElement>(null);
   const [cursor, setCursor] = useState("grab");
+  const [lines, setLines] = useState<AssistantLineValue[]>([]);
 
   const handleMouseDown = useCallback(
     (e: MouseEvent<any>) => {
@@ -56,6 +63,14 @@ export function PanelBody({
     [ui]
   );
 
+  useSubscribe(
+    ui,
+    UIModel.Topic.AssistantLineChange,
+    (lines: AssistantLineValue[]) => {
+      setLines(lines);
+    }
+  );
+
   return (
     <div
       onMouseLeave={handleMouseLeave}
@@ -71,6 +86,9 @@ export function PanelBody({
       className={styles["panel-body"]}
     >
       {children}
+      {lines.map((line) => (
+        <Line line={line} key={line.toKey()} />
+      ))}
     </div>
   );
 }

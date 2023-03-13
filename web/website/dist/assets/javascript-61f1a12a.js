@@ -1,0 +1,6 @@
+import{conf as t,language as e}from"./typescript-023d40e4.js";import"./Codeless-78f29347.js";import"./index-b3c648b2.js";import"./index-21f0be76.js";import"./InfoCircleFilled-232fbdae.js";import"./CheckCircleFilled-240967a6.js";import"./aliyun-oss-sdk-18644842.js";/*!-----------------------------------------------------------------------------
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Version: 0.36.1(6c56744c3419458f0dd48864520b759d1a3a1ca8)
+ * Released under the MIT license
+ * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
+ *-----------------------------------------------------------------------------*/var c=t,d={defaultToken:"invalid",tokenPostfix:".js",keywords:["break","case","catch","class","continue","const","constructor","debugger","default","delete","do","else","export","extends","false","finally","for","from","function","get","if","import","in","instanceof","let","new","null","return","set","super","switch","symbol","this","throw","true","try","typeof","undefined","var","void","while","with","yield","async","await","of"],typeKeywords:[],operators:e.operators,symbols:e.symbols,escapes:e.escapes,digits:e.digits,octaldigits:e.octaldigits,binarydigits:e.binarydigits,hexdigits:e.hexdigits,regexpctl:e.regexpctl,regexpesc:e.regexpesc,tokenizer:e.tokenizer};export{c as conf,d as language};

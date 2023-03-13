@@ -3,19 +3,14 @@ import { Item, Menu, useContextMenu } from "react-contexify";
 import mergeProps from "merge-props";
 
 import "react-contexify/dist/ReactContexify.css";
-import { useSubscribe } from "@sillage/core";
 import { useUIContext } from "../../../UIContext";
 import { UIModel } from "../../../UIModel";
 import { type EnhancerProps } from "./types";
 
 export function WithContextMenu(props: EnhancerProps) {
   const ui = useUIContext();
-  const { show, hideAll } = useContextMenu({
+  const { show } = useContextMenu({
     id: "contextMenu",
-  });
-
-  useSubscribe(ui, UIModel.Topic.ActiveNodeChange, () => {
-    hideAll();
   });
 
   const displayMenu = useCallback(
@@ -43,17 +38,27 @@ export function WithContextMenu(props: EnhancerProps) {
 
 export function ContextMenu() {
   const ui = useUIContext();
+  const { hideAll } = useContextMenu({
+    id: "contextMenu",
+  });
   const deleteNode = useCallback(() => {
     // eslint-disable-next-line react/prop-types
     const node = ui.getActiveNode();
     if (node) {
       ui.dispatch(UIModel.Actions.DeleteNode, node);
     }
+
+    hideAll();
+  }, [hideAll, ui]);
+
+  const copy = useCallback(() => {
+    ui.emit(UIModel.Topic.Copy);
   }, [ui]);
 
   return (
     <Menu animation="scale" id={"contextMenu"}>
       <Item onClick={deleteNode}>delete</Item>
+      <Item onClick={copy}>copy</Item>
     </Menu>
   );
 }

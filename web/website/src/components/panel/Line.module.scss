@@ -1,0 +1,17 @@
+.line {
+  position: fixed;
+  background-color: rgb(200, 200, 200);
+  zindex: 200;
+}
+
+.line__x {
+  top: 0;
+  width: 1px;
+  height: 100vh;
+}
+
+.line__y {
+  left: 0;
+  width: 100vw;
+  height: 1px;
+}

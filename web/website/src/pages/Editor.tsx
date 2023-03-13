@@ -40,6 +40,36 @@ function UIEditor(): JSX.Element {
       );
   });
 
+  useKeyPress(["ctrl.c", "meta.c"], (e) => {
+    e.preventDefault();
+    ui.emit(UIModel.Topic.Copy);
+  });
+
+  useKeyPress(["ctrl.v", "meta.v"], (e) => {
+    e.preventDefault();
+    ui.emit(UIModel.Topic.Paste);
+  });
+
+  useKeyPress(
+    ["ctrl.z", "meta.z"],
+    (e) => {
+      e.preventDefault();
+      ui.emit(UIModel.Topic.Undo);
+    },
+    {
+      exactMatch: true,
+    }
+  );
+
+  useKeyPress(
+    ["ctrl.shift.z", "meta.shift.z"],
+    (e) => {
+      e.preventDefault();
+      ui.emit(UIModel.Topic.Redo);
+    },
+    { exactMatch: true }
+  );
+
   return (
     <section className={styles["ui-editor"]}>
       <aside className={"shadow"}>

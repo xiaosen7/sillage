@@ -29,14 +29,20 @@ export class Emitter<Topic extends keyof any> {
     fns.add(fn);
   }
 
-  public emit(topic: Topic, data?: any): void {
-    const listeners = this.observers.get(topic);
-    if (!listeners) {
-      return;
-    }
+  public emit(topic: Topic | Topic[], data?: any): void {
+    if (Array.isArray(topic)) {
+      for (const t of topic) {
+        this.emit(t, data);
+      }
+    } else {
+      const listeners = this.observers.get(topic);
+      if (!listeners) {
+        return;
+      }
 
-    for (const fn of listeners) {
-      fn(data);
+      for (const fn of listeners) {
+        fn(data);
+      }
     }
   }
 }

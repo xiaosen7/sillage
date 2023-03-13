@@ -12,6 +12,7 @@ services:
       - "3306:3306"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    privileged: true
 
   nginx: #项目的service name
     container_name: sillage-ui__nginx

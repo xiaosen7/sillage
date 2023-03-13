@@ -1,6 +1,5 @@
 import { type JSONPage } from "@sillage/meta";
 import { Emitter } from "@sillage/utils";
-import * as sillage from "../";
 import { Node } from "./Node";
 
 enum Topic {
@@ -51,30 +50,5 @@ export class Page extends Emitter<Topic> {
       id,
       compiledScriptUrl,
     };
-  }
-}
-
-class Modules {
-  static inst = new Modules();
-
-  public static get() {
-    return Modules.inst;
-  }
-
-  resolve(name: string) {
-    switch (name) {
-      case "@sillage/runtime": {
-        return sillage;
-      }
-      case "require": {
-        return () => ({});
-      }
-      case "exports": {
-        return {};
-      }
-      default: {
-        throw new Error(`unable to resolve ${name}.`);
-      }
-    }
   }
 }

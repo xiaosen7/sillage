@@ -9,7 +9,7 @@
     "test-run": "vitest --run"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm test-run && pnpm lint-staged"
+    "pre-commit": "pnpm test-run && pnpm lint-staged && pnpm -r build && git add ."
   },
   "devDependencies": {
     "@sillage/eslint-config": "workspace:*",
@@ -37,6 +37,5 @@
     "**/*.{js,jsx,ts,tsx}": "eslint --fix",
     "**/*.{css,scss}": "stylelint --fix",
     "**/*": "prettier --write"
-  },
-  "homepage": "http://101.43.252.239"
+  }
 }

@@ -2,9 +2,9 @@ import { type Node } from "./Node";
 
 export class Selector {
   namedNodes = new Map<string, Set<Node>>();
-  constructor(private readonly root: Node) {
+  constructor(private readonly node: Node) {
     // initialize namedNodes map
-    const nodes = [...root.toIterator()];
+    const nodes = [...node.toIterator()];
     for (const node of nodes) {
       this.addNodeToNamedMap(node);
     }
@@ -26,5 +26,14 @@ export class Selector {
 
   getNodesByName(name: string) {
     return [...(this.namedNodes.get(name) ?? [])];
+  }
+
+  getNodeById(id: string) {
+    const it = this.node.toIterator();
+    for (const node of it) {
+      if (node.getId() === id) {
+        return node;
+      }
+    }
   }
 }

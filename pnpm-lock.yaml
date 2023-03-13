@@ -334,6 +334,7 @@ importers:
       "@sillage/utils": workspace:*
       "@types/react": ^18.0.27
       classnames: ^2.3.2
+      immutable: ^4.2.4
       merge-props: ^5.0.3
       react: ^18.2.0
       react-contexify: ^6.0.0
@@ -342,6 +343,7 @@ importers:
       "@sillage/env": link:../../extraneous/env
       "@sillage/utils": link:../../extraneous/utils
       classnames: 2.3.2
+      immutable: 4.2.4
       merge-props: 5.0.3
       react: 18.2.0
       react-contexify: 6.0.0_react@18.2.0
@@ -500,6 +502,7 @@ importers:
   web/website:
     specifiers:
       "@monaco-editor/react": ^4.4.6
+      "@primer/octicons-react": ^18.0.0
       "@sillage/core": workspace:*
       "@sillage/editor-core": workspace:^0.0.0
       "@sillage/editors": workspace:^0.0.0
@@ -525,6 +528,7 @@ importers:
       invariant: ^2.2.4
       monaco-editor: ^0.36.1
       react: ^18.2.0
+      react-awesome-button: ^7.0.5
       react-colorful: ^5.6.1
       react-dom: ^18.2.0
       react-router-dom: ^6.8.2
@@ -536,6 +540,7 @@ importers:
       vite: ^4.1.0
     dependencies:
       "@monaco-editor/react": 4.4.6_waewrrayshn643ztij6zbniufy
+      "@primer/octicons-react": 18.0.0_react@18.2.0
       "@sillage/core": link:../core
       "@sillage/editor-core": link:../editor-core
       "@sillage/editors": link:../editors
@@ -555,6 +560,7 @@ importers:
       immutable: 4.2.4
       invariant: 2.2.4
       react: 18.2.0
+      react-awesome-button: 7.0.5
       react-colorful: 5.6.1_biqbaboplfbrettd7655fr4n2y
       react-dom: 18.2.0_react@18.2.0
       react-router-dom: 6.8.2_biqbaboplfbrettd7655fr4n2y

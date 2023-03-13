@@ -18,7 +18,7 @@ const PassProps = "passProps";
 const ComponentName = "componentName";
 const IsContainer = "isContainer";
 const Children = "children";
-const Id = "id";
+export const Id = "id";
 const Style = "style";
 const LayoutTypeKey = "layoutType";
 
@@ -29,13 +29,17 @@ const Parent = "_parent";
  */
 export class Node extends Emitter<Topic> {
   static readonly Topic = Topic;
-  private data: Map<string, any>;
+  private data!: Map<string, any>;
   private mountPoint: HTMLElement | null = null;
 
   constructor(initialJsonNode: JSONNode) {
     super();
 
-    this.data = fromJS(initialJsonNode, (key, value) => {
+    this.setDataFromJSON(initialJsonNode);
+  }
+
+  setDataFromJSON(jsonNode: JSONNode) {
+    this.data = fromJS(jsonNode, (key, value) => {
       if (key === "children") {
         const children = value;
         const childrenNodes: Node[] = [];
@@ -56,6 +60,8 @@ export class Node extends Emitter<Topic> {
     for (const child of this.getChildren()) {
       this.linkChild(child);
     }
+
+    this.emit([Topic.ChildChange, Topic.PropsUpdate, Topic.RectUpdate]);
   }
 
   static fromMaterial(m: Material) {
@@ -81,6 +87,10 @@ export class Node extends Emitter<Topic> {
 
   getId(): string {
     return this.data.get(Id);
+  }
+
+  getData() {
+    return this.data;
   }
 
   hasName() {
@@ -236,7 +246,7 @@ export class Node extends Emitter<Topic> {
 
   setPassProps(passProps: any) {
     this.data = this.data.set(PassProps, passProps);
-    this.emit(Topic.PropsUpdate, passProps);
+    this.emit(Topic.PropsUpdate);
   }
 
   // /////////////////////////////////////////////////////////////////////////////
