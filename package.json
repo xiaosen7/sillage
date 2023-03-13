@@ -37,5 +37,6 @@
     "**/*.{js,jsx,ts,tsx}": "eslint --fix",
     "**/*.{css,scss}": "stylelint --fix",
     "**/*": "prettier --write"
-  }
+  },
+  "homepage": "http://101.43.252.239"
 }
