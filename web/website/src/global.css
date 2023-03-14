@@ -1,0 +1,15 @@
+h1 {
+  font-size: 1.25em;
+}
+
+a.active:not([datatype="ignoreActive"]) {
+  color: #1677ff;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: unset;
+}

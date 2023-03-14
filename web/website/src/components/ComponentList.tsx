@@ -16,9 +16,7 @@ function RenderMaterial({ material }: { material: Material }) {
   return (
     <Draggable node={node}>
       <Wrapped node={node}>
-        <>
-          <RenderComponent ChildRender={() => null} node={node} />
-        </>
+        <RenderComponent ChildRender={() => null} node={node} />
       </Wrapped>
     </Draggable>
   );

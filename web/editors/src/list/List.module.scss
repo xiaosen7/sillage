@@ -1,0 +1,23 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.list__add {
+  color: gray;
+  cursor: pointer;
+}
+
+.list__item {
+  position: relative;
+
+  .list__remove {
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    color: crimson;
+    cursor: pointer;
+  }
+}

@@ -1,6 +1,10 @@
-import { type EditorComponentType } from "@sillage/core";
 import { type CSSProperties } from "react";
-import { Color, ImageUrl, InputCssLength } from "@sillage/editors";
+import {
+  Color,
+  type EditorComponentType,
+  InputCssLength,
+  Url,
+} from "@sillage/editors";
 
 export const styleList: Array<{
   group: string;
@@ -108,9 +112,10 @@ export const styleList: Array<{
       {
         name: "backgroundImage",
         Editor: ({ onChange, value }: any) => (
-          <ImageUrl
-            value={value ? value.slice(4, -1) : ""}
-            onChange={(url: string) => onChange(url ? `url(${url})` : "")}
+          <Url
+            accept="image/*"
+            value={value ? value.slice(4, -1) : ""} // url(xxx) => xxx
+            onChange={(url: string) => onChange(url ? `url(${url})` : "")} // xxx => url(xxx)
           />
         ),
       },

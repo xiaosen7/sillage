@@ -24,3 +24,16 @@ export function pick<T>(obj: T, keys: Array<keyof T>) {
 
   return ret;
 }
+
+export function isInvalidValue(value: any) {
+  return (
+    value === undefined ||
+    value === null ||
+    (typeof value === "string" && value.trim() === "")
+  );
+}
+
+export function getFileExtName(name: string) {
+  const ext = name.split(".").pop();
+  return ext ? `.${ext}` : "";
+}

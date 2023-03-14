@@ -1,8 +1,9 @@
-import { List, Map, fromJS } from "immutable";
+import { List, type Map, fromJS } from "immutable";
 import { Emitter, Rect, genId } from "@sillage/utils";
 import { type CSSProperties } from "react";
 import invariant from "invariant";
-import { type JSONNode, type LayoutType } from "../types";
+import Immutable from "immutable";
+import { type JSONNode, type LayoutType } from "..";
 import { type Material } from "./Materials";
 
 enum Topic {
@@ -39,22 +40,7 @@ export class Node extends Emitter<Topic> {
   }
 
   setDataFromJSON(jsonNode: JSONNode) {
-    this.data = fromJS(jsonNode, (key, value) => {
-      if (key === "children") {
-        const children = value;
-        const childrenNodes: Node[] = [];
-        for (const jsonNode of children) {
-          const child = new Node(jsonNode as any as JSONNode);
-          childrenNodes.push(child);
-        }
-
-        return List(childrenNodes);
-      } else if (value instanceof Object) {
-        return Map(value as any);
-      } else {
-        return value;
-      }
-    }).toMap() as any;
+    this.data = getDataFromJSONIgnoreRelationship(jsonNode);
 
     // link children
     for (const child of this.getChildren()) {
@@ -268,7 +254,7 @@ export class Node extends Emitter<Topic> {
   }
 
   setStyleProperty(property: keyof CSSProperties, value: string | number) {
-    this.data = this.data.setIn([PassProps, Style, property], value);
+    this.data = this.data.updateIn([PassProps, Style, property], () => value);
     this.emit(Topic.StylePropertyChange, property);
   }
 
@@ -393,4 +379,21 @@ export class Node extends Emitter<Topic> {
       }
     }
   }
+}
+
+export function getDataFromJSONIgnoreRelationship(jsonNode: JSONNode) {
+  return fromJS(jsonNode, (key, value) => {
+    if (key === "children") {
+      const children = value as unknown as any[];
+      const childrenNodes: Node[] = [];
+      for (const jsonNode of children) {
+        const child = new Node(jsonNode);
+        childrenNodes.push(child);
+      }
+
+      return List(childrenNodes);
+    }
+
+    return Immutable.isIndexed(value) ? value.toList() : value.toOrderedMap();
+  }).toMap() as Map<string, any>;
 }

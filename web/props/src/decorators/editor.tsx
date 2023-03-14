@@ -1,4 +1,4 @@
-import { type EditorComponentType } from "@sillage/core";
+import { type EditorComponentType } from "@sillage/editors";
 import { withMark } from "./mark";
 import type { FunctionComponent } from "react";
 

@@ -13,7 +13,6 @@ export class History<T> {
     this.index++;
     this.history[this.index] = item;
     this.max = this.index;
-    console.log(this.history, this.index, this.max);
   }
 
   back(steps: number): T {
@@ -24,7 +23,6 @@ export class History<T> {
       this.index = 0;
     }
 
-    console.log(this.history, this.index, this.max);
     return this.history[this.index];
   }
 
@@ -36,7 +34,6 @@ export class History<T> {
       this.index = this.max;
     }
 
-    console.log(this.history, this.index, this.max);
     return this.history[this.index];
   }
 }

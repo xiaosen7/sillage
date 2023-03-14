@@ -288,6 +288,7 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
         Actions.DeleteNode,
         (node: Node) => {
           node.getParent().unlinkChild(node);
+          this.emit(Topic.ActiveNodeChange, [node, null]);
           this.history.record(this.page.root);
         }
       );
@@ -331,7 +332,6 @@ export class UIModel extends StateMachine<States, Actions, Topic> {
     // #endregion MoveNode
 
     this.on(Topic.ActiveNode).subscribe((node: any) => {
-      console.log(node.toJSON());
       const prevActiveNode = this.activeNode;
       this.activeNode = node;
       this.emit(Topic.ActiveNodeChange, [prevActiveNode, node]);

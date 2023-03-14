@@ -25,12 +25,16 @@ export function StyleEditor({ node }: StyleEditorProps) {
       {filterNodeStyleList(node).map(({ group, list }) => {
         return (
           <Collapse.Panel header={group} key={group}>
-            <Descriptions column={1} bordered>
+            <Descriptions
+              column={1}
+              bordered
+              labelStyle={{ verticalAlign: "middle" }}
+            >
               {list.map(({ name, Editor }) => {
                 return (
                   <Descriptions.Item key={name} label={name}>
                     <Editor
-                      onChange={(value) => handleChange(name, value)}
+                      onChange={(value: any) => handleChange(name, value)}
                       value={node.getStyleProperty(name)}
                     />
                   </Descriptions.Item>

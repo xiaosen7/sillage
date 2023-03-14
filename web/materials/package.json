@@ -1,7 +1,6 @@
 {
   "name": "@sillage/materials",
   "version": "0.0.0",
-  "type": "module",
   "main": "src/index.ts",
   "dependencies": {
     "@primer/octicons-react": "^18.0.0",
@@ -14,11 +13,15 @@
     "antd": "^5.2.3",
     "react": "^18.2.0",
     "react-awesome-button": "^7.0.5",
-    "react-dom": "^18.2.0"
+    "react-awesome-slider": "^4.1.0",
+    "react-dom": "^18.2.0",
+    "react-player": "^2.12.0"
   },
   "devDependencies": {
     "@sillage/tsconfig": "workspace:^0.0.0",
     "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10"
+    "@types/react-dom": "^18.0.10",
+    "@types/react-slick": "^0.23.10",
+    "@types/video-react": "^0.15.1"
   }
 }

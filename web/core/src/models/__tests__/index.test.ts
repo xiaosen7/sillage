@@ -1,6 +1,6 @@
 import * as vt from "vitest";
-import { type JSONNode } from "../../types";
-import { Node } from "../Node";
+import { type JSONNode } from "../../";
+import { Node, getDataFromJSONIgnoreRelationship } from "../Node";
 
 vt.describe("Node", () => {
   const json: JSONNode = {
@@ -9,9 +9,18 @@ vt.describe("Node", () => {
     componentName: "rect",
     passProps: {
       style: { width: 390, height: 844 },
+      images: [],
     },
     id: "rectId",
   };
+
+  vt.test("getDataFromJSONIgnoreRelationship", () => {
+    let data = getDataFromJSONIgnoreRelationship(json);
+    vt.expect(data.getIn(["passProps", "style", "width"])).toBe(390);
+    data = data.setIn(["passProps", "style", "width"], 300);
+    // vt.expect(data.getIn(["passProps", "style", "width"])).toBe(300);
+    // console.log(data.getIn(["passProps", "images"]));
+  });
 
   vt.test("passProps", () => {
     const node = new Node(json);
@@ -21,6 +30,7 @@ vt.describe("Node", () => {
     vt.expect(node.getPassProps()).toEqual({
       style: { width: 390, height: 844 },
       name: "rect",
+      images: [],
     });
 
     node.setPassProps({ name: "rect" });

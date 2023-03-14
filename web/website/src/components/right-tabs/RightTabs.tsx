@@ -10,11 +10,13 @@ export function RightTabs() {
   const ui = useUIContext();
   const [node, setNode] = useState<Node | null>(null);
 
-  useSubscribe(ui, UIModel.Topic.ActiveNodeChange, ([last, active]: Node[]) => {
-    if (active !== node) {
+  useSubscribe(
+    ui,
+    UIModel.Topic.ActiveNodeChange,
+    ([_last, active]: Node[]) => {
       setNode(active);
     }
-  });
+  );
 
   const Wrapper = (props: PropsWithChildren) => (
     <div className="pr pl animate__animated animate__fadeIn">

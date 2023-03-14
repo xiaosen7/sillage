@@ -5,9 +5,9 @@ import App from "./App";
 // styles
 import "uno.css";
 import "virtual:unocss-devtools";
-import "@unocss/reset/tailwind.css";
 import "animate.css";
-import "./global.scss";
+import "./global.css";
+import "reset-css";
 
 const root = document.querySelector("#root");
 if (root) {

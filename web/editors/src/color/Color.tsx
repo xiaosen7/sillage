@@ -4,7 +4,7 @@ import { useClickAway } from "ahooks";
 import styles from "./Color.module.scss";
 import type { EditorProps } from "@sillage/props";
 
-export const Color = ({ value, onChange }: EditorProps) => {
+export default function Color({ value, onChange }: EditorProps) {
   const popover = useRef<HTMLDivElement>(null);
   const [isOpen, toggle] = useState(false);
 
@@ -28,4 +28,4 @@ export const Color = ({ value, onChange }: EditorProps) => {
       )}
     </div>
   );
-};
+}

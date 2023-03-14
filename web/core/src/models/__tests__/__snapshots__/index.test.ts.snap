@@ -17,6 +17,7 @@ exports[`Node > children 1`] = `
   "id": "rectId",
   "isContainer": false,
   "passProps": {
+    "images": [],
     "style": {
       "height": 844,
       "width": 390,
